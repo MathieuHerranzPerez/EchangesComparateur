@@ -1,4 +1,4 @@
-package Modele;
+package ComparateurCode.Modele;
 
 public class ConnexionBD {
     private static ConnexionBD ourInstance = new ConnexionBD();
