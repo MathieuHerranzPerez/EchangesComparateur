@@ -1,5 +1,8 @@
 package ComparateurCode.Controleur;
 
-public class DecorateurEchangeC extends AbsEchangeC {
+public abstract class DecorateurEchangeC extends EchangeC {
 
+    protected EchangeC echange;
+
+    public abstract String getType();
 }
