@@ -1,6 +1,6 @@
 package ComparateurCode.Controleur;
 
-public class DoubleDiplomeC extends DecorateurEchangeC {
+public class DoubleDiplome extends DecorateurEchange {
 
     @Override
     public String getType() {

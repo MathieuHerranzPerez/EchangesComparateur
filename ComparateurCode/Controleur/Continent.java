@@ -1,4 +1,4 @@
-package ComparateurCode.Modele;
+package ComparateurCode.Controleur;
 
 public enum Continent {
     EUROPE,

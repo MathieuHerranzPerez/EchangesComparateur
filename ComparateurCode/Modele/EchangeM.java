@@ -1,23 +1,25 @@
 package ComparateurCode.Modele;
 
+import ComparateurCode.Controleur.Ecole;
+
 /**
  * Peut-être à supprimer !
  */
 public class EchangeM {
     private int id;
     private String type;
-    private EcoleM ecolePrincipale;
-    private EcoleM ecoleEchange;
+    private Ecole ecolePrincipale;
+    private Ecole ecoleEchange;
 
 
-    public EchangeM(int id, String type, EcoleM ecolePrincipale, EcoleM ecoleEchange) {
+    public EchangeM(int id, String type, Ecole ecolePrincipale, Ecole ecoleEchange) {
         this.id = id;
         this.type = type;
         this.ecolePrincipale = ecolePrincipale;
         this.ecoleEchange = ecoleEchange;
     }
 
-    public EchangeM(int id, String type, EcoleM ecoleEchange) {
+    public EchangeM(int id, String type, Ecole ecoleEchange) {
         this.id = id;
         this.type = type;
         this.ecoleEchange = ecoleEchange;
@@ -25,11 +27,11 @@ public class EchangeM {
 
     public int getId() { return id; }
 
-    public EcoleM getEcolePrincipale() {
+    public Ecole getEcolePrincipale() {
         return ecolePrincipale;
     }
 
-    public EcoleM getEcoleEchange() {
+    public Ecole getEcoleEchange() {
         return ecoleEchange;
     }
 }

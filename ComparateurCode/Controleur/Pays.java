@@ -1,12 +1,12 @@
-package ComparateurCode.Modele;
+package ComparateurCode.Controleur;
 
-public class PaysM {
+public class Pays {
 
     private String nom;
     private Continent continent;
 
 
-    public PaysM(String nom, Continent continent) {
+    public Pays(String nom, Continent continent) {
         this.nom = nom;
         this.continent = continent;
     }

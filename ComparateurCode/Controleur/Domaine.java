@@ -1,10 +1,10 @@
-package ComparateurCode.Modele;
+package ComparateurCode.Controleur;
 
-public class DomaineM {
+public class Domaine {
 
     private String nom;
 
-    public DomaineM(String nom) {
+    public Domaine(String nom) {
         this.nom = nom;
     }
 

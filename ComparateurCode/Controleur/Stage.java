@@ -1,6 +1,6 @@
 package ComparateurCode.Controleur;
 
-public class Stage extends DecorateurEchangeC {
+public class Stage extends DecorateurEchange {
 
     @Override
     public String getType() {
