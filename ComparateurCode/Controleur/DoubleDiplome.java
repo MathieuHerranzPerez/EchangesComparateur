@@ -1,9 +1,9 @@
 package ComparateurCode.Controleur;
 
-public class DoubleDiplome extends DecorateurEchange {
+public class DoubleDiplome extends DecorateurEchangeAbs {
 
     @Override
     public String getType() {
-        return echange.getType() + "en double diplome";
+        return echangeAbs.getType() + "en double diplome";
     }
 }

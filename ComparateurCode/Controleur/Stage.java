@@ -1,9 +1,9 @@
 package ComparateurCode.Controleur;
 
-public class Stage extends DecorateurEchange {
+public class Stage extends DecorateurEchangeAbs {
 
     @Override
     public String getType() {
-        return echange.getType() + "en stage";
+        return echangeAbs.getType() + "en stage";
     }
 }
