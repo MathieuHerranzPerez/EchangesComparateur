@@ -1,6 +1,6 @@
 package ComparateurCode.Modele;
 
-import ComparateurCode.Controleur.Ecole;
+import ComparateurCode.Controleur.Echange.Ecole;
 
 /**
  * Peut-être à supprimer !

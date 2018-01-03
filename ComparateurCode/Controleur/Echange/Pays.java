@@ -1,4 +1,4 @@
-package ComparateurCode.Controleur;
+package ComparateurCode.Controleur.Echange;
 
 public class Pays {
 

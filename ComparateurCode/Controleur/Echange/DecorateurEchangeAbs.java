@@ -1,8 +1,7 @@
-package ComparateurCode.Controleur;
+package ComparateurCode.Controleur.Echange;
 
 public abstract class DecorateurEchangeAbs extends EchangeAbs {
 
     protected EchangeAbs echangeAbs;
 
-    public abstract String getType();
 }
