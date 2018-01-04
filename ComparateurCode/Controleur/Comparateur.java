@@ -1,5 +1,7 @@
 package ComparateurCode.Controleur;
 
-public interface Comparateur {
+import ComparateurCode.Controleur.Echange.Echange;
 
+public interface Comparateur {
+    public int comparer(Echange echangeUti, Echange echangeBD);
 }

@@ -3,8 +3,8 @@ package ComparateurCode.Controleur.Echange;
 public abstract class EchangeAbs {
 
     private int id;
-    private int annee;
-    private int duree;
+    //private int annee;
+    private int duree;              // en mois
     private Ecole ecoleDepart;
     private Ecole ecoleArrivee;
     private Formation formation;
@@ -14,9 +14,9 @@ public abstract class EchangeAbs {
         this.id = id;
     }
 
-    public void setAnnee(int annee) {
+    /*public void setAnnee(int annee) {
         this.annee = annee;
-    }
+    }*/
 
     public void setDuree(int duree) {
         this.duree = duree;
@@ -39,9 +39,9 @@ public abstract class EchangeAbs {
         return id;
     }
 
-    public int getAnnee() {
+   /* public int getAnnee() {
         return annee;
-    }
+    }*/
 
     public int getDuree() {
         return duree;
@@ -77,5 +77,17 @@ public abstract class EchangeAbs {
 
     public String getNomForamtion() {
         return getFormation().getNom();
+    }
+
+    public String getLangue() {
+        return getFormation().getLangue();
+    }
+
+    public String getNomSousDomaine() {
+        return formation.getSousDomaine().getNom();
+    }
+
+    public String getNomDomaine() {
+        return formation.getSousDomaine().getDomaine().getNom();
     }
 }
