@@ -3,7 +3,6 @@ package ComparateurCode.Controleur.Echange;
 public class Echange {
 
     private int id;
-    //private int annee;
     private int duree;              // en mois
     private Ecole ecoleDepart;
     private Ecole ecoleArrivee;
