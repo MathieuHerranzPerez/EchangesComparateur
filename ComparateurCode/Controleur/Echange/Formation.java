@@ -64,4 +64,14 @@ public class Formation {
     public SousDomaine getSousDomaine() {
         return sousDomaine;
     }
+
+    @Override
+    public String toString() {
+        return "Formation{" +
+                "nom='" + nom + '\'' +
+                ", duree=" + duree +
+                ", langue='" + langue + '\'' +
+                ", sousDomaine=" + sousDomaine +
+                '}';
+    }
 }

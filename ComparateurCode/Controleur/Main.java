@@ -1,5 +1,10 @@
 package ComparateurCode.Controleur;
 
+
+import ComparateurCode.Vue.FenetreConnexion;
+
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] argv) {
         // On creer l'IHM

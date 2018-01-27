@@ -15,4 +15,23 @@ public class Domaine {
     public String getNom() {
         return nom;
     }
+
+    @Override
+    public String toString() {
+        return "Domaine{" +
+                "nom='" + nom + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Domaine)) return false;
+        Domaine domaine = (Domaine) o;
+        return this.nom.equals((domaine).getNom());
+    }
+
+    @Override
+    public int hashCode() {
+        return nom != null ? nom.hashCode() : 0;
+    }
 }

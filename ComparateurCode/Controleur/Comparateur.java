@@ -2,6 +2,8 @@ package ComparateurCode.Controleur;
 
 import ComparateurCode.Controleur.Echange.Echange;
 
-public interface Comparateur {
-    public int comparer(Echange echangeUti, Echange echangeBD);
+import java.util.Comparator;
+
+public interface Comparateur extends Comparator<Echange> {
+
 }

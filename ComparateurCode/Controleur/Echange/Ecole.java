@@ -27,4 +27,12 @@ public class Ecole {
     public Localisation getLocalisation() {
         return localisation;
     }
+
+    @Override
+    public String toString() {
+        return "Ecole{" +
+                "nom='" + nom + '\'' +
+                ", localisation=" + localisation +
+                '}';
+    }
 }
