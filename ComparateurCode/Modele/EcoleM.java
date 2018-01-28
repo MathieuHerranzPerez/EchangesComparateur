@@ -96,7 +96,7 @@ public class EcoleM {
 
             System.out.println("Ajout Ecole " + requete + " " + prepare);
 
-            prepare.executeUpdate(); //TODO decommenter
+            prepare.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();

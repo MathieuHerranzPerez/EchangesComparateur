@@ -84,7 +84,7 @@ public class LocalisationM {
             prepare.setString(2, PaysM.getId(pays).toString());
 
             System.out.println("Ajout localisation " + requete + " " + prepare);
-            prepare.executeUpdate(); // TODO decommenter
+            prepare.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();
