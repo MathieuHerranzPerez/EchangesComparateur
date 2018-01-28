@@ -2,7 +2,14 @@ package ComparateurCode.Controleur.Echange;
 
 import ComparateurCode.Modele.PaysM;
 
+import java.util.ArrayList;
+
 public class Pays {
+
+    /**
+     * Contient la liste de tous les pays en Base de données
+     */
+    private static ArrayList<Pays> listPays = new ArrayList<>();
 
     private String nom;
 
@@ -35,7 +42,14 @@ public class Pays {
         return nom != null ? nom.hashCode() : 0;
     }
 
-    public static Pays[] tabPays() {
-        return PaysM.getPays();
+    /**
+     * Si la liste de Pays est vide, on l'a remplie avec la BD
+     * @return la liste de Pays
+     */
+    public static ArrayList<Pays> getPays() {
+        if(listPays.isEmpty()) {
+            listPays = PaysM.getPays();
+        }
+        return listPays;
     }
 }

@@ -101,9 +101,8 @@ public class Echange {
                 '}';
     }
 
-    public Echange(int id, /*int annee,*/ int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
+    public Echange(int id, int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
         this.setId(id);
-        /*this.setAnnee(annee);*/
         this.setDuree(duree);
         this.setEcoleDepart(ecoleDepart);
         this.setEcoleArrivee(ecoleArrivee);

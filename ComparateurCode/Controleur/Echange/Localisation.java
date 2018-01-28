@@ -1,6 +1,13 @@
 package ComparateurCode.Controleur.Echange;
 
+import ComparateurCode.Modele.LocalisationM;
+import ComparateurCode.Vue.FenetreErreur;
+
+import java.util.ArrayList;
+
 public class Localisation {
+
+    private static ArrayList<Localisation> listLocalisation = new ArrayList<>();
 
     private String nom;
     private Pays pays;
@@ -50,5 +57,23 @@ public class Localisation {
         int result = nom != null ? nom.hashCode() : 0;
         result = 31 * result + (pays != null ? pays.hashCode() : 0);
         return result;
+    }
+
+    public static ArrayList<Localisation> getListLocalisation() {
+        // Si la liste est vide, on la remplie
+        if(listLocalisation.isEmpty()) {
+            listLocalisation = LocalisationM.getLocalisations();
+        }
+        return listLocalisation;
+    }
+
+    public static void ajouterLocalisation(String nom, Pays pays) {
+        // vérifier si la localisation n'est pas déjà en BD
+        if(LocalisationM.getLocalisation(nom, pays) != null) {
+            FenetreErreur f = new FenetreErreur("Localisation déjà en BD");
+        }
+        else {
+            LocalisationM.ajouterLocalisation(nom, pays);
+        }
     }
 }
