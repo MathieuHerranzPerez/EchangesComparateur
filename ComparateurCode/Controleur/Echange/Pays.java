@@ -1,5 +1,7 @@
 package ComparateurCode.Controleur.Echange;
 
+import ComparateurCode.Modele.PaysM;
+
 public class Pays {
 
     private String nom;
@@ -18,9 +20,7 @@ public class Pays {
 
     @Override
     public String toString() {
-        return "Pays{" +
-                "nom='" + nom + '\'' +
-                '}';
+        return nom;
     }
 
     @Override
@@ -33,5 +33,9 @@ public class Pays {
     @Override
     public int hashCode() {
         return nom != null ? nom.hashCode() : 0;
+    }
+
+    public static Pays[] tabPays() {
+        return PaysM.getPays();
     }
 }

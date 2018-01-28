@@ -1,6 +1,5 @@
 package ComparateurCode.Modele;
 
-import javax.swing.*;
 import java.sql.*;
 
 public class ConnexionBD {
@@ -31,13 +30,12 @@ public class ConnexionBD {
 
     }
 
-
     public static void main(String[] argv) {
         //Création d'un objet Statement
         Statement state = null;
         try {
             state = ConnexionBD.getInstance().createStatement();
-            //L'objet ResultSet contient le r�sultat de la requ�te SQL
+            //L'objet ResultSet contient le résultat de la requète SQL
             ResultSet result = state.executeQuery("SELECT * FROM PAYS");
             //On récupère les MetaData
             ResultSetMetaData resultMeta = result.getMetaData();
