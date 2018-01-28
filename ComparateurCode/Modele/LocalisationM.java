@@ -12,6 +12,10 @@ public class LocalisationM {
 
     private static TreeMap<Integer, Localisation> treeMapLocalisation = new TreeMap<>();
 
+    /**
+     * Met à jour le treeMap graçe à la BD, return un arrayList de Location (ou null)
+     * @return
+     */
     public static ArrayList<Localisation> getLocalisations() {
         Statement state = null;
         try {
@@ -51,8 +55,14 @@ public class LocalisationM {
         return treeMapLocalisation.get(key);
     }
 
+    /**
+     * Return
+     * @param nom
+     * @param pays
+     * @return
+     */
     public static Localisation getLocalisation(String nom, Pays pays) {
-        Statement state = null;
+        Statement state;
         Localisation res = null;
         try {
             state = ConnexionBD.getInstance().createStatement();
@@ -108,20 +118,20 @@ public class LocalisationM {
         Set<Integer> ss = treeMapLocalisation.keySet();
         Integer res = null;
         for(Integer i : ss) {
-            System.out.println("----------------");
-            System.out.println(treeMapLocalisation.get(i).getNom());
-            System.out.println(localisation);
-            System.out.println(treeMapLocalisation.get(i).getNom().equals(localisation));
-            System.out.println(treeMapLocalisation.get(i).getPays());
-            System.out.println(treeMapLocalisation.get(i).getPays().equals(pays));
-            System.out.println("----------------");
+//            System.out.println("----------------"); // TODO enlever test
+//            System.out.println(treeMapLocalisation.get(i).getNom());
+//            System.out.println(localisation);
+//            System.out.println(treeMapLocalisation.get(i).getNom().equals(localisation));
+//            System.out.println(treeMapLocalisation.get(i).getPays());
+//            System.out.println(treeMapLocalisation.get(i).getPays().equals(pays));
+//            System.out.println("----------------");
 
             // si la localisation a le même nom et le même pays
             if(treeMapLocalisation.get(i).getNom().equals(localisation) && treeMapLocalisation.get(i).getPays().equals(pays)) {
                 res = i;
             }
         }
-        System.out.println(res);
+//        System.out.println(res);  TODO enelver test
         return res;
     }
 }
