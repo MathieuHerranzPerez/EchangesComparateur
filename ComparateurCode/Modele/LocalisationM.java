@@ -56,7 +56,7 @@ public class LocalisationM {
     }
 
     /**
-     * Return
+     * Return, si elle est présente, la localisation désignée par nom et pays
      * @param nom
      * @param pays
      * @return
@@ -93,7 +93,7 @@ public class LocalisationM {
             prepare.setString(1, nom);
             prepare.setString(2, PaysM.getId(pays).toString());
 
-            System.out.println("Ajout localisation " + requete + " " + prepare);
+            //System.out.println("Ajout localisation " + requete + " " + prepare); //TODO enlever
             prepare.executeUpdate();
         }
         catch (SQLException e) {
@@ -112,7 +112,7 @@ public class LocalisationM {
     public static Integer getId(String localisation, Pays pays) {
 
         if(treeMapLocalisation.size() == 0) {
-            System.out.println("Size localisation == 0"); // test
+            //System.out.println("Size localisation == 0"); //TODO enlever
             getLocalisations();
         }
         Set<Integer> ss = treeMapLocalisation.keySet();

@@ -1,14 +1,13 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Ecole;
-import ComparateurCode.Controleur.Echange.Localisation;
 import ComparateurCode.Controleur.Echange.Pays;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
-import static java.lang.Thread.sleep;
 
 public class EcoleM {
     private static TreeMap<Integer, Ecole> treeMapEcole = new TreeMap<>();
@@ -91,10 +90,7 @@ public class EcoleM {
             if(LocalisationM.getId(localisation, pays) == null) {
                 LocalisationM.ajouterLocalisation(localisation, pays);
             }
-            System.out.println(LocalisationM.getId(localisation, pays));
             prepare.setString(2, LocalisationM.getId(localisation, pays).toString());
-
-            System.out.println("Ajout Ecole " + requete + " " + prepare);
 
             prepare.executeUpdate();
         }
@@ -104,5 +100,64 @@ public class EcoleM {
 
         // on met à jour le treeMap
         getEcoles();
+    }
+
+    /**
+     * Modifie l'ecole d'ancien nom et d'ancienne localisation par la nouvelle
+     * @param oldNom
+     * @param oldLocalisation
+     * @param oldPays
+     * @param nom
+     * @param localisation
+     * @param pays
+     */
+    public static void modifierEcole(String oldNom, String oldLocalisation, Pays oldPays, String nom, String localisation, Pays pays) {
+        if(treeMapEcole.size() == 0) {
+            getEcoles();
+        }
+        String requete = "UPDATE ECOLE SET NOM = ?, Localisation = ? WHERE ID = ?;";
+        PreparedStatement prepare = null;
+        try {
+            prepare = ConnexionBD.getInstance().prepareStatement(requete);
+
+            prepare.setString(1, nom);
+            // Si la localisation n'existe pas on la creer
+            if(LocalisationM.getId(localisation, pays) == null) {
+                LocalisationM.ajouterLocalisation(localisation, pays);
+            }
+            prepare.setString(2, LocalisationM.getId(localisation, pays).toString());
+            prepare.setString(3, getId(oldNom, oldLocalisation, oldPays).toString());
+
+            // On modifie
+            prepare.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // on met à jour le treeMap
+        getEcoles();
+    }
+
+    /**
+     * Retourne l'id de la localisation dans la BD
+     * @param ecole
+     * @return
+     */
+    public static Integer getId(String ecole, String localisation, Pays pays) {
+
+        if(treeMapEcole.size() == 0) {
+            getEcoles();
+        }
+        Set<Integer> ss = treeMapEcole.keySet();
+        Integer res = null;
+        for(Integer i : ss) {
+            // si la localisation a le même nom et le même pays (c'est la même école)
+            if(treeMapEcole.get(i).getNom().equals(ecole) &&
+                    LocalisationM.getId(treeMapEcole.get(i).getLocalisation().getNom(), pays).equals(LocalisationM.getId(localisation, pays))) {
+                res = i;
+            }
+        }
+        return res;
     }
 }
