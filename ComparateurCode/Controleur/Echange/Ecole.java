@@ -2,6 +2,7 @@ package ComparateurCode.Controleur.Echange;
 
 import ComparateurCode.Modele.EcoleM;
 import ComparateurCode.Vue.FenetreErreur;
+import ComparateurCode.Vue.FenetreParcourirEcole;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class Ecole {
 
     public static ArrayList<Ecole> getListEcole() {
         if(listEcole.isEmpty()) {
-            listEcole = EcoleM.getEcoles();
+            mettreAJourListe();
         }
         return listEcole;
     }
@@ -64,6 +65,7 @@ public class Ecole {
         // Si elle n'y est pas, on l'ajoute
         else {
             EcoleM.ajouterEcole(nom, localisation, pays);
+            mettreAJourListe();
         }
     }
 
@@ -82,7 +84,30 @@ public class Ecole {
                 System.out.println("oldNom : " + oldNom + " oldLoc : " + oldLocalisation + " oldPays : " + oldPays
                         + " nom : " + nom + " loc : " + localisation + " pays : " + pays);
                 EcoleM.modifierEcole(oldNom, oldLocalisation, oldPays, nom, localisation, pays);
+                mettreAJourListe();
             }
         }
+    }
+
+    public static void mettreAJourListe() {
+        listEcole = EcoleM.getEcoles(); // On met le tableau à jour
+    }
+
+    public static void parcourirEcole() {
+        if(listEcole.isEmpty()) {
+            mettreAJourListe();
+        }
+        String[] nomsEcole = new String[listEcole.size()];
+        String[] nomsLocalisation = new String[listEcole.size()];
+        Pays[] pays = new Pays[listEcole.size()];
+
+        int i = 0;
+        for(Ecole e : listEcole) {
+            nomsEcole[i] = e.getNom();
+            nomsLocalisation[i] = e.getLocalisation().getNom();
+            pays[i] = e.getLocalisation().getPays();
+            ++i;
+        }
+        FenetreParcourirEcole fen = new FenetreParcourirEcole(nomsEcole, nomsLocalisation, pays);
     }
 }

@@ -97,9 +97,6 @@ public class EcoleM {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // on met à jour le treeMap
-        getEcoles();
     }
 
     /**
@@ -134,9 +131,6 @@ public class EcoleM {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // on met à jour le treeMap
-        getEcoles();
     }
 
     /**

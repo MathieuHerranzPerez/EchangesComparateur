@@ -62,7 +62,7 @@ public class Localisation {
     public static ArrayList<Localisation> getListLocalisation() {
         // Si la liste est vide, on la remplie
         if(listLocalisation.isEmpty()) {
-            listLocalisation = LocalisationM.getLocalisations();
+            mettreAJourListe();
         }
         return listLocalisation;
     }
@@ -74,6 +74,11 @@ public class Localisation {
         }
         else {
             LocalisationM.ajouterLocalisation(nom, pays);
+            mettreAJourListe();
         }
+    }
+
+    public static void mettreAJourListe() {
+        listLocalisation = LocalisationM.getLocalisations();
     }
 }

@@ -48,8 +48,12 @@ public class Pays {
      */
     public static ArrayList<Pays> getPays() {
         if(listPays.isEmpty()) {
-            listPays = PaysM.getPays();
+            mettreAJourListe();
         }
         return listPays;
+    }
+
+    public static void mettreAJourListe() {
+        listPays = PaysM.getPays();
     }
 }

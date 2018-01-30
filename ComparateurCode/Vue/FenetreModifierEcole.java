@@ -69,7 +69,7 @@ public class FenetreModifierEcole extends JFrame {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame fen = new FenetreAdmin();
+            Ecole.parcourirEcole();
             f.dispose();
         }
     }
@@ -83,7 +83,7 @@ public class FenetreModifierEcole extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Ecole.modifierEcole(oldNom, oldVille, oldPays, nom.getText(), ville.getText(), (Pays) paysList.getSelectedItem());
-            FenetreParcourirEcole fen = new FenetreParcourirEcole();
+            Ecole.parcourirEcole();
             f.dispose();
         }
     }
