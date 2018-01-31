@@ -38,10 +38,7 @@ public class Ecole {
 
     @Override
     public String toString() {
-        return "Ecole{" +
-                "nom='" + nom + '\'' +
-                ", localisation=" + localisation +
-                '}';
+        return nom;
     }
 
     public static ArrayList<Ecole> getListEcole() {
@@ -53,38 +50,39 @@ public class Ecole {
 
     /**
      * Ajoute l'école dans la BD
-     * @param nom
-     * @param localisation
-     * @param pays
      */
-    public static void ajouterEcole(String nom, String localisation, Pays pays) {
+    public static void ajouterEcole(String nom, String loc, Pays pays) {
+        Ecole newEcole = new Ecole(nom, new Localisation(loc, pays));
         // On vérifie qu'elle n'est pas déjà dans la BD
-        if(EcoleM.getEcole(nom, localisation, pays) != null) {
+        if(EcoleM.isEcoleInBD(newEcole)) {
             FenetreErreur f = new FenetreErreur("Ecole déjà en BD");
         }
         // Si elle n'y est pas, on l'ajoute
         else {
-            EcoleM.ajouterEcole(nom, localisation, pays);
+            EcoleM.ajouterEcole(newEcole);
             mettreAJourListe();
         }
     }
 
-    public static void modifierEcole(String oldNom, String oldLocalisation, Pays oldPays, String nom, String localisation, Pays pays) {
+    public static void modifierEcole(Ecole oldEcole, String nom, String localisation, Pays pays) {
         // On vérifie qu'elle change
-        if(oldNom.equals(nom) && oldLocalisation.equals(localisation) && oldPays.equals(pays)) {
+        if(oldEcole.getNom().equals(nom) && oldEcole.getLocalisation().toString().equals(localisation)
+                && oldEcole.getLocalisation().getPays().equals(pays)) {
             FenetreErreur f = new FenetreErreur("Ecole inchangée");
         }
         else {
             // On vérifie que la nouvelle n'est pas dans la BD
-            if(EcoleM.getEcole(nom, localisation, pays) != null) {
+            Ecole newEcole = new Ecole(nom, new Localisation(localisation, pays));
+            if(EcoleM.isEcoleInBD(newEcole)) {
                 FenetreErreur f = new FenetreErreur("Ecole déjà en base de données");
             }
             else {
                 // On la modifie
-                System.out.println("oldNom : " + oldNom + " oldLoc : " + oldLocalisation + " oldPays : " + oldPays
-                        + " nom : " + nom + " loc : " + localisation + " pays : " + pays);
-                EcoleM.modifierEcole(oldNom, oldLocalisation, oldPays, nom, localisation, pays);
-                mettreAJourListe();
+                EcoleM.modifierEcole(oldEcole, newEcole);
+                //mettreAJourListe();
+                // on remove l'ancinne, et on add la nouvelle
+                listEcole.remove(oldEcole);
+                listEcole.add(newEcole);
             }
         }
     }
@@ -97,17 +95,11 @@ public class Ecole {
         if(listEcole.isEmpty()) {
             mettreAJourListe();
         }
-        String[] nomsEcole = new String[listEcole.size()];
-        String[] nomsLocalisation = new String[listEcole.size()];
-        Pays[] pays = new Pays[listEcole.size()];
+        FenetreParcourirEcole fen = new FenetreParcourirEcole(listEcole);
+    }
 
-        int i = 0;
-        for(Ecole e : listEcole) {
-            nomsEcole[i] = e.getNom();
-            nomsLocalisation[i] = e.getLocalisation().getNom();
-            pays[i] = e.getLocalisation().getPays();
-            ++i;
-        }
-        FenetreParcourirEcole fen = new FenetreParcourirEcole(nomsEcole, nomsLocalisation, pays);
+    public static void supprimerEcole(Ecole ecole) {
+        EcoleM.supprimerEcole(ecole);
+        mettreAJourListe();
     }
 }

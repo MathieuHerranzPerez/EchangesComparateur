@@ -1,7 +1,6 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Ecole;
-import ComparateurCode.Controleur.Echange.Pays;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class EcoleM {
     private static TreeMap<Integer, Ecole> treeMapEcole = new TreeMap<>();
 
     public static ArrayList<Ecole> getEcoles() {
-        Statement state = null;
+        Statement state;
         try {
             state = ConnexionBD.getInstance().createStatement();
 
@@ -22,7 +21,7 @@ public class EcoleM {
             ArrayList<Ecole> res = new ArrayList<>();
             while (result.next()) {
                 Ecole e = new Ecole(result.getObject(2).toString(),
-                        LocalisationM.getLocalisation(Integer.parseInt(result.getObject(3).toString())));
+                        LocalisationM.isLocalisationInBD(Integer.parseInt(result.getObject(3).toString())));
                 res.add(e);
                 treeMapEcole.put(Integer.parseInt(result.getObject(1).toString()), e);
             }
@@ -42,7 +41,7 @@ public class EcoleM {
      * @param key
      * @return
      */
-    public static Ecole getEcole(int key) {
+    public static Ecole isEcoleInBD(int key) {
         if(treeMapEcole.size() == 0) {
             getEcoles();
         }
@@ -50,22 +49,20 @@ public class EcoleM {
     }
 
     /**
-     * Return l'école nom située à localisation en pays
-     * @param nom
-     * @param localisation
-     * @param pays
-     * @return ecole ou null
+     * Retourne vrai si l'ecole est dans la base de données
+     * @param ecole
+     * @return
      */
-    public static Ecole getEcole(String nom, String localisation, Pays pays) {
-        Statement state = null;
-        Ecole res = null;
+    public static boolean isEcoleInBD(Ecole ecole) {
+        Statement state;
+        boolean res = false;
         try {
             state = ConnexionBD.getInstance().createStatement();
-            if(LocalisationM.getId(localisation, pays) != null) {
-                String requete = "SELECT * FROM ECOLE WHERE Nom = '" + nom + "' AND Localisation = " + LocalisationM.getId(localisation, pays).toString() + ";";
+            if(LocalisationM.getId(ecole.getLocalisation()) != null) {
+                String requete = "SELECT * FROM ECOLE WHERE Nom = '" + ecole.getNom() + "' AND Localisation = " + LocalisationM.getId(ecole.getLocalisation()).toString() + ";";
                 ResultSet result = state.executeQuery(requete);
                 if(result.next()) {
-                    res = getEcole(Integer.parseInt(result.getObject(1).toString()));
+                    res = true;
                 }
             }
         } catch (SQLException e) {
@@ -75,22 +72,21 @@ public class EcoleM {
     }
 
     /**
-     * Ajoute l'Ecole avec Nom et Pays en base de données
-     * @param nom
-     * @param pays
+     * Ajoute l'Ecole en base de données
+     * @param ecole
      */
-    public static void ajouterEcole(String nom, String localisation, Pays pays) {
+    public static void ajouterEcole(Ecole ecole) {
         String requete = "INSERT INTO ECOLE (Nom, Localisation) VALUES (?, ?);";
         PreparedStatement prepare = null;
         try {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
-            prepare.setString(1, nom);
+            prepare.setString(1, ecole.getNom());
             // si la localisation n'existe pas on la creer
-            if(LocalisationM.getId(localisation, pays) == null) {
-                LocalisationM.ajouterLocalisation(localisation, pays);
+            if(LocalisationM.getId(ecole.getLocalisation()) == null) {
+                LocalisationM.ajouterLocalisation(ecole.getLocalisation());
             }
-            prepare.setString(2, LocalisationM.getId(localisation, pays).toString());
+            prepare.setString(2, LocalisationM.getId(ecole.getLocalisation()).toString());
 
             prepare.executeUpdate();
         }
@@ -101,14 +97,10 @@ public class EcoleM {
 
     /**
      * Modifie l'ecole d'ancien nom et d'ancienne localisation par la nouvelle
-     * @param oldNom
-     * @param oldLocalisation
-     * @param oldPays
-     * @param nom
-     * @param localisation
-     * @param pays
+     * @param oldEcole
+     * @param nouvelleEcole
      */
-    public static void modifierEcole(String oldNom, String oldLocalisation, Pays oldPays, String nom, String localisation, Pays pays) {
+    public static void modifierEcole(Ecole oldEcole, Ecole nouvelleEcole) {
         if(treeMapEcole.size() == 0) {
             getEcoles();
         }
@@ -117,13 +109,13 @@ public class EcoleM {
         try {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
-            prepare.setString(1, nom);
+            prepare.setString(1, nouvelleEcole.getNom());
             // Si la localisation n'existe pas on la creer
-            if(LocalisationM.getId(localisation, pays) == null) {
-                LocalisationM.ajouterLocalisation(localisation, pays);
+            if(LocalisationM.getId(nouvelleEcole.getLocalisation()) == null) {
+                LocalisationM.ajouterLocalisation(nouvelleEcole.getLocalisation());
             }
-            prepare.setString(2, LocalisationM.getId(localisation, pays).toString());
-            prepare.setString(3, getId(oldNom, oldLocalisation, oldPays).toString());
+            prepare.setString(2, LocalisationM.getId(nouvelleEcole.getLocalisation()).toString());
+            prepare.setString(3, getId(oldEcole).toString());
 
             // On modifie
             prepare.executeUpdate();
@@ -134,11 +126,11 @@ public class EcoleM {
     }
 
     /**
-     * Retourne l'id de la localisation dans la BD
+     * Retourne l'id de l'école dans la BD
      * @param ecole
      * @return
      */
-    public static Integer getId(String ecole, String localisation, Pays pays) {
+    public static Integer getId(Ecole ecole) {
 
         if(treeMapEcole.size() == 0) {
             getEcoles();
@@ -147,11 +139,48 @@ public class EcoleM {
         Integer res = null;
         for(Integer i : ss) {
             // si la localisation a le même nom et le même pays (c'est la même école)
-            if(treeMapEcole.get(i).getNom().equals(ecole) &&
-                    LocalisationM.getId(treeMapEcole.get(i).getLocalisation().getNom(), pays).equals(LocalisationM.getId(localisation, pays))) {
+            if(treeMapEcole.get(i).equals(ecole)) {
                 res = i;
             }
         }
         return res;
+    }
+
+    /**
+     * Supprime l'école et la localisation si elle n'est plus utile
+     * @param ecole
+     */
+    public static void supprimerEcole(Ecole ecole) {
+        // Si la localisation se retrouve seule, on la supprime
+        Integer idEcole = getId(ecole);
+        Integer idLoc = LocalisationM.getId(ecole.getLocalisation());
+
+        String requeteLoc = "SELECT * FROM ECOLE WHERE Localisation = " + idLoc + ";";
+        Statement state = null;
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+
+            ResultSet result = state.executeQuery(requeteLoc);
+            result.last();
+            int nbRes = result.getRow();    // on recupere le nombre de résultats
+
+            // On suppriemr l'école
+            String requeteSupprEcole = "DELETE FROM ECOLE WHERE Id = ? ;";
+            PreparedStatement prepare = ConnexionBD.getInstance().prepareStatement(requeteSupprEcole);
+
+            prepare.setString(1, idEcole.toString());
+            prepare.executeUpdate();
+
+            // On supprime la loc si il n'y en a qu'une
+            if(nbRes < 2) {
+                LocalisationM.supprimerLoc(ecole.getLocalisation());
+            }
+
+            // on met à jour le treeMap
+            treeMapEcole.remove(idEcole);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

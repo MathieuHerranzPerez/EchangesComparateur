@@ -1,7 +1,6 @@
 package ComparateurCode.Vue;
 
 import ComparateurCode.Controleur.Echange.Ecole;
-import ComparateurCode.Controleur.Echange.Pays;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -11,15 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class FenetreParcourirEcole extends JFrame {
 
     private Object[][] ecoles;
     JFrame f;
 
-    public FenetreParcourirEcole(String[] ecole, String[] localisation, Pays[] pays) {
+    public FenetreParcourirEcole(ArrayList<Ecole> e) {
 
-        JTable tableau = new JTable(new TableauEcole(ecole, localisation, pays));
+        JTable tableau = new JTable(new TableauEcole(e, this));
         tableau.getColumn("Modifier").setCellRenderer(new ButtonRenderer());
         tableau.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
 
@@ -39,19 +39,19 @@ public class FenetreParcourirEcole extends JFrame {
 
     private class TableauEcole extends AbstractTableModel {
         private String[] entetes = {"Ecole", "Localisation", "Pays", "Modifier", "Supprimer"};
-        public TableauEcole(String[] ecole, String[] localisation, Pays[] pays) {
-            ecoles = new Object[ecole.length][5];
+        public TableauEcole(ArrayList<Ecole> e, JFrame f) {
+            ecoles = new Object[e.size()][5];
 
-            for(int i = 0; i < ecole.length; ++i) {
-                ecoles[i][0] = ecole[i];
-                ecoles[i][1] = localisation[i];
-                ecoles[i][2] = pays[i];
+            for(int i = 0; i < e.size(); ++i) {
+                ecoles[i][0] = e.get(i);
+                ecoles[i][1] = e.get(i).getLocalisation();
+                ecoles[i][2] = e.get(i).getLocalisation().getPays();
 
                 JButton bAdd = new JButton("Modifier");
-                bAdd.addActionListener(new ClicDetails(ecole[i], localisation[i], pays[i]));
+                bAdd.addActionListener(new ClicDetails(e.get(i)));
                 ecoles[i][3] = bAdd;
                 JButton bSupp = new JButton("Supprimer");
-                bSupp.addActionListener(new ClicSuppr(ecole[i], localisation[i], pays[i]));
+                bSupp.addActionListener(new ClicSuppr(e.get(i), f));
                 ecoles[i][4] = bSupp;
             }
         }
@@ -106,37 +106,37 @@ public class FenetreParcourirEcole extends JFrame {
 
     private class ClicDetails implements ActionListener {
 
-        private String ecole;
-        private String localisation;
-        private Pays pays;
+        private Ecole ecole;
 
-        public ClicDetails(String ecole, String localisation, Pays pays) {
-            this.ecole = ecole;
-            this.localisation = localisation;
-            this.pays = pays;
+        public ClicDetails(Ecole e) {
+            this.ecole = e;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("ecole : " + ecole + " loc : " + localisation + " pays " + pays);    //TODO enlever
-            FenetreModifierEcole fen = new FenetreModifierEcole(ecole, localisation, pays);
+            FenetreModifierEcole fen = new FenetreModifierEcole(ecole);
             f.dispose();
         }
     }
 
     private class ClicSuppr implements ActionListener {
 
-        private String ecole;
-        private String localisation;
-        private Pays pays;
+        private Ecole ecole;
+        private JFrame frame;
 
-        public ClicSuppr(String ecole, String localisation, Pays pays) {
-            this.ecole = ecole;
-            this.localisation = localisation;
-            this.pays = pays;
+        public ClicSuppr(Ecole e, JFrame f) {
+            this.ecole = e;
+            this.frame = f;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("ecole : " + ecole + " loc : " + localisation + " pays " + pays);    //TODO enlever
+            Ecole.supprimerEcole(ecole);
+            // mettre a jour la table (refaire la fenetre)
+            rechargerPage();
+            this.frame.dispose();
+        }
+
+        public void rechargerPage() {
+            Ecole.parcourirEcole();
         }
     }
 

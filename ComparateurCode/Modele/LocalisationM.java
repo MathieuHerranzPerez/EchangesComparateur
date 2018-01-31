@@ -1,7 +1,6 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Localisation;
-import ComparateurCode.Controleur.Echange.Pays;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class LocalisationM {
      * @param key
      * @return
      */
-    public static Localisation getLocalisation(int key) {
+    public static Localisation isLocalisationInBD(int key) {
         if(treeMapLocalisation.size() == 0) {
             getLocalisations();
         }
@@ -57,20 +56,18 @@ public class LocalisationM {
 
     /**
      * Return, si elle est présente, la localisation désignée par nom et pays
-     * @param nom
-     * @param pays
      * @return
      */
-    public static Localisation getLocalisation(String nom, Pays pays) {
+    public static boolean isLocalisationInBD(Localisation loc) {
         Statement state;
-        Localisation res = null;
+        boolean res = false;
         try {
             state = ConnexionBD.getInstance().createStatement();
-            String requete = "SELECT * FROM LOCALISATION WHERE Nom = '" + nom + "' AND Pays = " + PaysM.getId(pays).toString() + ";";
+            String requete = "SELECT * FROM LOCALISATION WHERE Nom = '" + loc.getNom() + "' AND Pays = " + PaysM.getId(loc.getPays()).toString() + ";";
 
             ResultSet result = state.executeQuery(requete);
             if(result.next()) {
-                res = getLocalisation(Integer.parseInt(result.getObject(1).toString()));
+                res = true;
             }
 
         } catch (SQLException e) {
@@ -81,23 +78,23 @@ public class LocalisationM {
 
     /**
      * Ajoute la Localisation avec Nom et Pays en base de données
-     * @param nom
-     * @param pays
      */
-    public static void ajouterLocalisation(String nom, Pays pays) {
+    public static void ajouterLocalisation(Localisation localisation) {
         String requete = "INSERT INTO LOCALISATION (Nom, Pays) VALUES (?, ?);";
         PreparedStatement prepare = null;
         try {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
-            prepare.setString(1, nom);
-            prepare.setString(2, PaysM.getId(pays).toString());
+            prepare.setString(1, localisation.getNom());
+            prepare.setString(2, PaysM.getId(localisation.getPays()).toString());
 
             prepare.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        // On met à jour le TreeMap
+        getLocalisations();
     }
 
     /**
@@ -105,7 +102,7 @@ public class LocalisationM {
      * @param localisation
      * @return
      */
-    public static Integer getId(String localisation, Pays pays) {
+    public static Integer getId(Localisation localisation) {
 
         if(treeMapLocalisation.size() == 0) {
             getLocalisations();
@@ -114,10 +111,28 @@ public class LocalisationM {
         Integer res = null;
         for(Integer i : ss) {
             // si la localisation a le même nom et le même pays
-            if(treeMapLocalisation.get(i).getNom().equals(localisation) && treeMapLocalisation.get(i).getPays().equals(pays)) {
+            if(treeMapLocalisation.get(i).equals(localisation)) {
                 res = i;
             }
         }
         return res;
+    }
+
+    public static void supprimerLoc(Localisation localisation) {
+        String requeteSupprLoc = "DELETE FROM LOCALISATION WHERE Id = ? ;";
+        PreparedStatement prepare = null;
+        Integer idLoc = getId(localisation);
+        try {
+            prepare = ConnexionBD.getInstance().prepareStatement(requeteSupprLoc);
+
+            prepare.setString(1, idLoc.toString());
+            prepare.executeUpdate();
+
+            // On met à jour le TreeMap
+            treeMapLocalisation.remove(idLoc);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -37,10 +37,7 @@ public class Localisation {
 
     @Override
     public String toString() {
-        return "Localisation{" +
-                "nom='" + nom + '\'' +
-                ", pays=" + pays +
-                '}';
+        return nom;
     }
 
     @Override
@@ -68,12 +65,13 @@ public class Localisation {
     }
 
     public static void ajouterLocalisation(String nom, Pays pays) {
+        Localisation newLoc = new Localisation(nom, pays);
         // vérifier si la localisation n'est pas déjà en BD
-        if(LocalisationM.getLocalisation(nom, pays) != null) {
+        if(LocalisationM.isLocalisationInBD(newLoc)) {
             FenetreErreur f = new FenetreErreur("Localisation déjà en BD");
         }
         else {
-            LocalisationM.ajouterLocalisation(nom, pays);
+            LocalisationM.ajouterLocalisation(newLoc);
             mettreAJourListe();
         }
     }
