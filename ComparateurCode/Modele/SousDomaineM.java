@@ -9,9 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- * Created by Guillaume Bardet on 28/01/2018.
- */
 public class SousDomaineM {
     private static ArrayList<SousDomaine> listSousDomaine = new ArrayList<>();
 

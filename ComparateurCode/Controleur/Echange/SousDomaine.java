@@ -67,9 +67,6 @@ public class SousDomaine {
 
     @Override
     public String toString() {
-        return "SousDomaine{" +
-                "nom='" + nom + '\'' +
-                ", domaine=" + domaine +
-                '}';
+        return  nom;
     }
 }

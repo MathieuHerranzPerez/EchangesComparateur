@@ -1,6 +1,7 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Ecole;
+import ComparateurCode.Controleur.Echange.Pays;
 
 import java.sql.*;
 import java.util.ArrayList;
