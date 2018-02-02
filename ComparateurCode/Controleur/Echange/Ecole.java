@@ -102,4 +102,21 @@ public class Ecole {
         EcoleM.supprimerEcole(ecole);
         mettreAJourListe();
     }
+
+    public static ArrayList<Ecole> getEcolesFromPays(Pays p) {
+        if(listEcole.isEmpty()) {
+            mettreAJourListe();
+        }
+
+        ArrayList<Ecole> ecoleFromPays = new ArrayList<>();
+
+        for(Ecole e : listEcole) {
+            // si le pays de l'école = celui qu'on recherche
+            if(e.getLocalisation().getPays().getNom() == p.getNom())
+                ecoleFromPays.add(e);
+        }
+
+        return ecoleFromPays;
+
+    }
 }

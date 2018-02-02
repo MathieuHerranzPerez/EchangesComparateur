@@ -1,5 +1,7 @@
 package ComparateurCode.Controleur.Echange;
 
+import java.util.ArrayList;
+
 public class Formation {
 
     private String nom;
@@ -63,6 +65,11 @@ public class Formation {
 
     public SousDomaine getSousDomaine() {
         return sousDomaine;
+    }
+
+    // TODO
+    public static ArrayList<String> getLangues() {
+        return null;
     }
 
     @Override

@@ -1,12 +1,14 @@
 package ComparateurCode.Vue;
 
-import ComparateurCode.Controleur.Echange.Domaine;
-import ComparateurCode.Controleur.Echange.Ecole;
-import ComparateurCode.Controleur.Echange.Pays;
-import ComparateurCode.Controleur.Echange.SousDomaine;
+import ComparateurCode.Controleur.Echange.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 public class FenetreAccueil extends JFrame {
 
@@ -27,18 +29,19 @@ public class FenetreAccueil extends JFrame {
     private JLabel VilleSouhaitée = new JLabel("Ville souhaitée");
     private JTextField villeTF = new JTextField();
     private JLabel langue = new JLabel("Langue");
-    private JComboBox<Domaine> langueList = new JComboBox<>();
-    private JLabel domaineSouhait = new JLabel("DomaineM souhaité");
+    private JComboBox<String> langueList = new JComboBox<>();
+    private JLabel domaineSouhait = new JLabel("Domaine souhaité");
     private JComboBox<Domaine> domaineListSouhait = new JComboBox<>();
     private JLabel ssDomaineSouhait = new JLabel("Sous domaine souhaité");
     private JComboBox<SousDomaine> ssDomaineListSouhait = new JComboBox<>();
     private JLabel duree = new JLabel("Durée");
-    private JComboBox<SousDomaine> dureelist = new JComboBox<>();
+    private JComboBox<String> dureelist = new JComboBox<>();
 
     private JButton annuler = new JButton("Annuler");
     private JButton valider = new JButton("Valider");
 
-
+//TODO POUR LES JCOMBOBOX LAISSER LA POSSIBLE DE CHOISIR "VIDE" SI LUTILISATEUR NE SOUHAITE PAS RENSENGNER UN CHAMPS OBLIGATOIRE
+//TODO signaler par une * les champs qui sont facultatifs
     public FenetreAccueil() {
         this.setTitle("Comparateur d'échanges universitaires");
         this.setSize(750,300);
@@ -48,6 +51,62 @@ public class FenetreAccueil extends JFrame {
 
         this.setLayout(new BorderLayout());
 
+        /*______________Initialise le contenu des JComboBox______________*/
+        // pour chaque JComboBox facultatives la premiere case est vide pour laisser le choix à l'utilisateur de ne pas renseigner le champs
+
+        // Pays depart
+        // TODO quand echange sera implementé : ne prendre que les pays qui proposent des échanges
+        ArrayList<Pays> listPays = Pays.getPays();
+        for(Pays p : listPays)
+            paysList.addItem(p);
+        paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
+
+        // Universite depart
+        ArrayList<Ecole> listEcoleDep = Ecole.getEcolesFromPays(paysList.getItemAt(0));
+        for(Ecole e : listEcoleDep)
+            ecoleList.addItem(e);
+
+        // Domaine
+        ArrayList<Domaine> listDomaine = Domaine.getListDomaine();
+        for(Domaine d : listDomaine)
+            domaineList.addItem(d);
+
+        // Pays souhaite
+        for(Pays p : listPays)
+            paysList.addItem(p);
+
+        // Ville souhaite
+        //text field donc rien à faire
+
+        // langue
+        ArrayList<String> listLangue = Formation.getLangues();
+     /*   for(String l: listLangue)
+            langueList.addItem(l);*/
+
+        // Domaine souhaite
+        for(Domaine d : listDomaine)
+            domaineListSouhait.addItem(d);
+        domaineListSouhait.addItemListener(new DomaineListener());
+
+        // Sous domaine
+        ArrayList<SousDomaine> listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) domaineListSouhait.getItemAt(0));
+        for(SousDomaine d : listSousDomaine)
+            ssDomaineListSouhait.addItem(d);
+
+        // duree (celle de l'échange)
+      /*  ArrayList<String> listDurees = Echange.getDurees();
+        for(String d : listDurees)
+            dureelist.addItem(d);*/
+
+
+        /*______________Action Bouton______________*/
+
+        annuler.addActionListener(new AnnulerListener());
+        valider.addActionListener(new ValiderListener());
+
+
+        /*______________Creation Panel______________*/
+
         JPanel ResearchPanel = new JPanel();
         ResearchPanel.setLayout(new GridLayout(1,2));
 
@@ -55,6 +114,7 @@ public class FenetreAccueil extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         panelLeft.setLayout(new GridBagLayout());
 
+        /*______________Panel Left______________*/
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
@@ -97,9 +157,7 @@ public class FenetreAccueil extends JFrame {
         panelLeft.add(domaineList, gbc); //TODO remplir
 
 
-        /*
-        Panel Right
-         */
+        /*______________Panel Right______________*/
 
         JPanel panelRight = new JPanel();
         GridBagConstraints gbcR = new GridBagConstraints();
@@ -184,6 +242,71 @@ public class FenetreAccueil extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
+
+    private class DomaineListener implements ItemListener {
+        ArrayList<SousDomaine> listSousDomaine;
+
+        public DomaineListener() {
+            super();
+            listSousDomaine = new ArrayList<>();
+        }
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            // si on choisi un domaine permet de choisir un sous domaine qui en fait partie
+            listSousDomaine.clear();
+            ssDomaineListSouhait.removeAllItems();
+            listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) e.getItem());
+            for(SousDomaine d : listSousDomaine)
+                ssDomaineListSouhait.addItem(d);
+
+        }
+    }
+
+    private class PaysListener implements ItemListener {
+        ArrayList<Ecole> listEcolePays;
+
+        public PaysListener() {
+            super();
+            this.listEcolePays = new ArrayList<>();
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            // si on choisi un pays permet de choisir une école qui en fait partie
+            listEcolePays.clear();
+            ssDomaineListSouhait.removeAllItems();
+            listEcolePays = Ecole.getEcolesFromPays((Pays) e.getItem());
+            for(Ecole ecole : listEcolePays)
+                ecoleList.addItem(ecole);
+
+        }
+    }
+
+    private class ValiderListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // envoie de tous les champs au controleur
+          /*  ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
+                    (Ecole) ecoleList.getSelectedItem(),
+                    (Domaine) domaineList.getSelectedItem(),
+                    (Pays) paysListSouhait.getSelectedItem(),
+                    (String) villeTF.getText(),
+                    (String) langueList.getSelectedItem(),
+                    (Domaine) domaineListSouhait.getSelectedItem(),
+                    (SousDomaine) ssDomaineListSouhait.getSelectedItem(),
+                    (String) dureelist.getSelectedItem());*/
+            //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche
+            // permettre une certaine marge d'erreur (par ex  1 faute d'orthographe)
+        }
+    }
+
+    private class AnnulerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
+
 
     public static void main(String[] args) {
         new FenetreAccueil();

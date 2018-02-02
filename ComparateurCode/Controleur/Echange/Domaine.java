@@ -26,9 +26,7 @@ public class Domaine {
 
     @Override
     public String toString() {
-        return "Domaine{" +
-                "nom='" + nom + '\'' +
-                '}';
+        return  nom;
     }
 
     @Override
