@@ -104,6 +104,8 @@ public class FenetreAccueil extends JFrame {
         annuler.addActionListener(new AnnulerListener());
         valider.addActionListener(new ValiderListener());
 
+        admin.addActionListener(new AdminListener(this));
+
 
         /*______________Creation Panel______________*/
 
@@ -307,6 +309,19 @@ public class FenetreAccueil extends JFrame {
         }
     }
 
+    private class AdminListener implements ActionListener {
+        JFrame f;
+
+        public AdminListener(JFrame f) {
+            this.f = f;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            f.dispose();
+            new FenetreAdmin();
+        }
+    }
 
     public static void main(String[] args) {
         new FenetreAccueil();
