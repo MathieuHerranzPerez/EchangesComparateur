@@ -9,29 +9,29 @@ public class Echange {
     private Formation formation;
 
     // ----- setter
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     /*public void setAnnee(int annee) {
         this.annee = annee;
     }*/
 
-    public void setDuree(int duree) {
-        this.duree = duree;
-    }
-
-    public void setEcoleDepart(Ecole ecoleDepart) {
-        this.ecoleDepart = ecoleDepart;
-    }
-
-    public void setEcoleArrivee(Ecole ecoleArrivee) {
-        this.ecoleArrivee = ecoleArrivee;
-    }
-
-    public void setFormation(Formation formation) {
-        this.formation = formation;
-    }
+//    public void setDuree(int duree) {
+//        this.duree = duree;
+//    }
+//
+//    public void setEcoleDepart(Ecole ecoleDepart) {
+//        this.ecoleDepart = ecoleDepart;
+//    }
+//
+//    public void setEcoleArrivee(Ecole ecoleArrivee) {
+//        this.ecoleArrivee = ecoleArrivee;
+//    }
+//
+//    public void setFormation(Formation formation) {
+//        this.formation = formation;
+//    }
 
     // ----- getter
     public int getId() {
@@ -102,10 +102,10 @@ public class Echange {
     }
 
     public Echange(int id, int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
-        this.setId(id);
-        this.setDuree(duree);
-        this.setEcoleDepart(ecoleDepart);
-        this.setEcoleArrivee(ecoleArrivee);
-        this.setFormation(formation);
+        this.id = id;
+        this.duree = duree;
+        this.ecoleDepart = ecoleDepart;
+        this.ecoleArrivee = ecoleArrivee;
+        this.formation = formation;
     }
 }

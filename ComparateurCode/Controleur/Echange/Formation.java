@@ -67,11 +67,6 @@ public class Formation {
 
     @Override
     public String toString() {
-        return "Formation{" +
-                "nom='" + nom + '\'' +
-                ", duree=" + duree +
-                ", langue='" + langue + '\'' +
-                ", sousDomaine=" + sousDomaine +
-                '}';
+        return nom;
     }
 }
