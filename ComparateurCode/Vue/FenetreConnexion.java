@@ -9,7 +9,7 @@ public class FenetreConnexion extends JFrame {
 
     public FenetreConnexion() {
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(700,500);
+        this.setSize(500,150);
 
         this.add(p);
 
@@ -28,13 +28,26 @@ public class FenetreConnexion extends JFrame {
         private JButton annuler = new JButton("Annuler");
 
         private Panneau() {
-            this.add(ident, BorderLayout.CENTER);
-            this.add(jtfIdent, BorderLayout.CENTER);
-            this.add(mdp, BorderLayout.CENTER);
-            this.add(jpfMdp, BorderLayout.CENTER);
+            this.setLayout(new BorderLayout());
 
-            this.add(annuler, BorderLayout.SOUTH);  //TODO listener
-            this.add(valider, BorderLayout.SOUTH);  //TODO listener
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(ident);
+            panel.add(jtfIdent);
+            panel.add(mdp);
+            panel.add(jpfMdp);
+
+            this.add(panel, BorderLayout.CENTER);
+
+            JPanel panelSouth = new JPanel();
+            panelSouth.add(annuler);  //TODO listener
+            panelSouth.add(valider);  //TODO listener
+            add(panelSouth, BorderLayout.SOUTH);
         }
+    }
+
+    public static void main(String[] args) {
+        new FenetreConnexion();
     }
 }
