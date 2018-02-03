@@ -165,4 +165,38 @@ public class SousDomaineM {
         }
         return res;
     }
+
+    public static void supprimerSousDomaine(SousDomaine sd) {
+        // Si le domaine se retrouve seul, on le supprime
+        Integer idSousDomaine = getId(sd);
+        Integer idDomaine = DomaineM.getId(sd.getDomaine());
+
+        String requete = "SELECT * FROM SOUSDOMAINE WHERE Domaine = " + idDomaine + ";";
+        Statement state;
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+
+            ResultSet result = state.executeQuery(requete);
+            result.last();
+            int nbRes = result.getRow();    // on recupere le nombre de résultats
+
+            // On supprime le sous domaine
+            String requeteSuppr = "DELETE FROM SOUSDOMAINE WHERE Id = ? ;";
+            PreparedStatement prepare = ConnexionBD.getInstance().prepareStatement(requeteSuppr);
+
+            prepare.setInt(1, idSousDomaine);
+            prepare.executeUpdate();
+
+            // On supprime le domaine si il n'y en a qu'un
+            if(nbRes < 2) {
+                DomaineM.supprimerDomaine(sd.getDomaine());
+            }
+
+            // on met à jour le treeMap
+            treeMapSousDomaine.remove(idSousDomaine);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
