@@ -27,7 +27,7 @@ public class LocalisationM {
             ArrayList<Localisation> res = new ArrayList<>();
             while (result.next()) {
                 Localisation l = new Localisation(result.getObject(2).toString(),
-                        PaysM.getPays(Integer.parseInt(result.getObject(3).toString())));
+                        PaysM.getPaysFromId(Integer.parseInt(result.getObject(3).toString())));
                 res.add(l);
                 treeMapLocalisation.put(Integer.parseInt(result.getObject(1).toString()), l);
             }

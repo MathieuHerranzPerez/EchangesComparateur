@@ -1,6 +1,7 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Ecole;
+import ComparateurCode.Controleur.Echange.Localisation;
 import ComparateurCode.Controleur.Echange.Pays;
 
 import java.sql.*;
@@ -83,10 +84,14 @@ public class EcoleM {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
             prepare.setString(1, ecole.getNom());
-            // si la localisation n'existe pas on la creer
-            if(LocalisationM.getId(ecole.getLocalisation()) == null) {
-                LocalisationM.ajouterLocalisation(ecole.getLocalisation());
-            }
+//            // si la localisation n'existe pas on la creer
+//            if(LocalisationM.getId(ecole.getLocalisation()) == null) {
+//                LocalisationM.ajouterLocalisation(ecole.getLocalisation());
+//            }
+
+            // On ajoute la localisation
+            Localisation.ajouterLocalisation(ecole.getLocalisation().getNom(), ecole.getLocalisation().getPays());
+
             prepare.setString(2, LocalisationM.getId(ecole.getLocalisation()).toString());
 
             prepare.executeUpdate();
@@ -145,6 +150,13 @@ public class EcoleM {
             }
         }
         return res;
+    }
+
+    public static Ecole getEcoleFromId(int key) {
+        if(treeMapEcole.size() == 0) {
+            getEcoles();
+        }
+        return treeMapEcole.get(key);
     }
 
     /**

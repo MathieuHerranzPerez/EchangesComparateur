@@ -48,14 +48,17 @@ public class SousDomaine {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if(!(o instanceof SousDomaine))
+            return false;
 
-        SousDomaine that = (SousDomaine) o;
+        SousDomaine sousDomaine = (SousDomaine) o;
 
-        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
-        return domaine != null ? domaine.equals(that.domaine) : that.domaine == null;
+        if(!this.nom.equals(sousDomaine.getNom()))
+            return false;
+        else if(!this.domaine.equals(sousDomaine.getDomaine()))
+            return false;
 
+        return true;
     }
 
     @Override
@@ -68,5 +71,15 @@ public class SousDomaine {
     @Override
     public String toString() {
         return  nom;
+    }
+
+    public static void ajouterSousDomaine(SousDomaine d) {
+        // On vérifie qu'il n'existe pas
+        if(!SousDomaineM.isSousDomaineInBD(d)) {
+            // On ajoute le Domaine
+            Domaine.ajouterDomaine(d.getDomaine());
+            // On ajoute le SousDomaine
+            SousDomaineM.ajouterSousDomaine(d);
+        }
     }
 }
