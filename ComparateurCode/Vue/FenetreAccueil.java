@@ -38,13 +38,16 @@ public class FenetreAccueil extends JFrame {
     private JLabel duree = new JLabel("Durée (en mois)");
     private JComboBox<Integer> dureelist = new JComboBox<>();
 
+    private JLabel info = new JLabel("Les champs avec une * sont obligatoires");
+
     private JButton annuler = new JButton("Annuler");
     private JButton valider = new JButton("Valider");
 
+//TODO POUR LES JCOMBOBOX LAISSER LA POSSIBLE DE CHOISIR "VIDE" SI LUTILISATEUR NE SOUHAITE PAS RENSENGNER UN CHAMPS OBLIGATOIRE
 //TODO signaler par une * les champs qui sont facultatifs
     public FenetreAccueil() {
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(800,300);
+        this.setSize(850,350);
 
         this.setJMenuBar(menu);
         menu.add(admin);
@@ -59,8 +62,7 @@ public class FenetreAccueil extends JFrame {
         ArrayList<Pays> listPays = Pays.getPays();
         for(Pays p : listPays)
             paysList.addItem(p);
-        paysList.setSelectedItem(new Pays("France"));
-
+        paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
 
         // Universite depart
         ArrayList<Ecole> listEcoleDep = Ecole.getEcolesFromPays((Pays) paysList.getSelectedItem());
@@ -158,16 +160,21 @@ public class FenetreAccueil extends JFrame {
 
         gbc.gridx = 2;
         gbc.gridy = 2;
-        panelLeft.add(paysList, gbc); //TODO remplir
+        panelLeft.add(paysList, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 4;
-        panelLeft.add(ecoleList, gbc); //TODO remplir
+        panelLeft.add(ecoleList, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 6;
-        panelLeft.add(domaineList, gbc); //TODO remplir
+        panelLeft.add(domaineList, gbc);
 
+        /* Info saisies */
+        info.setForeground(Color.red);
+        gbc.gridx = 2;
+        gbc.gridy = 9;
+        panelLeft.add(info,gbc);
 
         /*______________Panel Right______________*/
 
@@ -322,9 +329,7 @@ public class FenetreAccueil extends JFrame {
                     (String) langueList.getSelectedItem(),
                     (Domaine) domaineListSouhait.getSelectedItem(),
                     (SousDomaine) ssDomaineListSouhait.getSelectedItem(),
-                    (String) dureelist.getSelectedItem());
-                //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche
-                // permettre une certaine marge d'erreur (par ex  1 faute d'orthographe)
+                    (Integer) dureelist.getSelectedItem());
             }
             else {
                 FenetreErreur fen = new FenetreErreur("Veuillez remplir les champs obligatoires (notés avec *)");
