@@ -1,5 +1,9 @@
 package ComparateurCode.Controleur.Echange;
 
+import ComparateurCode.Modele.EchangeM;
+import ComparateurCode.Modele.FormationM;
+import ComparateurCode.Vue.FenetreErreur;
+
 public class Echange {
 
     private int id;
@@ -107,5 +111,33 @@ public class Echange {
         this.ecoleDepart = ecoleDepart;
         this.ecoleArrivee = ecoleArrivee;
         this.formation = formation;
+    }
+
+    public Echange(int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
+        this.duree = duree;
+        this.ecoleDepart = ecoleDepart;
+        this.ecoleArrivee = ecoleArrivee;
+        this.formation = formation;
+    }
+
+    public static void ajouterEchange(Ecole ecoleDep, Ecole ecoleArr, String nomFormation, int duree, int dureeFormation, String langue,
+                                      String nomSousDomaine, String nomDomaine) {
+        Echange newEchange = new Echange(duree, ecoleDep, ecoleArr,
+                new Formation(nomFormation, dureeFormation, langue,
+                        new SousDomaine(nomSousDomaine,
+                                new Domaine(nomDomaine))));
+
+        // On vérifie que l'échange n'existe pas
+        if(!EchangeM.isEchangeInBD(newEchange)) {
+
+            // On ajoute la formation
+            Formation.ajouterFormation(newEchange.getFormation());
+
+            // On ajoute l'echange
+            EchangeM.ajouterEchange(newEchange);
+        }
+        else {
+            FenetreErreur f = new FenetreErreur("Echange déjà en BD");
+        }
     }
 }

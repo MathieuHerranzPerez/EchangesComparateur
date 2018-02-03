@@ -54,6 +54,6 @@ public class Pays {
     }
 
     public static void mettreAJourListe() {
-        listPays = PaysM.getPays();
+        listPays = PaysM.getPaysFromId();
     }
 }

@@ -47,7 +47,8 @@ public class FenetreAccueil extends JFrame {
         this.setSize(750,300);
 
         this.setJMenuBar(menu);
-        menu.add(admin);    //TODO listener
+        menu.add(admin);
+        admin.addActionListener(new ClicAdmin(this));
 
         this.setLayout(new BorderLayout());
 
@@ -241,6 +242,18 @@ public class FenetreAccueil extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    private class ClicAdmin implements ActionListener {
+        JFrame f;
+        public ClicAdmin(JFrame f) {
+            this.f = f;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FenetreConnexion fen = new FenetreConnexion();
+            f.dispose();
+        }
     }
 
     private class DomaineListener implements ItemListener {

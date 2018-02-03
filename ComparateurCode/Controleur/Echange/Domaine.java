@@ -16,6 +16,10 @@ public class Domaine {
         this.nom = nom;
     }
 
+    public Domaine(String nom) {
+        this.nom = nom;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -48,6 +52,13 @@ public class Domaine {
         return listDomaine;
     }
 
+    public static void ajouterDomaine(Domaine d) {
+        // On vérifie qu'il n'existe pas
+        if(!DomaineM.isDomaineInBD(d)) {
+            DomaineM.ajouterDomaine(d); // On l'ajoute
+        }
+    }
+
 
     public static void main(String[] args) {
         ArrayList<Domaine> tabDomaine = getListDomaine();
@@ -60,8 +71,5 @@ public class Domaine {
         for(SousDomaine sousD : tabSousDomaine)
             System.out.println(sousD.toString() );
 
-
-
     }
-
 }

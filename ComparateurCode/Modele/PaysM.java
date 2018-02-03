@@ -15,7 +15,7 @@ public class PaysM {
      */
     private static TreeMap<Integer, Pays> treeMapPays = new TreeMap<>();
 
-    public static ArrayList<Pays> getPays() {
+    public static ArrayList<Pays> getPaysFromId() {
         Statement state = null;
         try {
             state = ConnexionBD.getInstance().createStatement();
@@ -46,9 +46,9 @@ public class PaysM {
     }
 
 
-    public static Pays getPays(int key) {
+    public static Pays getPaysFromId(int key) {
         if(treeMapPays.size() == 0) {
-            getPays();
+            getPaysFromId();
         }
         return treeMapPays.get(key);
     }
@@ -60,7 +60,7 @@ public class PaysM {
      */
     public static Integer getId(Pays pays) {
         if(treeMapPays.size() == 0) {
-            getPays();
+            getPaysFromId();
         }
         Set<Integer> ss = treeMapPays.keySet();
         Integer res = null;
