@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Echange {
 
-    private int id;
     private Integer duree;              // en mois
     private Ecole ecoleDepart;
     private Ecole ecoleArrivee;
@@ -17,50 +16,12 @@ public class Echange {
 
     private static ArrayList<Echange> listEchange = new ArrayList<>();
 
-    // ----- setter
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
-    /*public void setAnnee(int annee) {
-        this.annee = annee;
-    }*/
-
-//    public void setDuree(Integer duree) {
-//        this.duree = duree;
-//    }
-//
-//    public void setEcoleDepart(Ecole ecoleDepart) {
-//        this.ecoleDepart = ecoleDepart;
-//    }
-//
-//    public void setEcoleArrivee(Ecole ecoleArrivee) {
-//        this.ecoleArrivee = ecoleArrivee;
-//    }
-//
-//    public void setFormation(Formation formation) {
-//        this.formation = formation;
-//    }
-
-    // ----- getter
-    public int getId() {
-        return id;
-    }
-
-   /* public int getAnnee() {
-        return annee;
-    }*/
-
     public Integer getDuree() {
         return duree;
     }
 
     public Ecole getEcoleDepart() {
         return ecoleDepart;
-    }
-
-    public String getNomEcolePrincipale() {
-        return ecoleDepart.getNom();
     }
 
     public Formation getFormation() {
@@ -71,20 +32,12 @@ public class Echange {
         return ecoleArrivee;
     }
 
-    public String getNomEcoleEchange() {
-        return getEcoleArrivee().getNom();
-    }
-
     public String getNomLocalisationEcoleEchange() {
         return getEcoleArrivee().getLocalisation().getNom();
     }
 
     public String getNomPaysEcoleEchange() {
         return getEcoleArrivee().getLocalisation().getPays().getNom();
-    }
-
-    public String getNomFormation() {
-        return getFormation().getNom();
     }
 
     public String getLangue() {
@@ -109,7 +62,6 @@ public class Echange {
     @Override
     public String toString() {
         return "Echange{" +
-                "id=" + id +
                 ", duree=" + duree +
                 ", ecoleDepart=" + ecoleDepart +
                 ", ecoleArrivee=" + ecoleArrivee +
@@ -130,20 +82,12 @@ public class Echange {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + duree;
         result = 31 * result + (ecoleDepart != null ? ecoleDepart.hashCode() : 0);
         result = 31 * result + (ecoleArrivee != null ? ecoleArrivee.hashCode() : 0);
         result = 31 * result + (formation != null ? formation.hashCode() : 0);
         return result;
-    }
-
-    public Echange(int id, Integer duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
-        this.id = id;
-        this.duree = duree;
-        this.ecoleDepart = ecoleDepart;
-        this.ecoleArrivee = ecoleArrivee;
-        this.formation = formation;
     }
 
     public Echange(Integer duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
@@ -153,6 +97,17 @@ public class Echange {
         this.formation = formation;
     }
 
+    /**
+     * On ajoute l'échange correspondant aux paramettres de la fonctions en base de données si il n'est pas déjà présent
+     * @param ecoleDep Ecole, l'école de départ
+     * @param ecoleArr Ecole, l'école d'arrivée
+     * @param nomFormation String, le nom de la formation
+     * @param duree Integer, la durée de l'échange
+     * @param dureeFormation Integer, la durée de la formation
+     * @param langue String, la langue des cours de la formation
+     * @param nomSousDomaine String, nom du sous domaine de la formation
+     * @param nomDomaine String, nom du domaine de la formation
+     */
     public static void ajouterEchange(Ecole ecoleDep, Ecole ecoleArr, String nomFormation, Integer duree, Integer dureeFormation, String langue,
                                       String nomSousDomaine, String nomDomaine) {
         Echange newEchange = new Echange(duree, ecoleDep, ecoleArr,
@@ -174,10 +129,17 @@ public class Echange {
         }
     }
 
+    /**
+     * Met à jour la liste des échanges
+     */
     public static void mettreAJourListe() {
         listEchange = EchangeM.getEchanges(); // On met le tableau à jour
     }
 
+    /**
+     * Charge la liste des échanges si besoin, et appele FenetreParcourirEchange
+     * @see FenetreParcourirEchange
+     */
     public static void parcourirEchange() {
         if(listEchange.isEmpty()) {
             mettreAJourListe();
@@ -185,6 +147,18 @@ public class Echange {
         FenetreParcourirEchange fen = new FenetreParcourirEchange(listEchange);
     }
 
+    /**
+     * Modifie, si besoin, l'échange oldEchange, par le nouveau dont les attributs sont passés en paramètres, en base de donnée
+     * @param oldEchange Echange, l'ancien échange
+     * @param duree Integer, la durée du nouvel echange
+     * @param nomFormation String, le nom de la formation du nouvel echange
+     * @param dureeFormation Integer, la durée de la formation du nouvel echange
+     * @param langue String, la langue des cours du nouvel echange
+     * @param nomSousDomaine String, le nom du ous domaine de la fomration du nouvel echange
+     * @param nomDomaine String, le nom du domaine de la formation du nouvel echange
+     * @param ecoleDep Ecole, l'école de départ du nouvel echange
+     * @param ecoleArr Ecole, l'école d'arrivée du nouvel echange
+     */
     public static void modifierEchange(Echange oldEchange, Integer duree, String nomFormation, Integer dureeFormation, String langue,
                                        String nomSousDomaine, String nomDomaine, Ecole ecoleDep, Ecole ecoleArr) {
         // On vérifie qu'il change
@@ -213,6 +187,10 @@ public class Echange {
         }
     }
 
+    /**
+     * Supprime l'échange donné en parametre de la base de données
+     * @param echange Echange, l'échange à supprimer
+     */
     public static void supprimerEchange(Echange echange) {
         EchangeM.supprimerEchange(echange);
         mettreAJourListe();

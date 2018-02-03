@@ -43,6 +43,10 @@ public class Domaine {
         return listDomaine;
     }
 
+    /**
+     * Si le domaine n'existe pas en BD, on l'ajoute
+     * @param d Domaine, le domaine à ajouter en BD
+     */
     public static void ajouterDomaine(Domaine d) {
         // On vérifie qu'il n'existe pas
         if(!DomaineM.isDomaineInBD(d)) {

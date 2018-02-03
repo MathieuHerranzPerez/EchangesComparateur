@@ -68,7 +68,6 @@ public class Localisation {
         Localisation newLoc = new Localisation(nom, pays);
         // vérifier si la localisation n'est pas déjà en BD
         if(LocalisationM.isLocalisationInBD(newLoc)) {
-            FenetreErreur f = new FenetreErreur("Localisation déjà en BD");
         }
         else {
             LocalisationM.ajouterLocalisation(newLoc);

@@ -17,6 +17,7 @@ public class FenetreParcourirEchange extends JFrame {
     JFrame f;
 
     public FenetreParcourirEchange(ArrayList<Echange> e) {
+        this.setLayout(new BorderLayout());
 
         JTable tableau = new JTable(new TableauEchange(e, this));
         tableau.getColumn("Modifier").setCellRenderer(new FenetreParcourirEchange.ButtonRenderer());
@@ -29,6 +30,10 @@ public class FenetreParcourirEchange extends JFrame {
 
         this.setTitle("Comparateur d'échanges universitaires");
         this.setSize(1200,500);
+
+        JButton bRetour = new JButton("Retour");
+        bRetour.addActionListener(new ClicRetour(this));
+        this.add(bRetour, BorderLayout.SOUTH);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -143,6 +148,19 @@ public class FenetreParcourirEchange extends JFrame {
 
         public void rechargerPage() {
             Echange.parcourirEchange();
+        }
+    }
+
+    private class ClicRetour implements ActionListener {
+
+        private JFrame f;
+        public ClicRetour(JFrame f) {
+            this.f = f;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FenetreAdmin fen = new FenetreAdmin();
+            this.f.dispose();
         }
     }
 

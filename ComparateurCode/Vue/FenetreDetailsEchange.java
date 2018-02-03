@@ -20,7 +20,7 @@ public class FenetreDetailsEchange extends JFrame {
     public FenetreDetailsEchange(Echange echange) {
         this.echange = echange;
         JTable tableau = new JTable(new TableauEchange(echange, this));
-        tableau.getColumn("Details").setCellRenderer(new ButtonRenderer());
+        tableau.getColumn("Réserver").setCellRenderer(new ButtonRenderer());
 
         tableau.addMouseListener(new TableauClic(tableau));
 

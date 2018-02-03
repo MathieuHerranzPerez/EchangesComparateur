@@ -18,6 +18,7 @@ public class FenetreParcourirEcole extends JFrame {
     JFrame f;
 
     public FenetreParcourirEcole(ArrayList<Ecole> e) {
+        this.setLayout(new BorderLayout());
 
         JTable tableau = new JTable(new TableauEcole(e, this));
         tableau.getColumn("Modifier").setCellRenderer(new ButtonRenderer());
@@ -30,6 +31,10 @@ public class FenetreParcourirEcole extends JFrame {
 
         this.setTitle("Comparateur d'échanges universitaires");
         this.setSize(800,500);
+
+        JButton bRetour = new JButton("Retour");
+        bRetour.addActionListener(new ClicRetour(this));
+        this.add(bRetour, BorderLayout.SOUTH);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -137,6 +142,19 @@ public class FenetreParcourirEcole extends JFrame {
 
         public void rechargerPage() {
             Ecole.parcourirEcole();
+        }
+    }
+
+    private class ClicRetour implements ActionListener {
+
+        private JFrame f;
+        public ClicRetour(JFrame f) {
+            this.f = f;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FenetreAdmin fen = new FenetreAdmin();
+            this.f.dispose();
         }
     }
 
