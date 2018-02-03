@@ -53,19 +53,16 @@ public class DomaineM {
 
 
     public static Domaine getDomaineFromId(int id) {
-        Statement state = null;
+        Statement state;
         Domaine domaine = null;
 
         try {
             state = ConnexionBD.getInstance().createStatement();
             //L'objet ResultSet contient le résultat de la requète SQL
             ResultSet result = state.executeQuery("SELECT Id, Nom FROM DOMAINE WHERE Id=" + id);
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
-
 
             while (result.next()) {
-                domaine = new Domaine(result.getInt("Id"), result.getString("Nom"));
+                domaine = new Domaine(result.getString("Nom"));
             }
 
             result.close();
@@ -88,8 +85,6 @@ public class DomaineM {
             state = ConnexionBD.getInstance().createStatement();
 
             ResultSet result = state.executeQuery("SELECT * FROM DOMAINE");
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
 
             ArrayList<Domaine> res = new ArrayList<>();
             while (result.next()) {

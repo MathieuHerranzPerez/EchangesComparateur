@@ -16,35 +16,34 @@ public class FenetreAccueil extends JFrame {
     private JButton admin = new JButton("Admin");
 
     private JLabel situationA = new JLabel("Situation actuelle");
-    private JLabel pays = new JLabel("Pays");
+    private JLabel pays = new JLabel("Pays *");
     private JComboBox<Pays> paysList = new JComboBox<>();
-    private JLabel universite = new JLabel("Université de départ");
+    private JLabel universite = new JLabel("Université de départ *");
     private JComboBox<Ecole> ecoleList = new JComboBox<>();
     private JLabel domaine = new JLabel("DomaineM");
     private JComboBox<Domaine> domaineList = new JComboBox<>();
 
     private JLabel souhait = new JLabel("Souhait");
-    private JLabel paysSouhait = new JLabel("Pays souhaité");
+    private JLabel paysSouhait = new JLabel("Pays souhaité *");
     private JComboBox<Pays> paysListSouhait = new JComboBox<>();
     private JLabel VilleSouhaitée = new JLabel("Ville souhaitée");
     private JTextField villeTF = new JTextField();
     private JLabel langue = new JLabel("Langue");
     private JComboBox<String> langueList = new JComboBox<>();
-    private JLabel domaineSouhait = new JLabel("Domaine souhaité");
+    private JLabel domaineSouhait = new JLabel("Domaine souhaité *");
     private JComboBox<Domaine> domaineListSouhait = new JComboBox<>();
     private JLabel ssDomaineSouhait = new JLabel("Sous domaine souhaité");
     private JComboBox<SousDomaine> ssDomaineListSouhait = new JComboBox<>();
-    private JLabel duree = new JLabel("Durée");
-    private JComboBox<String> dureelist = new JComboBox<>();
+    private JLabel duree = new JLabel("Durée (en mois)");
+    private JComboBox<Integer> dureelist = new JComboBox<>();
 
     private JButton annuler = new JButton("Annuler");
     private JButton valider = new JButton("Valider");
 
-//TODO POUR LES JCOMBOBOX LAISSER LA POSSIBLE DE CHOISIR "VIDE" SI LUTILISATEUR NE SOUHAITE PAS RENSENGNER UN CHAMPS OBLIGATOIRE
 //TODO signaler par une * les champs qui sont facultatifs
     public FenetreAccueil() {
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(750,300);
+        this.setSize(800,300);
 
         this.setJMenuBar(menu);
         menu.add(admin);
@@ -56,33 +55,40 @@ public class FenetreAccueil extends JFrame {
         // pour chaque JComboBox facultatives la premiere case est vide pour laisser le choix à l'utilisateur de ne pas renseigner le champs
 
         // Pays depart
-        // TODO quand echange sera implementé : ne prendre que les pays qui proposent des échanges
         ArrayList<Pays> listPays = Pays.getPays();
         for(Pays p : listPays)
             paysList.addItem(p);
-        paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
+        paysList.setSelectedItem(new Pays("France"));
+
 
         // Universite depart
-        ArrayList<Ecole> listEcoleDep = Ecole.getEcolesFromPays(paysList.getItemAt(0));
+        ArrayList<Ecole> listEcoleDep = Ecole.getEcolesFromPays((Pays) paysList.getSelectedItem());
         for(Ecole e : listEcoleDep)
             ecoleList.addItem(e);
 
         // Domaine
         ArrayList<Domaine> listDomaine = Domaine.getListDomaine();
+        domaineList.addItem(null);
         for(Domaine d : listDomaine)
             domaineList.addItem(d);
 
         // Pays souhaite
-        for(Pays p : listPays)
-            paysList.addItem(p);
+        ArrayList<Pays> listPaysUtilises = Pays.getPaysUtilises();
+        paysListSouhait.addItem(null);
+        for(Pays p : listPaysUtilises) {
+            paysListSouhait.addItem(p);
+        }
+        paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
+
 
         // Ville souhaite
         //text field donc rien à faire
 
         // langue
         ArrayList<String> listLangue = Formation.getLangues();
-     /*   for(String l: listLangue)
-            langueList.addItem(l);*/
+        langueList.addItem(null);
+        for(String l: listLangue)
+            langueList.addItem(l);
 
         // Domaine souhaite
         for(Domaine d : listDomaine)
@@ -90,14 +96,16 @@ public class FenetreAccueil extends JFrame {
         domaineListSouhait.addItemListener(new DomaineListener());
 
         // Sous domaine
-        ArrayList<SousDomaine> listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) domaineListSouhait.getItemAt(0));
+        ArrayList<SousDomaine> listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) domaineListSouhait.getSelectedItem());
+        ssDomaineListSouhait.addItem(null);
         for(SousDomaine d : listSousDomaine)
             ssDomaineListSouhait.addItem(d);
 
         // duree (celle de l'échange)
-      /*  ArrayList<String> listDurees = Echange.getDurees();
-        for(String d : listDurees)
-            dureelist.addItem(d);*/
+        dureelist.addItem(null);
+        for(int i = 1; i < 25; ++i) {
+            dureelist.addItem(i);
+        }
 
 
         /*______________Action Bouton______________*/
@@ -268,10 +276,11 @@ public class FenetreAccueil extends JFrame {
             // si on choisi un domaine permet de choisir un sous domaine qui en fait partie
             listSousDomaine.clear();
             ssDomaineListSouhait.removeAllItems();
-            listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) e.getItem());
-            for(SousDomaine d : listSousDomaine)
+            listSousDomaine = SousDomaine.getListSousDomaineFromDomaine((Domaine) domaineListSouhait.getSelectedItem());
+            ssDomaineListSouhait.addItem(null);
+            for(SousDomaine d : listSousDomaine) {
                 ssDomaineListSouhait.addItem(d);
-
+            }
         }
     }
 

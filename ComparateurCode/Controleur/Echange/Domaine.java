@@ -8,13 +8,7 @@ public class Domaine {
 
     private static ArrayList<Domaine> listDomaine = new ArrayList<>();
 
-    private int id;
     private String nom;
-
-    public Domaine(int id, String nom) {
-        this.id = id;
-        this.nom = nom;
-    }
 
     public Domaine(String nom) {
         this.nom = nom;
@@ -24,9 +18,6 @@ public class Domaine {
         return nom;
     }
 
-    public int getId() {
-        return id;
-    }
 
     @Override
     public String toString() {

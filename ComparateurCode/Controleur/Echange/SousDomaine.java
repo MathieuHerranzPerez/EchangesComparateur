@@ -39,10 +39,10 @@ public class SousDomaine {
     }
 
     public static ArrayList<SousDomaine> getListSousDomaineFromDomaine(Domaine d) {
-        if(listSousDomaine.isEmpty()) {
-            listSousDomaine = SousDomaineM.getSousDomainesFromDomaine(d);
-        }
-        return listSousDomaine;
+//        if(listSousDomaine.isEmpty()) {
+//            listSousDomaine = SousDomaineM.getSousDomainesFromDomaine(d);
+//        }
+        return SousDomaineM.getSousDomainesFromDomaine(d);
     }
 
 

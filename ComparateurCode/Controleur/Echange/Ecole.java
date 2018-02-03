@@ -129,7 +129,7 @@ public class Ecole {
 
         for(Ecole e : listEcole) {
             // si le pays de l'école = celui qu'on recherche
-            if(e.getLocalisation().getPays().getNom() == p.getNom())
+            if(e.getLocalisation().getPays().equals(p))
                 ecoleFromPays.add(e);
         }
 

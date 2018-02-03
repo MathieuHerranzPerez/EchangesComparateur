@@ -56,4 +56,8 @@ public class Pays {
     public static void mettreAJourListe() {
         listPays = PaysM.getPaysFromId();
     }
+
+    public static ArrayList<Pays> getPaysUtilises() {
+        return PaysM.getPaysUtilises();
+    }
 }

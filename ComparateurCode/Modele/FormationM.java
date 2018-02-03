@@ -43,6 +43,24 @@ public class FormationM {
         return null;
     }
 
+    public static ArrayList<String> getLangues() {
+        String requete = "SELECT DISTINCT Langue FROM FORMATION;";
+        Statement state;
+        ArrayList<String> res = new ArrayList<>();
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+            ResultSet result = state.executeQuery(requete);
+
+            while(result.next()) {
+                res.add(result.getString("Langue"));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public static boolean isFormationInBD(Formation f) {
         boolean res = false;
         try {

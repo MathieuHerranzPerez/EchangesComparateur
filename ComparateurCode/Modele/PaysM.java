@@ -16,17 +16,11 @@ public class PaysM {
     private static TreeMap<Integer, Pays> treeMapPays = new TreeMap<>();
 
     public static ArrayList<Pays> getPaysFromId() {
-        Statement state = null;
+        Statement state;
         try {
             state = ConnexionBD.getInstance().createStatement();
 
             ResultSet result = state.executeQuery("SELECT * FROM PAYS");
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
-
-//            result.last();
-//            result.getRow();
-//            result.beforeFirst();
 
             ArrayList<Pays> res = new ArrayList<>();
             while (result.next()) {
@@ -72,7 +66,23 @@ public class PaysM {
         return res;
     }
 
+    public static ArrayList<Pays> getPaysUtilises() {
+        String requete = "SELECT * FROM PAYS WHERE Id IN" +
+                " (SELECT DISTINCT Pays FROM LOCALISATION);";
+        Statement state;
+        ArrayList<Pays> res = new ArrayList<>();
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+            ResultSet result = state.executeQuery(requete);
+            while(result.next()) {
+                res.add(treeMapPays.get(Integer.parseInt(result.getObject("Id").toString())));
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 
     public static void main(String[] argv) {
         System.out.println(getId(new Pays("France")));

@@ -69,9 +69,8 @@ public class Formation {
         return sousDomaine;
     }
 
-    // TODO
     public static ArrayList<String> getLangues() {
-        return null;
+        return FormationM.getLangues();
     }
 
     @Override

@@ -51,15 +51,13 @@ public class SousDomaineM {
 //    }
 
     public static ArrayList<SousDomaine> getSousDomainesFromDomaine(Domaine d) {
-        Statement state = null;
+        Statement state;
         ArrayList<SousDomaine> tabSousDomaine = new ArrayList<>();
 
         try {
             state = ComparateurCode.Modele.ConnexionBD.getInstance().createStatement();
             //L'objet ResultSet contient le résultat de la requète SQL
-            ResultSet result = state.executeQuery("SELECT Nom, Domaine FROM SOUSDOMAINE WHERE Domaine = " + d.getId());
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
+            ResultSet result = state.executeQuery("SELECT Nom, Domaine FROM SOUSDOMAINE WHERE Domaine = " + DomaineM.getId(d));
 
             while (result.next()) {
                 tabSousDomaine.add(new SousDomaine(result.getString("Nom"), DomaineM.getDomaineFromId(result.getInt("Domaine"))));
@@ -71,7 +69,6 @@ public class SousDomaineM {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
         return tabSousDomaine;
     }
 
@@ -81,8 +78,6 @@ public class SousDomaineM {
             state = ConnexionBD.getInstance().createStatement();
 
             ResultSet result = state.executeQuery("SELECT * FROM SOUSDOMAINE");
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
 
             ArrayList<SousDomaine> res = new ArrayList<>();
             while (result.next()) {
