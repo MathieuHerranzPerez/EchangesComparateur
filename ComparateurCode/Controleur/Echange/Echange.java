@@ -83,7 +83,7 @@ public class Echange {
         return getEcoleArrivee().getLocalisation().getPays().getNom();
     }
 
-    public String getNomForamtion() {
+    public String getNomFormation() {
         return getFormation().getNom();
     }
 
@@ -97,6 +97,13 @@ public class Echange {
 
     public String getNomDomaine() {
         return formation.getSousDomaine().getDomaine().getNom();
+    }
+
+    public static ArrayList<Echange> getEchanges() {
+        if(listEchange.isEmpty()) {
+            mettreAJourListe();
+        }
+        return listEchange;
     }
 
     @Override
