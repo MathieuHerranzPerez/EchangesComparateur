@@ -158,4 +158,22 @@ public class DomaineM {
         }
         return res;
     }
+
+    public static void supprimerDomaine(Domaine d) {
+        String requeteSuppr = "DELETE FROM DOMAINE WHERE Id = ? ;";
+        PreparedStatement prepare;
+        Integer idDomaine = getId(d);
+        try {
+            prepare = ConnexionBD.getInstance().prepareStatement(requeteSuppr);
+
+            prepare.setInt(1, idDomaine);
+            prepare.executeUpdate();
+
+            // On met à jour le TreeMap
+            treeMapDomaine.remove(idDomaine);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

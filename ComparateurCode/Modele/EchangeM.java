@@ -174,6 +174,36 @@ public class EchangeM {
     }
 
     public static void supprimerEchange(Echange echange) {
-        // TODO
+        // Si la formation se retrouve seule, on la supprime
+        Integer idEchange = getId(echange);
+        Integer idFormation = FormationM.getId(echange.getFormation());
+
+        String requete = "SELECT * FROM ECHANGE WHERE Formation = " + idFormation + ";";
+        Statement state;
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+
+            ResultSet result = state.executeQuery(requete);
+            result.last();
+            int nbRes = result.getRow();    // on recupere le nombre de résultats
+
+            // On supprime l'échange
+            String requeteSuppr = "DELETE FROM ECHANGE WHERE Id = ? ;";
+            PreparedStatement prepare = ConnexionBD.getInstance().prepareStatement(requeteSuppr);
+
+            prepare.setInt(1, idEchange);
+            prepare.executeUpdate();
+
+            // On supprime la formation si il n'y en a qu'une
+            if(nbRes < 2) {
+                FormationM.supprimerFormation(echange.getFormation());
+            }
+
+            // on met à jour le treeMap
+            treeMapEchange.remove(idEchange);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

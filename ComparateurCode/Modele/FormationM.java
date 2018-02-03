@@ -1,11 +1,13 @@
 package ComparateurCode.Modele;
 
 import ComparateurCode.Controleur.Echange.Formation;
+import ComparateurCode.Controleur.Echange.SousDomaine;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
@@ -106,5 +108,39 @@ public class FormationM {
         }
         // On met à jour le TreeMap
         getFormations();
+    }
+
+    public static void supprimerFormation(Formation f) {
+        // Si le sous domaine se retrouve seul, on le supprime
+        Integer idFormation = getId(f);
+        Integer idSousDomaine = SousDomaineM.getId(f.getSousDomaine());
+
+        String requete = "SELECT * FROM FORMATION WHERE SousDomaine = " + idSousDomaine + ";";
+        Statement state;
+        try {
+            state = ConnexionBD.getInstance().createStatement();
+
+            ResultSet result = state.executeQuery(requete);
+            result.last();
+            int nbRes = result.getRow();    // on recupere le nombre de résultats
+
+            // On supprime la formation
+            String requeteSuppr = "DELETE FROM FORMATION WHERE Id = ? ;";
+            PreparedStatement prepare = ConnexionBD.getInstance().prepareStatement(requeteSuppr);
+
+            prepare.setInt(1, idFormation);
+            prepare.executeUpdate();
+
+            // On supprime la formation si il n'y en a qu'une
+            if(nbRes < 2) {
+                SousDomaineM.supprimerSousDomaine(f.getSousDomaine());
+            }
+
+            // on met à jour le treeMap
+            treeMapFormation.remove(idFormation);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
