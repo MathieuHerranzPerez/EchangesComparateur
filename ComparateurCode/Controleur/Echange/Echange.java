@@ -3,6 +3,9 @@ package ComparateurCode.Controleur.Echange;
 import ComparateurCode.Modele.EchangeM;
 import ComparateurCode.Modele.FormationM;
 import ComparateurCode.Vue.FenetreErreur;
+import ComparateurCode.Vue.FenetreParcourirEchange;
+
+import java.util.ArrayList;
 
 public class Echange {
 
@@ -11,6 +14,8 @@ public class Echange {
     private Ecole ecoleDepart;
     private Ecole ecoleArrivee;
     private Formation formation;
+
+    private static ArrayList<Echange> listEchange = new ArrayList<>();
 
     // ----- setter
 //    public void setId(int id) {
@@ -96,13 +101,34 @@ public class Echange {
 
     @Override
     public String toString() {
-        return "EchangeAbs{" +
+        return "Echange{" +
                 "id=" + id +
                 ", duree=" + duree +
                 ", ecoleDepart=" + ecoleDepart +
                 ", ecoleArrivee=" + ecoleArrivee +
                 ", formation=" + formation +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Echange))
+            return false;
+
+        Echange echange = (Echange) o;
+
+        return this.duree == echange.getDuree() && this.ecoleDepart.equals(echange.getEcoleDepart()) &&
+                this.ecoleArrivee.equals(echange.getEcoleArrivee()) && this.formation.equals(echange.getFormation());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + duree;
+        result = 31 * result + (ecoleDepart != null ? ecoleDepart.hashCode() : 0);
+        result = 31 * result + (ecoleArrivee != null ? ecoleArrivee.hashCode() : 0);
+        result = 31 * result + (formation != null ? formation.hashCode() : 0);
+        return result;
     }
 
     public Echange(int id, int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
@@ -139,5 +165,49 @@ public class Echange {
         else {
             FenetreErreur f = new FenetreErreur("Echange déjà en BD");
         }
+    }
+
+    public static void mettreAJourListe() {
+        listEchange = EchangeM.getEchanges(); // On met le tableau à jour
+    }
+
+    public static void parcourirEchange() {
+        if(listEchange.isEmpty()) {
+            mettreAJourListe();
+        }
+        FenetreParcourirEchange fen = new FenetreParcourirEchange(listEchange);
+    }
+
+    public static void modifierEchange(Echange oldEchange, int duree, String nomFormation, int dureeFormation, String langue,
+                                       String nomSousDomaine, String nomDomaine, Ecole ecoleDep, Ecole ecoleArr) {
+        // On vérifie qu'il change
+        if(oldEchange.getDuree() == duree && oldEchange.getFormation().toString().equals(nomFormation) &&
+                oldEchange.getFormation().getDuree() == dureeFormation && oldEchange.getFormation().getLangue().equals(langue) &&
+                oldEchange.getFormation().getSousDomaine().getNom().equals(nomSousDomaine) &&
+                oldEchange.getFormation().getSousDomaine().getDomaine().getNom().equals(nomDomaine) &&
+                oldEchange.getEcoleDepart().equals(ecoleDep) && oldEchange.getEcoleArrivee().equals(ecoleArr)) {
+            FenetreErreur f = new FenetreErreur("Echange inchangé");
+        }
+        else {
+            // On vérifie que le nouveau n'est pas dans la BD
+            Echange newEchange = new Echange(duree, ecoleDep, ecoleArr,
+                    new Formation(nomFormation, dureeFormation, langue, new SousDomaine(nomSousDomaine, new Domaine(nomDomaine))));
+            if(EchangeM.isEchangeInBD(newEchange)) {
+                FenetreErreur f = new FenetreErreur("Echange déjà en base de données");
+            }
+            else {
+                // On le modifie
+                EchangeM.modifierEchange(oldEchange, newEchange);
+                //mettreAJourListe();
+                // on remove l'ancinne, et on add la nouvelle
+                listEchange.remove(oldEchange);
+                listEchange.add(newEchange);
+            }
+        }
+    }
+
+    public static void supprimerEchange(Echange echange) {
+        EchangeM.supprimerEchange(echange);
+        mettreAJourListe();
     }
 }

@@ -5,6 +5,7 @@ import ComparateurCode.Controleur.Echange.Ecole;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -121,5 +122,58 @@ public class EchangeM {
 
         // On met à jour le TreeMap
         getEchanges();
+    }
+
+    public static void modifierEchange(Echange oldEchange, Echange nouvelEchange) {
+        if(treeMapEchange.size() == 0) {
+            getEchanges();
+        }
+        String requete = "UPDATE ECHANGE SET Duree = ?, Formation = ? , EcoleDep = ? , EcoleArr = ? WHERE Id = ?;";
+        PreparedStatement prepare;
+        try {
+            prepare = ConnexionBD.getInstance().prepareStatement(requete);
+
+            prepare.setInt(1, nouvelEchange.getDuree());
+            // Si la formation n'existe pas on la creer
+            if(FormationM.getId(nouvelEchange.getFormation()) == null) {
+                FormationM.ajouterFormation(nouvelEchange.getFormation());
+            }
+
+            prepare.setInt(2, FormationM.getId(nouvelEchange.getFormation()));
+            prepare.setInt(3, EcoleM.getId(nouvelEchange.getEcoleDepart()));
+            prepare.setInt(4, EcoleM.getId(nouvelEchange.getEcoleArrivee()));
+
+            prepare.setInt(5, getId(oldEchange));
+
+            // On modifie
+            prepare.executeUpdate();
+
+            // On met à jour le treeMap
+            int key = getId(oldEchange);
+            treeMapEchange.remove(key);
+            treeMapEchange.put(key, nouvelEchange);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Integer getId(Echange echange) {
+
+        if(treeMapEchange.size() == 0) {
+            getEchanges();
+        }
+        Set<Integer> ss = treeMapEchange.keySet();
+        Integer res = null;
+        for(Integer i : ss) {
+            if(treeMapEchange.get(i).equals(echange)) {
+                res = i;
+            }
+        }
+        return res;
+    }
+
+    public static void supprimerEchange(Echange echange) {
+        // TODO
     }
 }

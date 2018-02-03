@@ -1,6 +1,6 @@
 package ComparateurCode.Vue;
 
-import ComparateurCode.Controleur.Echange.Ecole;
+import ComparateurCode.Controleur.Echange.Echange;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -12,15 +12,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class FenetreParcourirEcole extends JFrame {
-
-    private Object[][] ecoles;
+public class FenetreParcourirEchange extends JFrame {
+    private Object[][] echanges;
     JFrame f;
 
-    public FenetreParcourirEcole(ArrayList<Ecole> e) {
+    public FenetreParcourirEchange(ArrayList<Echange> e) {
 
-        JTable tableau = new JTable(new TableauEcole(e, this));
-        tableau.getColumn("Modifier").setCellRenderer(new ButtonRenderer());
+        JTable tableau = new JTable(new TableauEchange(e, this));
+        tableau.getColumn("Modifier").setCellRenderer(new FenetreParcourirEchange.ButtonRenderer());
         tableau.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
 
         tableau.addMouseListener(new TableauClic(tableau));
@@ -29,36 +28,43 @@ public class FenetreParcourirEcole extends JFrame {
         this.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
 
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(800,500);
+        this.setSize(1200,500);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         f = this;
+        this.toBack();
         this.setVisible(true);
     }
 
-    private class TableauEcole extends AbstractTableModel {
-        private String[] entetes = {"Ecole", "Localisation", "Pays", "Modifier", "Supprimer"};
-        public TableauEcole(ArrayList<Ecole> e, JFrame f) {
-            ecoles = new Object[e.size()][5];
+    private class TableauEchange extends AbstractTableModel {
+        private String[] entetes = {"EcoleDep", "EcoleArr", "Localisation", "Pays", "Formation", "Langue", "Sous Domaine", "Domaine", "Modifier", "Supprimer"};
+        public TableauEchange(ArrayList<Echange> e, JFrame f) {
+            echanges = new Object[e.size()][10];
 
             for(int i = 0; i < e.size(); ++i) {
-                ecoles[i][0] = e.get(i);
-                ecoles[i][1] = e.get(i).getLocalisation();
-                ecoles[i][2] = e.get(i).getLocalisation().getPays();
+                echanges[i][0] = e.get(i).getEcoleDepart();
+                echanges[i][1] = e.get(i).getEcoleArrivee();
+                echanges[i][2] = e.get(i).getEcoleArrivee().getLocalisation();
+                echanges[i][3] = e.get(i).getEcoleArrivee().getLocalisation().getPays();
+
+                echanges[i][4] = e.get(i).getFormation().toString();
+                echanges[i][5] = e.get(i).getLangue();
+                echanges[i][6] = e.get(i).getFormation().getSousDomaine();
+                echanges[i][7] = e.get(i).getFormation().getSousDomaine().getDomaine();
 
                 JButton bAdd = new JButton("Modifier");
                 bAdd.addActionListener(new ClicModifier(e.get(i)));
-                ecoles[i][3] = bAdd;
+                echanges[i][8] = bAdd;
                 JButton bSupp = new JButton("Supprimer");
                 bSupp.addActionListener(new ClicSuppr(e.get(i), f));
-                ecoles[i][4] = bSupp;
+                echanges[i][9] = bSupp;
             }
         }
 
         @Override
         public int getRowCount() {
-            return ecoles.length;
+            return echanges.length;
         }
 
         @Override
@@ -72,7 +78,7 @@ public class FenetreParcourirEcole extends JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            return ecoles[rowIndex][columnIndex];
+            return echanges[rowIndex][columnIndex];
         }
     }
 
@@ -106,41 +112,41 @@ public class FenetreParcourirEcole extends JFrame {
 
     private class ClicModifier implements ActionListener {
 
-        private Ecole ecole;
+        private Echange echange;
 
-        public ClicModifier(Ecole e) {
-            this.ecole = e;
+        public ClicModifier(Echange e) {
+            this.echange = e;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FenetreModifierEcole fen = new FenetreModifierEcole(ecole);
+            FenetreModifierEchange fen = new FenetreModifierEchange(echange);
             f.dispose();
         }
     }
 
     private class ClicSuppr implements ActionListener {
 
-        private Ecole ecole;
+        private Echange echange;
         private JFrame frame;
 
-        public ClicSuppr(Ecole e, JFrame f) {
-            this.ecole = e;
+        public ClicSuppr(Echange e, JFrame f) {
+            this.echange = e;
             this.frame = f;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            Ecole.supprimerEcole(ecole);
+            Echange.supprimerEchange(echange);
             // mettre a jour la table (refaire la fenetre)
             rechargerPage();
             this.frame.dispose();
         }
 
         public void rechargerPage() {
-            Ecole.parcourirEcole();
+            Echange.parcourirEchange();
         }
     }
 
     public static void main(String[] argv) {
-        Ecole.parcourirEcole();
+        Echange.parcourirEchange();
     }
 }

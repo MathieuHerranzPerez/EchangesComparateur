@@ -27,6 +27,7 @@ public class FenetreErreur extends JFrame {
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.toFront();
         this.setVisible(true);
     }
 
