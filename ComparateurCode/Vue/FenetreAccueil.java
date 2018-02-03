@@ -1,5 +1,6 @@
 package ComparateurCode.Vue;
 
+import ComparateurCode.Controleur.ControleurRecherche;
 import ComparateurCode.Controleur.Echange.*;
 
 import javax.swing.*;
@@ -309,8 +310,11 @@ public class FenetreAccueil extends JFrame {
     private class ValiderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // envoie de tous les champs au controleur
-          /*  ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
+            // On vérifie les champs obligatoires
+            if(paysList.getSelectedItem() != null && ecoleList.getSelectedItem() != null &&
+                    paysListSouhait.getSelectedItem() != null && domaineListSouhait.getSelectedItem() != null) {
+                // envoie de tous les champs au controleur
+            ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
                     (Ecole) ecoleList.getSelectedItem(),
                     (Domaine) domaineList.getSelectedItem(),
                     (Pays) paysListSouhait.getSelectedItem(),
@@ -318,9 +322,13 @@ public class FenetreAccueil extends JFrame {
                     (String) langueList.getSelectedItem(),
                     (Domaine) domaineListSouhait.getSelectedItem(),
                     (SousDomaine) ssDomaineListSouhait.getSelectedItem(),
-                    (String) dureelist.getSelectedItem());*/
-            //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche
-            // permettre une certaine marge d'erreur (par ex  1 faute d'orthographe)
+                    (String) dureelist.getSelectedItem());
+                //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche
+                // permettre une certaine marge d'erreur (par ex  1 faute d'orthographe)
+            }
+            else {
+                FenetreErreur fen = new FenetreErreur("Veuillez remplir les champs obligatoires (notés avec *)");
+            }
         }
     }
 
