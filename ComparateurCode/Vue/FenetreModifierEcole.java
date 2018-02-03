@@ -53,6 +53,13 @@ public class FenetreModifierEcole extends JFrame {
         this.setVisible(true);
     }
 
+    private boolean champsCorrectes() {
+        if(!(nom.getText().equals("")) && !(ville.getText().equals("")) && !(paysList.getSelectedItem() == null))
+            return true;
+        else
+            return false;
+    }
+
     private class ClicAnnuler implements ActionListener {
         private FenetreModifierEcole f;
         public ClicAnnuler(FenetreModifierEcole f) {
@@ -73,9 +80,14 @@ public class FenetreModifierEcole extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Ecole.modifierEcole(oldEcole, nom.getText(), ville.getText(), (Pays) paysList.getSelectedItem());
-            Ecole.parcourirEcole();
-            f.dispose();
+            if (f.champsCorrectes()) {
+                Ecole.modifierEcole(oldEcole, nom.getText(), ville.getText(), (Pays) paysList.getSelectedItem());
+                Ecole.parcourirEcole();
+                f.dispose();
+            }
+            else {
+                JFrame fenErreur = new FenetreErreur("Veuillez remplir les champs obligatoires");
+            }
         }
     }
 }

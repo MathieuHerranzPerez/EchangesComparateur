@@ -84,10 +84,6 @@ public class EcoleM {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
             prepare.setString(1, ecole.getNom());
-//            // si la localisation n'existe pas on la creer
-//            if(LocalisationM.getId(ecole.getLocalisation()) == null) {
-//                LocalisationM.ajouterLocalisation(ecole.getLocalisation());
-//            }
 
             // On ajoute la localisation
             Localisation.ajouterLocalisation(ecole.getLocalisation().getNom(), ecole.getLocalisation().getPays());
@@ -99,6 +95,9 @@ public class EcoleM {
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // On met à jour le treeMap
+        getEcoles();
     }
 
     /**
@@ -110,7 +109,7 @@ public class EcoleM {
         if(treeMapEcole.size() == 0) {
             getEcoles();
         }
-        String requete = "UPDATE ECOLE SET NOM = ?, Localisation = ? WHERE ID = ?;";
+        String requete = "UPDATE ECOLE SET Nom = ?, Localisation = ? WHERE Id = ?;";
         PreparedStatement prepare = null;
         try {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
@@ -125,6 +124,11 @@ public class EcoleM {
 
             // On modifie
             prepare.executeUpdate();
+
+            // On met à jour le treeMap
+            int key = getId(oldEcole);
+            treeMapEcole.remove(key);
+            treeMapEcole.put(key, nouvelleEcole);
         }
         catch (SQLException e) {
             e.printStackTrace();

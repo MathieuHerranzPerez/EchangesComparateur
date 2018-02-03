@@ -7,16 +7,17 @@ import ComparateurCode.Controleur.Utile;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Vector;
 
-public class FenetreAjoutEchange extends JFrame{
-    private JTextField nomFormation = new JTextField(20);
+public class FenetreModifierEchange extends JFrame {
+
+    private Echange oldEchange;
+
+    private JTextField nomFormation;
     private JComboBox<Integer> dureeFormation;
     private JComboBox<String> langue;
-    private JTextField nomSousDomaine = new JTextField(20);
-    private JTextField nomDomaine = new JTextField(20);
+    private JTextField nomSousDomaine;
+    private JTextField nomDomaine;
 
 
     private JComboBox<Ecole> ecoleDep;
@@ -26,7 +27,8 @@ public class FenetreAjoutEchange extends JFrame{
     private JButton annuler = new JButton("Annuler");
     private JButton valider = new JButton("Valider");
 
-    public FenetreAjoutEchange() {
+    public FenetreModifierEchange(Echange oldEchange) {
+        this.oldEchange = oldEchange;
         this.setTitle("Comparateur d'échanges universitaires");
         this.setSize(700,500);
 
@@ -38,10 +40,12 @@ public class FenetreAjoutEchange extends JFrame{
 
         p.add(new JLabel("Ecole de départ "));
         ecoleDep = new JComboBox<>(new Vector<Ecole>(Ecole.getListEcole()));
+        ecoleDep.setSelectedItem(oldEchange.getEcoleDepart());
         p.add(ecoleDep);
 
         p.add(new JLabel("Ecole d'arrivée "));
         ecoleArr = new JComboBox<>(new Vector<Ecole>(Ecole.getListEcole()));
+        ecoleArr.setSelectedItem(oldEchange.getEcoleArrivee());
         p.add(ecoleArr);
 
         p.add(new JLabel("Durée de l'échange (en mois) "));
@@ -50,11 +54,13 @@ public class FenetreAjoutEchange extends JFrame{
             annees[i-1] = i;
         }
         duree = new JComboBox<>(annees);
+        duree.setSelectedItem(oldEchange.getDuree());
         p.add(duree);
 
         /* ------ colonne Formation ------*/
 
         p.add(new JLabel("Formation "));
+        nomFormation = new JTextField(oldEchange.getFormation().toString(), 20);
         p.add(nomFormation);
 
         p.add(new JLabel("Durée de la formation totale (en mois) "));
@@ -63,16 +69,20 @@ public class FenetreAjoutEchange extends JFrame{
             annees[i-1] = i;
         }
         dureeFormation = new JComboBox<>(annees);
+        dureeFormation.setSelectedItem(oldEchange.getFormation().getDuree());
         p.add(dureeFormation);
 
         p.add(new JLabel("Langue "));
         langue = new JComboBox<>(Utile.getLangues());
+        langue.setSelectedItem(oldEchange.getFormation().getLangue());
         p.add(langue);
 
         p.add(new JLabel("Nom du domaine "));
+        nomDomaine = new JTextField(oldEchange.getFormation().getSousDomaine().getDomaine().toString(), 20);
         p.add(nomDomaine);
 
         p.add(new JLabel("Nom du sous domaine"));
+        nomSousDomaine = new JTextField(oldEchange.getFormation().getSousDomaine().toString(), 20);
         p.add(nomSousDomaine);
 
         p.add(annuler);
@@ -97,42 +107,37 @@ public class FenetreAjoutEchange extends JFrame{
             return false;
     }
 
-    /**
-     * Retourne sur la page d'administration
-     */
     private class ClicAnnuler implements ActionListener {
-        private JFrame f;
-        public ClicAnnuler(JFrame f) {
+        private FenetreModifierEchange f;
+        public ClicAnnuler(FenetreModifierEchange f) {
             this.f = f;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame fen = new FenetreAdmin();
+            Echange.parcourirEchange();
             f.dispose();
         }
     }
 
     private class ClicValider implements ActionListener {
-        private JFrame f;
-        public ClicValider(JFrame f) {
+        private FenetreModifierEchange f;
+        public ClicValider(FenetreModifierEchange f) {
             this.f = f;
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             // On vérifie les champs
             if(champsCorrectes()) {
-                Echange.ajouterEchange((Ecole) ecoleDep.getSelectedItem(), (Ecole) ecoleArr.getSelectedItem(), nomFormation.getText(), (Integer) duree.getSelectedItem(),(Integer) dureeFormation.getSelectedItem(), (String) langue.getSelectedItem(),
-                        nomSousDomaine.getText(), nomDomaine.getText());
-                FenetreAdmin fen = new FenetreAdmin();
+                Echange.modifierEchange(oldEchange, (Integer) duree.getSelectedItem(), nomFormation.getText(), (Integer) dureeFormation.getSelectedItem(),
+                        langue.getSelectedItem().toString(), nomSousDomaine.getText(), nomDomaine.getText(),
+                        (Ecole) ecoleDep.getSelectedItem(), (Ecole) ecoleArr.getSelectedItem());
+                Echange.parcourirEchange();
                 f.dispose();
             }
             else {
                 JFrame fenErreur = new FenetreErreur("Veuillez bien remplir les champs obligatoires");
             }
         }
-    }
-
-    public static void main(String[] argv) {
-        new FenetreAjoutEchange();
     }
 }

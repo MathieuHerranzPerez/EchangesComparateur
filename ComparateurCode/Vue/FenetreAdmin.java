@@ -107,7 +107,7 @@ public class FenetreAdmin extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Echange.parcourirEchange(); //TODO
+                Echange.parcourirEchange();
                 f.dispose();
             }
         }

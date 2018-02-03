@@ -37,6 +37,23 @@ public class Ecole {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Ecole))
+            return false;
+
+        Ecole ecole = (Ecole) o;
+
+        return this.nom.equals(ecole.getNom()) && this.localisation.equals(ecole.getLocalisation());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nom != null ? nom.hashCode() : 0;
+        result = 31 * result + (localisation != null ? localisation.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return nom;
     }
@@ -117,6 +134,5 @@ public class Ecole {
         }
 
         return ecoleFromPays;
-
     }
 }
