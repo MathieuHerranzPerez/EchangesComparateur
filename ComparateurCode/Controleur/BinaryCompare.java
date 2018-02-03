@@ -16,7 +16,7 @@ public class BinaryCompare extends Comparateur {
         int resultat = 0;
 
         // si l'utilisateur a spécifié une langue
-        if(! reference.getLangue().equals("")) {
+        if( reference.getLangue() != null) {
             // si l'echangeBD n'a pas la même langue que celle voulue
             if(! echangeBD.getLangue().equals(reference.getLangue())) {
                 resultat += (5 * malus);
@@ -28,7 +28,7 @@ public class BinaryCompare extends Comparateur {
         }
 
         // si l'utilisateur a selectionné une ville
-        if(! reference.getNomLocalisationEcoleEchange().equals("")) {
+        if(reference.getNomLocalisationEcoleEchange().equals("")) {
             // si l'echangeBD n'a pas la même ville que celle voulue
             if(! echangeBD.getNomLocalisationEcoleEchange().equals(reference.getNomLocalisationEcoleEchange())) {
                 // si on est quand même dans le bon pays
@@ -46,7 +46,7 @@ public class BinaryCompare extends Comparateur {
         }
 
         // si l'utilisateur a selectionné un sous domaine
-        if(! reference.getNomSousDomaine().equals("")) {
+        if( reference.getNomSousDomaine() != null) {
             // si l'echangeBD n'a pas le même sous domaine
             if(! echangeBD.getNomSousDomaine().equals(reference.getNomSousDomaine())) {
                 resultat += (1 * malus);
@@ -59,7 +59,7 @@ public class BinaryCompare extends Comparateur {
         }
 
         // si l'utilisateur a selectionné une durée
-        if(reference.getDuree() != 0) {
+        if(reference.getDuree() != null) {
             // si echangeBD n'a pas la même durée à 2 mois près
             if(echangeBD.getDuree() > reference.getDuree()+2 || echangeBD.getDuree() < reference.getDuree()-2) {
                 resultat += (1 * malus);

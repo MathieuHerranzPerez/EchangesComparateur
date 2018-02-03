@@ -60,6 +60,7 @@ public class FenetreAccueil extends JFrame {
 
         // Pays depart
         ArrayList<Pays> listPays = Pays.getPays();
+        System.out.println(listPays);
         for(Pays p : listPays)
             paysList.addItem(p);
         paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
@@ -321,7 +322,8 @@ public class FenetreAccueil extends JFrame {
             if(paysList.getSelectedItem() != null && ecoleList.getSelectedItem() != null &&
                     paysListSouhait.getSelectedItem() != null && domaineListSouhait.getSelectedItem() != null) {
                 // envoie de tous les champs au controleur
-            ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
+
+                ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
                     (Ecole) ecoleList.getSelectedItem(),
                     (Domaine) domaineList.getSelectedItem(),
                     (Pays) paysListSouhait.getSelectedItem(),

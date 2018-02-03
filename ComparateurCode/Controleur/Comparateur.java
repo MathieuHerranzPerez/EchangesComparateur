@@ -20,7 +20,7 @@ public abstract class Comparateur implements Comparator<Echange> {
 
 
         // si l'utilisateur a selectionné un pays et pas de ville
-        if(! reference.getNomPaysEcoleEchange().equals("")) {
+        if( reference.getNomPaysEcoleEchange() != null && reference.getNomLocalisationEcoleEchange().equals("")) {
             // si l'echangeBD n'a pas le même pays que celui voulu
             if(! echangeBD.getNomPaysEcoleEchange().equals(reference.getNomPaysEcoleEchange())) {
                 resultat += (4 * malus);
@@ -34,7 +34,7 @@ public abstract class Comparateur implements Comparator<Echange> {
 
 
         // si l'utilisateur a selectionné un domaine
-        if(! reference.getNomDomaine().equals("")) {
+        if( reference.getNomDomaine() != null) {
             // si l'echangeBD n'a pas le même domaine
             if(! echangeBD.getNomDomaine().equals(reference.getNomDomaine())) {
                 resultat += (7 * malus);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Echange {
 
     private int id;
-    private int duree;              // en mois
+    private Integer duree;              // en mois
     private Ecole ecoleDepart;
     private Ecole ecoleArrivee;
     private Formation formation;
@@ -26,7 +26,7 @@ public class Echange {
         this.annee = annee;
     }*/
 
-//    public void setDuree(int duree) {
+//    public void setDuree(Integer duree) {
 //        this.duree = duree;
 //    }
 //
@@ -51,7 +51,7 @@ public class Echange {
         return annee;
     }*/
 
-    public int getDuree() {
+    public Integer getDuree() {
         return duree;
     }
 
@@ -138,7 +138,7 @@ public class Echange {
         return result;
     }
 
-    public Echange(int id, int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
+    public Echange(int id, Integer duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
         this.id = id;
         this.duree = duree;
         this.ecoleDepart = ecoleDepart;
@@ -146,14 +146,14 @@ public class Echange {
         this.formation = formation;
     }
 
-    public Echange(int duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
+    public Echange(Integer duree, Ecole ecoleDepart, Ecole ecoleArrivee, Formation formation) {
         this.duree = duree;
         this.ecoleDepart = ecoleDepart;
         this.ecoleArrivee = ecoleArrivee;
         this.formation = formation;
     }
 
-    public static void ajouterEchange(Ecole ecoleDep, Ecole ecoleArr, String nomFormation, int duree, int dureeFormation, String langue,
+    public static void ajouterEchange(Ecole ecoleDep, Ecole ecoleArr, String nomFormation, Integer duree, Integer dureeFormation, String langue,
                                       String nomSousDomaine, String nomDomaine) {
         Echange newEchange = new Echange(duree, ecoleDep, ecoleArr,
                 new Formation(nomFormation, dureeFormation, langue,
@@ -185,7 +185,7 @@ public class Echange {
         FenetreParcourirEchange fen = new FenetreParcourirEchange(listEchange);
     }
 
-    public static void modifierEchange(Echange oldEchange, int duree, String nomFormation, int dureeFormation, String langue,
+    public static void modifierEchange(Echange oldEchange, Integer duree, String nomFormation, Integer dureeFormation, String langue,
                                        String nomSousDomaine, String nomDomaine, Ecole ecoleDep, Ecole ecoleArr) {
         // On vérifie qu'il change
         if(oldEchange.getDuree() == duree && oldEchange.getFormation().toString().equals(nomFormation) &&
