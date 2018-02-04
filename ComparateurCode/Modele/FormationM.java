@@ -149,7 +149,7 @@ public class FormationM {
             prepare.setInt(1, idFormation);
             prepare.executeUpdate();
 
-            // On supprime la formation si il n'y en a qu'une
+            // On supprime le sous domaine si il n'y en a qu'un
             if(nbRes < 2) {
                 SousDomaineM.supprimerSousDomaine(f.getSousDomaine());
             }

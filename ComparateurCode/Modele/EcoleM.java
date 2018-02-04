@@ -102,6 +102,7 @@ public class EcoleM {
 
     /**
      * Modifie l'ecole d'ancien nom et d'ancienne localisation par la nouvelle
+     * Dans le cas où la localisation viendrait à se retrouver seule, on la supprime
      * @param oldEcole
      * @param nouvelleEcole
      */
@@ -129,6 +130,24 @@ public class EcoleM {
             int key = getId(oldEcole);
             treeMapEcole.remove(key);
             treeMapEcole.put(key, nouvelleEcole);
+
+
+
+            // On vérifie que la localisation ne se retrouve pas seule
+            if(! oldEcole.getLocalisation().equals(nouvelleEcole.getLocalisation())) {
+                requete = "SELECT COUNT(*) FROM ECOLE WHERE Localisation = " + LocalisationM.getId(oldEcole.getLocalisation()) + " ;";
+
+                Statement state;
+                state = ConnexionBD.getInstance().createStatement();
+
+                ResultSet result = state.executeQuery(requete);
+                if(result.next()) {
+                    // Si c'est le cas, on la supprime
+                    if (Integer.parseInt(result.getObject(1).toString()) < 1) {
+                        LocalisationM.supprimerLoc(oldEcole.getLocalisation());
+                    }
+                }
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
