@@ -28,7 +28,7 @@ public class FenetreResultats extends JFrame {
         this.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
 
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(1200,500);
+        this.setSize(1200,250);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

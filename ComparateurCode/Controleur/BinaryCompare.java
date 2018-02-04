@@ -24,11 +24,10 @@ public class BinaryCompare extends Comparateur {
             else {
                 resultat += (4 * bonus);
             }
-            System.out.println(reference.getLangue() + "   " + echangeBD.getLangue());
         }
 
         // si l'utilisateur a selectionné une ville
-        if(reference.getNomLocalisationEcoleEchange().equals("")) {
+        if(! reference.getNomLocalisationEcoleEchange().equals("")) {
             // si l'echangeBD n'a pas la même ville que celle voulue
             if(! echangeBD.getNomLocalisationEcoleEchange().equals(reference.getNomLocalisationEcoleEchange())) {
                 // si on est quand même dans le bon pays
@@ -42,7 +41,6 @@ public class BinaryCompare extends Comparateur {
             else {
                 resultat += (5 * bonus);
             }
-            System.out.println(reference.getNomLocalisationEcoleEchange() + "   " + echangeBD.getNomLocalisationEcoleEchange());
         }
 
         // si l'utilisateur a selectionné un sous domaine
@@ -54,8 +52,6 @@ public class BinaryCompare extends Comparateur {
             else {
                 resultat += (4 * bonus);
             }
-            System.out.println(reference.getNomSousDomaine() + "   " + echangeBD.getNomSousDomaine());
-
         }
 
         // si l'utilisateur a selectionné une durée
@@ -67,7 +63,6 @@ public class BinaryCompare extends Comparateur {
             else {
                 resultat += (2 * bonus);
             }
-            System.out.println(reference.getDuree() + "   " + echangeBD.getDuree());
         }
 
         return resultat;

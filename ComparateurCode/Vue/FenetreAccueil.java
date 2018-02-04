@@ -59,7 +59,8 @@ public class FenetreAccueil extends JFrame {
         // pour chaque JComboBox facultatives la premiere case est vide pour laisser le choix à l'utilisateur de ne pas renseigner le champs
 
         // Pays depart
-        ArrayList<Pays> listPays = Pays.getPays();
+        //ArrayList<Pays> listPays = Pays.getPays();
+        ArrayList<Pays> listPays = Pays.getPaysDepart();
         System.out.println(listPays);
         for(Pays p : listPays)
             paysList.addItem(p);
@@ -95,6 +96,7 @@ public class FenetreAccueil extends JFrame {
             langueList.addItem(l);
 
         // Domaine souhaite
+        domaineListSouhait.addItem(null);
         for(Domaine d : listDomaine)
             domaineListSouhait.addItem(d);
         domaineListSouhait.addItemListener(new DomaineListener());

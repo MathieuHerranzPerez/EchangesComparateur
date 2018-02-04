@@ -67,4 +67,12 @@ public class Pays {
     public static ArrayList<Pays> getPaysUtilises() {
         return PaysM.getPaysUtilises();
     }
+
+    /**
+     * Renvoie les pays d'écoles de départ présent en BD
+     * @return ArrayList<Pays>, la liste des pays utilisés
+     */
+    public static ArrayList<Pays> getPaysDepart() {
+        return PaysM.getPaysDepart();
+    }
 }

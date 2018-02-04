@@ -67,8 +67,26 @@ public class PaysM {
     }
 
     public static ArrayList<Pays> getPaysUtilises() {
+        if(treeMapPays.size() == 0) {
+            getPaysFromId();
+        }
         String requete = "SELECT * FROM PAYS WHERE Id IN" +
                 " (SELECT DISTINCT Pays FROM LOCALISATION);";
+        return executerRequeteRetourDansArray(requete);
+    }
+
+    public static ArrayList<Pays> getPaysDepart() {
+        if(treeMapPays.size() == 0) {
+            getPaysFromId();
+        }
+        String requete = "SELECT * FROM PAYS WHERE Id IN" +
+                " (SELECT Pays FROM LOCALISATION WHERE Id IN" +
+                    " (SELECT Localisation FROM ECOLE WHERE Id IN" +
+                        "(SELECT EcoleDep FROM ECHANGE)));";
+        return executerRequeteRetourDansArray(requete);
+    }
+
+    private static ArrayList<Pays> executerRequeteRetourDansArray(String requete) {
         Statement state;
         ArrayList<Pays> res = new ArrayList<>();
         try {

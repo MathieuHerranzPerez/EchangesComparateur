@@ -31,7 +31,6 @@ public class ControleurRecherche {
         if(!villeSouhait.equals("") || langueSouhait != null || sousDomaineSouhait != null || dureeEchange != null) {
             // si oui alors stratégie de recherche complete
             comp = new BinaryCompare(reference);
-
         }
         else {
             // si non alors recherche rapide
@@ -42,14 +41,12 @@ public class ControleurRecherche {
         Collections.sort(listeEchange, comp);
 
         // selection des 10 premiers elements
-        ArrayList<Echange> echangesSelectionne = new ArrayList<>();
+        ArrayList<Echange> echangesSelectionnes = new ArrayList<>();
         int i = 0;
         while(i < 10 && i < listeEchange.size()) {
-            echangesSelectionne.add(listeEchange.get(i));
+            echangesSelectionnes.add(listeEchange.get(i));
             ++i;
         }
-
-        new FenetreResultats(echangesSelectionne);
-
+        new FenetreResultats(echangesSelectionnes);
     }
 }
