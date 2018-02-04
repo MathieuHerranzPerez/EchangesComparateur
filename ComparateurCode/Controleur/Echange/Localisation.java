@@ -3,6 +3,7 @@ package ComparateurCode.Controleur.Echange;
 import ComparateurCode.Modele.LocalisationM;
 import ComparateurCode.Vue.FenetreErreur;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class Localisation {
@@ -84,6 +85,37 @@ public class Localisation {
             mettreAJourListe();
         }
     }
+
+    // compare 2 noms de localisations en s'appuyant sur le théorème de la distance de Levenshtein
+    // = nombre d'opérations (subsitution, suppression, ajout) nécessaire pour passer de locA à locB
+    public static int distance(String locA, String locB) {
+        // enleve les majucules
+        locA = locA.toLowerCase();
+        locB = locB.toLowerCase();
+
+        // supprime les accents
+        locA = Normalizer.normalize(locA, Normalizer.Form.NFD);
+        locA = locA.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        locB = Normalizer.normalize(locB, Normalizer.Form.NFD);
+        locB = locB.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        // i == 0
+        int [] costs = new int [locB.length() + 1];
+        for (int j = 0; j < costs.length; j++)
+            costs[j] = j;
+        for (int i = 1; i <= locA.length(); i++) {
+            // j == 0; nw = lev(i - 1, j)
+            costs[0] = i;
+            int nw = i - 1;
+            for (int j = 1; j <= locB.length(); j++) {
+                int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]), locA.charAt(i - 1) == locB.charAt(j - 1) ? nw : nw + 1);
+                nw = costs[j];
+                costs[j] = cj;
+            }
+        }
+        return costs[locB.length()];
+    }
+
 
     /**
      * Met à jour la liste des localisation graçce aux éléments en BD

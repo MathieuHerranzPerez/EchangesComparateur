@@ -189,6 +189,10 @@ public class Echange {
         }
     }
 
+    public int distanceLocalisation(Echange e) {
+        return Localisation.distance(this.ecoleArrivee.getLocalisation().getNom(), e.getEcoleArrivee().getNom());
+    }
+
     /**
      * Supprime l'échange donné en parametre de la base de données
      * Met à jour la liste des échanges

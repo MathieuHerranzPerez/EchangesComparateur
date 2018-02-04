@@ -29,7 +29,7 @@ public class BinaryCompare extends Comparateur {
         // si l'utilisateur a selectionné une ville
         if(! reference.getNomLocalisationEcoleEchange().equals("")) {
             // si l'echangeBD n'a pas la même ville que celle voulue
-            if(! echangeBD.getNomLocalisationEcoleEchange().equals(reference.getNomLocalisationEcoleEchange())) {
+            if( echangeBD.distanceLocalisation(reference) > 2) { // 2 erreurs acceptées dans le nom de la ville
                 // si on est quand même dans le bon pays
                 if(echangeBD.getNomPaysEcoleEchange().equals(reference.getNomPaysEcoleEchange())) {
                     resultat += (2 * bonus);
