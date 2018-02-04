@@ -34,14 +34,37 @@ public class FenetreConnexion extends JFrame {
             this.f = f;
             this.setLayout(new BorderLayout());
 
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-            panel.add(ident);
-            panel.add(jtfIdent);
-            panel.add(mdp);
-            panel.add(jpfMdp);
+            JPanel panelConnexion = new JPanel();
+            GridBagConstraints gbc = new GridBagConstraints();
+            panelConnexion.setLayout(new GridBagLayout());
 
-            this.add(panel, BorderLayout.CENTER);
+            gbc.weightx = 0.5;
+            gbc.weighty = 0.5;
+
+            // Labels
+            gbc.anchor = GridBagConstraints.LINE_END;
+            gbc.insets = new Insets(0,0,0,10);
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            panelConnexion.add(ident, gbc);
+
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            panelConnexion.add(mdp, gbc);
+
+            // Fields
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.LINE_START;
+
+            gbc.gridx = 2;
+            gbc.gridy = 1;
+            panelConnexion.add(jtfIdent, gbc);
+
+            gbc.gridx = 2;
+            gbc.gridy = 2;
+            panelConnexion.add(jpfMdp, gbc);
+
+            this.add(panelConnexion, BorderLayout.CENTER);
 
             JPanel panelSouth = new JPanel();
             panelSouth.add(annuler);

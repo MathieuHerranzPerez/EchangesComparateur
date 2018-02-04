@@ -20,23 +20,55 @@ public class FenetreAjoutEcole extends JFrame {
 
     public FenetreAjoutEcole() {
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(700,500);
-
+        this.setSize(350,350);
+        this.setLayout(new BorderLayout());
 
         JPanel p = new JPanel();
-        this.add(p);
-        p.add(new JLabel("Nom "), BorderLayout.CENTER);
-        p.add(nom, BorderLayout.CENTER);
+        this.add(p, BorderLayout.CENTER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        p.setLayout(new GridBagLayout());
 
-        p.add(new JLabel("Ville "), BorderLayout.CENTER);
-        p.add(ville, BorderLayout.CENTER);
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.5;
 
-        p.add(new JLabel("Pays "), BorderLayout.CENTER);
+        // Labels
+        gbc.anchor = GridBagConstraints.LINE_END;
+        gbc.insets = new Insets(0,0,0,10);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        p.add(new JLabel("Nom "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        p.add(new JLabel("Ville "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        p.add(new JLabel("Pays "), gbc);
+
+        /* Fields */
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.LINE_START;
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        p.add(nom, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        p.add(ville, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 3;
         paysList = new JComboBox<>(new Vector<Pays>(Pays.getPays()));
-        p.add(paysList, BorderLayout.CENTER);
+        p.add(paysList, gbc);
 
-        p.add(annuler, BorderLayout.SOUTH);
-        p.add(valider, BorderLayout.SOUTH);
+        this.add(p);
+
+        JPanel panelBottom = new JPanel();
+        panelBottom.add(annuler);
+        panelBottom.add(valider);
+        this.add(panelBottom, BorderLayout.SOUTH);
 
         annuler.addActionListener(new ClicAnnuler(this));
         valider.addActionListener(new ClicValider(this));
