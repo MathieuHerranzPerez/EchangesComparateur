@@ -73,6 +73,10 @@ public class SousDomaine {
         return  nom;
     }
 
+    /**
+     * Ajoute, si pas déjà en base de données, le sous domaine d
+     * @param d SousDomaine, le sous domaine à ajouter
+     */
     public static void ajouterSousDomaine(SousDomaine d) {
         // On vérifie qu'il n'existe pas
         if(!SousDomaineM.isSousDomaineInBD(d)) {

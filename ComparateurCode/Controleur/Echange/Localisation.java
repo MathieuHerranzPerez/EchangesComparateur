@@ -56,6 +56,10 @@ public class Localisation {
         return result;
     }
 
+    /**
+     * Renvoie, et met à jour si besoin, la liste de toutes les localisations présentes en BD
+     * @return ArrayList<Localisation>, les localisations
+     */
     public static ArrayList<Localisation> getListLocalisation() {
         // Si la liste est vide, on la remplie
         if(listLocalisation.isEmpty()) {
@@ -64,6 +68,12 @@ public class Localisation {
         return listLocalisation;
     }
 
+    /**
+     * Ajoute la localisation désignée par le nom et le pays en BD, si elle n'est pas présente
+     * Met à jour la liste des localisations
+     * @param nom String, le nom de la localisation à ajouter
+     * @param pays Pays, le pays de la localisation
+     */
     public static void ajouterLocalisation(String nom, Pays pays) {
         Localisation newLoc = new Localisation(nom, pays);
         // vérifier si la localisation n'est pas déjà en BD
@@ -75,6 +85,9 @@ public class Localisation {
         }
     }
 
+    /**
+     * Met à jour la liste des localisation graçce aux éléments en BD
+     */
     public static void mettreAJourListe() {
         listLocalisation = LocalisationM.getLocalisations();
     }

@@ -100,6 +100,10 @@ public class Formation {
         return result;
     }
 
+    /**
+     * Ajoute la formation f dans la BD si elle n'existe pas déjà
+     * @param f Formation, la formation à ajouter
+     */
     public static void ajouterFormation(Formation f) {
         // On vérifie qu'elle n'existe pas en BD
         if(!FormationM.isFormationInBD(f)) {

@@ -44,7 +44,7 @@ public class Pays {
 
     /**
      * Si la liste de Pays est vide, on l'a remplie avec la BD
-     * @return la liste de Pays
+     * @return ArrayList<Pays>, la liste de Pays
      */
     public static ArrayList<Pays> getPays() {
         if(listPays.isEmpty()) {
@@ -53,10 +53,17 @@ public class Pays {
         return listPays;
     }
 
+    /**
+     * Met à jour la liste des Pays graçe aux pays présents en BD
+     */
     public static void mettreAJourListe() {
         listPays = PaysM.getPaysFromId();
     }
 
+    /**
+     * Renvoie les pays utilisés dans l'application
+     * @return ArrayList<Pays>, la liste des pays utilisés
+     */
     public static ArrayList<Pays> getPaysUtilises() {
         return PaysM.getPaysUtilises();
     }

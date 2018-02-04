@@ -99,6 +99,7 @@ public class Echange {
 
     /**
      * On ajoute l'échange correspondant aux paramettres de la fonctions en base de données si il n'est pas déjà présent
+     * Dans le cas d'un ajout, on met la liste des échanges à jour avec le nouvel
      * @param ecoleDep Ecole, l'école de départ
      * @param ecoleArr Ecole, l'école d'arrivée
      * @param nomFormation String, le nom de la formation
@@ -149,6 +150,7 @@ public class Echange {
 
     /**
      * Modifie, si besoin, l'échange oldEchange, par le nouveau dont les attributs sont passés en paramètres, en base de donnée
+     * Met la liste des échanges à jour avec ce changement
      * @param oldEchange Echange, l'ancien échange
      * @param duree Integer, la durée du nouvel echange
      * @param nomFormation String, le nom de la formation du nouvel echange
@@ -189,6 +191,7 @@ public class Echange {
 
     /**
      * Supprime l'échange donné en parametre de la base de données
+     * Met à jour la liste des échanges
      * @param echange Echange, l'échange à supprimer
      */
     public static void supprimerEchange(Echange echange) {

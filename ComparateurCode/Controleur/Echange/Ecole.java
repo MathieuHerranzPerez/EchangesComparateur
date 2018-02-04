@@ -66,7 +66,11 @@ public class Ecole {
     }
 
     /**
-     * Ajoute l'école dans la BD
+     * Ajoute l'école correspondante aux attributs donnés en parametres si elle n'est pas déjà présente en BD
+     * Met à jour la liste des écoles avec cet ajout
+     * @param nom String, le nom de l'école
+     * @param loc String, le lieu où se trouve l'école
+     * @param pays Pays, la pays où se trouve le lieu
      */
     public static void ajouterEcole(String nom, String loc, Pays pays) {
         Ecole newEcole = new Ecole(nom, new Localisation(loc, pays));
@@ -81,6 +85,15 @@ public class Ecole {
         }
     }
 
+    /**
+     * Remplace oldEcole par l'école correpondante aux attributs passés en parametres
+     * Ne fait rien si l'ancienne école et la nouvelle sont indentiques, et si la nouvelle existe déjà en BD
+     * Met à jour la liste des écoles avec ce changement
+     * @param oldEcole Ecole, l'école à modifier
+     * @param nom String, le nouveau nom de l'école
+     * @param localisation String, la nouvelle localisation de l'école
+     * @param pays Pays, le Pays de la localisation
+     */
     public static void modifierEcole(Ecole oldEcole, String nom, String localisation, Pays pays) {
         // On vérifie qu'elle change
         if(oldEcole.getNom().equals(nom) && oldEcole.getLocalisation().toString().equals(localisation)
@@ -104,10 +117,17 @@ public class Ecole {
         }
     }
 
+    /**
+     * Récupère toutes les écoles de la BD pour mettre à jour listEcole
+     */
     public static void mettreAJourListe() {
         listEcole = EcoleM.getEcoles(); // On met le tableau à jour
     }
 
+    /**
+     * Si besoin, met à jour la liste des écoles avant de creer une nouvelle fenetre de parcours des écoles
+     * @see FenetreParcourirEcole
+     */
     public static void parcourirEcole() {
         if(listEcole.isEmpty()) {
             mettreAJourListe();
@@ -115,11 +135,20 @@ public class Ecole {
         FenetreParcourirEcole fen = new FenetreParcourirEcole(listEcole);
     }
 
+    /**
+     * Supprime, de la BD et de la liste, l'école passée en parametre
+     * @param ecole Ecole, l'école à supprimer
+     */
     public static void supprimerEcole(Ecole ecole) {
         EcoleM.supprimerEcole(ecole);
         mettreAJourListe();
     }
 
+    /**
+     * Renvoie une liste des écoles presente dans le pays passé en parametre
+     * @param p Pays, pays dont on veux les écoles
+     * @return ArrayList<Ecole>, les écoles dans le pays
+     */
     public static ArrayList<Ecole> getEcolesFromPays(Pays p) {
         if(listEcole.isEmpty()) {
             mettreAJourListe();

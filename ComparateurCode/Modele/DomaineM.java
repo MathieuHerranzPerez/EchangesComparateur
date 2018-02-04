@@ -75,9 +75,9 @@ public class DomaineM {
         return domaine;
     }
 
-    public static ArrayList<DomaineM> getListDomaines() {
-        return listDomaines;
-    }
+//    public static ArrayList<DomaineM> getListDomaines() {
+//        return listDomaines;
+//    }
 
     public static ArrayList<Domaine> getDomaines() {
         Statement state;
