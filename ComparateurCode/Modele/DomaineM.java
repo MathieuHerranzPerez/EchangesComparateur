@@ -10,46 +10,7 @@ import java.util.TreeMap;
 
 public class DomaineM {
 
-    private static ArrayList<DomaineM> listDomaines;
     private static TreeMap<Integer, Domaine> treeMapDomaine = new TreeMap<>();
-
-    public static void setNom(String ancienNom, String nouveauNom) {
-        Statement state = null;
-
-        try {
-            state = ConnexionBD.getInstance().createStatement();
-            state.executeUpdate("UPDATE DOMAINE SET Nom = '" + nouveauNom + "' WHERE Nom ='" + ancienNom + "'");
-            state.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    public static ArrayList<Domaine> getDomaines() {
-//        Statement state = null;
-//        ArrayList<Domaine> tabDomaine = new ArrayList<>();
-//
-//        try {
-//            state = ConnexionBD.getInstance().createStatement();
-//            //L'objet ResultSet contient le résultat de la requète SQL
-//            ResultSet result = state.executeQuery("SELECT Id, Nom FROM DOMAINE");
-//            //On récupère les MetaData
-//            ResultSetMetaData resultMeta = result.getMetaData();
-//
-//            while (result.next()) {
-//                tabDomaine.add(new Domaine(result.getInt("Id"), result.getString("Nom")));
-//            }
-//
-//            result.close();
-//            state.close();
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return tabDomaine;
-//    }
 
 
     public static Domaine getDomaineFromId(int id) {
@@ -74,10 +35,6 @@ public class DomaineM {
 
         return domaine;
     }
-
-//    public static ArrayList<DomaineM> getListDomaines() {
-//        return listDomaines;
-//    }
 
     public static ArrayList<Domaine> getDomaines() {
         Statement state;

@@ -14,7 +14,7 @@ public class Utile {
         res.add("Francais");
         res.add("Russe");
         res.add("Albanais");
-        res.add("Allemend");
+        res.add("Allemand");
         res.add("Amazigh");
         res.add("Arménien");
         res.add("Aymara");

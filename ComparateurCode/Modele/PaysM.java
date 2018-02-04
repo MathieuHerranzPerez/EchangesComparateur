@@ -81,8 +81,8 @@ public class PaysM {
         }
         String requete = "SELECT * FROM PAYS WHERE Id IN" +
                 " (SELECT Pays FROM LOCALISATION WHERE Id IN" +
-                    " (SELECT Localisation FROM ECOLE WHERE Id IN" +
-                        "(SELECT EcoleDep FROM ECHANGE)));";
+                " (SELECT Localisation FROM ECOLE WHERE Id IN" +
+                "(SELECT EcoleDep FROM ECHANGE)));";
         return executerRequeteRetourDansArray(requete);
     }
 

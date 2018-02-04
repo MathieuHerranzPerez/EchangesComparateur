@@ -8,38 +8,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
-/**
- * Peut-être à supprimer !
- */
+
 public class EchangeM {
-//    private int id;
-//    private String type;
-//    private Ecole ecolePrincipale;
-//    private Ecole ecoleEchange;
-//
-//
-//    public EchangeM(int id, String type, Ecole ecolePrincipale, Ecole ecoleEchange) {
-//        this.id = id;
-//        this.type = type;
-//        this.ecolePrincipale = ecolePrincipale;
-//        this.ecoleEchange = ecoleEchange;
-//    }
-//
-//    public EchangeM(int id, String type, Ecole ecoleEchange) {
-//        this.id = id;
-//        this.type = type;
-//        this.ecoleEchange = ecoleEchange;
-//    }
-//
-//    public int getId() { return id; }
-//
-//    public Ecole getEcolePrincipale() {
-//        return ecolePrincipale;
-//    }
-//
-//    public Ecole getEcoleEchange() {
-//        return ecoleEchange;
-//    }
 
     private static TreeMap<Integer, Echange> treeMapEchange = new TreeMap<>();
 
@@ -48,13 +18,11 @@ public class EchangeM {
      * @return
      */
     public static ArrayList<Echange> getEchanges() {
-        Statement state = null;
+        Statement state;
         try {
             state = ConnexionBD.getInstance().createStatement();
 
             ResultSet result = state.executeQuery("SELECT * FROM ECHANGE");
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
 
             ArrayList<Echange> res = new ArrayList<>();
             while (result.next()) {

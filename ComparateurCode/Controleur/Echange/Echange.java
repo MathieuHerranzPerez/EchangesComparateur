@@ -52,13 +52,6 @@ public class Echange {
         return formation.getSousDomaine().getDomaine().getNom();
     }
 
-    public static ArrayList<Echange> getEchanges() {
-        if(listEchange.isEmpty()) {
-            mettreAJourListe();
-        }
-        return listEchange;
-    }
-
     @Override
     public String toString() {
         return "Echange{" +
@@ -95,6 +88,13 @@ public class Echange {
         this.ecoleDepart = ecoleDepart;
         this.ecoleArrivee = ecoleArrivee;
         this.formation = formation;
+    }
+
+    public static ArrayList<Echange> getEchanges() {
+        if(listEchange.isEmpty()) {
+            mettreAJourListe();
+        }
+        return listEchange;
     }
 
     /**

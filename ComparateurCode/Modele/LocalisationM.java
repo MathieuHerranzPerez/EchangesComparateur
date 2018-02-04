@@ -16,13 +16,11 @@ public class LocalisationM {
      * @return
      */
     public static ArrayList<Localisation> getLocalisations() {
-        Statement state = null;
+        Statement state;
         try {
             state = ConnexionBD.getInstance().createStatement();
 
             ResultSet result = state.executeQuery("SELECT * FROM LOCALISATION ORDER BY Nom");
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
 
             ArrayList<Localisation> res = new ArrayList<>();
             while (result.next()) {
