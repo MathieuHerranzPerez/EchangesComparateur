@@ -1,5 +1,7 @@
 package ComparateurCode.Vue;
 
+import ComparateurCode.Controleur.Admin;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -69,7 +71,8 @@ public class FenetreConnexion extends JFrame {
             JPanel panelSouth = new JPanel();
             panelSouth.add(annuler);
             annuler.addActionListener(new ClicAnnuler(f));
-            panelSouth.add(valider);  //TODO listener
+            valider.addActionListener(new ClicValider(f));
+            panelSouth.add(valider);
             add(panelSouth, BorderLayout.SOUTH);
         }
 
@@ -82,6 +85,23 @@ public class FenetreConnexion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 FenetreAccueil fen = new FenetreAccueil();
                 f.dispose();
+            }
+        }
+
+        private class ClicValider implements ActionListener {
+            private JFrame f;
+            public ClicValider(JFrame f) {
+                this.f = f;
+            }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Admin.isBonsIdentifiants(jtfIdent.getText(), String.valueOf(jpfMdp.getPassword()))) {
+                    FenetreAdmin fen = new FenetreAdmin();
+                    f.dispose();
+                }
+                else {
+                    FenetreErreur fen = new FenetreErreur("Identifiants Incorrects");
+                }
             }
         }
     }

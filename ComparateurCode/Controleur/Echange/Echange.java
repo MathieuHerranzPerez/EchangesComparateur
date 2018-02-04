@@ -164,7 +164,7 @@ public class Echange {
     public static void modifierEchange(Echange oldEchange, Integer duree, String nomFormation, Integer dureeFormation, String langue,
                                        String nomSousDomaine, String nomDomaine, Ecole ecoleDep, Ecole ecoleArr) {
         // On vérifie qu'il change
-        if(oldEchange.getDuree() == duree && oldEchange.getFormation().toString().equals(nomFormation) &&
+        if(oldEchange.getDuree().equals(duree) && oldEchange.getFormation().toString().equals(nomFormation) &&
                 oldEchange.getFormation().getDuree() == dureeFormation && oldEchange.getFormation().getLangue().equals(langue) &&
                 oldEchange.getFormation().getSousDomaine().getNom().equals(nomSousDomaine) &&
                 oldEchange.getFormation().getSousDomaine().getDomaine().getNom().equals(nomDomaine) &&

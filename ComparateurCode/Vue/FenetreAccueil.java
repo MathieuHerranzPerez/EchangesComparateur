@@ -61,7 +61,6 @@ public class FenetreAccueil extends JFrame {
         // Pays depart
         //ArrayList<Pays> listPays = Pays.getPays();
         ArrayList<Pays> listPays = Pays.getPaysDepart();
-        System.out.println(listPays);
         for(Pays p : listPays)
             paysList.addItem(p);
         paysList.addItemListener(new PaysListener()); // écoute le choix du pays pour déterminer les écoles à afficher
@@ -358,7 +357,6 @@ public class FenetreAccueil extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             f.dispose();
-            new FenetreAdmin();
         }
     }
 
