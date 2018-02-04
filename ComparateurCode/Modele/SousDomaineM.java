@@ -57,7 +57,7 @@ public class SousDomaineM {
         try {
             state = ComparateurCode.Modele.ConnexionBD.getInstance().createStatement();
             //L'objet ResultSet contient le résultat de la requète SQL
-            ResultSet result = state.executeQuery("SELECT Nom, Domaine FROM SOUSDOMAINE WHERE Domaine = " + DomaineM.getId(d));
+            ResultSet result = state.executeQuery("SELECT Nom, Domaine FROM SOUSDOMAINE WHERE Domaine = " + DomaineM.getId(d) + " ORDER BY Nom");
 
             while (result.next()) {
                 tabSousDomaine.add(new SousDomaine(result.getString("Nom"), DomaineM.getDomaineFromId(result.getInt("Domaine"))));
@@ -77,7 +77,7 @@ public class SousDomaineM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM SOUSDOMAINE");
+            ResultSet result = state.executeQuery("SELECT * FROM SOUSDOMAINE ORDER BY Nom");
 
             ArrayList<SousDomaine> res = new ArrayList<>();
             while (result.next()) {

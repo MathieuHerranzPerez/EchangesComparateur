@@ -21,7 +21,7 @@ public class FormationM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM FORMATION");
+            ResultSet result = state.executeQuery("SELECT * FROM FORMATION ORDER BY Nom");
 
             ArrayList<Formation> res = new ArrayList<>();
             while (result.next()) {

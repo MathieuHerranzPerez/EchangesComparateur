@@ -18,7 +18,7 @@ public class EcoleM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM ECOLE");
+            ResultSet result = state.executeQuery("SELECT * FROM ECOLE ORDER BY Nom");
 
             ArrayList<Ecole> res = new ArrayList<>();
             while (result.next()) {

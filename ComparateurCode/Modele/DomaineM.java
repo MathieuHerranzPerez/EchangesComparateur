@@ -84,7 +84,7 @@ public class DomaineM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM DOMAINE");
+            ResultSet result = state.executeQuery("SELECT * FROM DOMAINE ORDER BY Nom");
 
             ArrayList<Domaine> res = new ArrayList<>();
             while (result.next()) {

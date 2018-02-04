@@ -20,7 +20,7 @@ public class LocalisationM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM LOCALISATION");
+            ResultSet result = state.executeQuery("SELECT * FROM LOCALISATION ORDER BY Nom");
             //On récupère les MetaData
             ResultSetMetaData resultMeta = result.getMetaData();
 

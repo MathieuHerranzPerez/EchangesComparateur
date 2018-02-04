@@ -20,7 +20,7 @@ public class PaysM {
         try {
             state = ConnexionBD.getInstance().createStatement();
 
-            ResultSet result = state.executeQuery("SELECT * FROM PAYS");
+            ResultSet result = state.executeQuery("SELECT * FROM PAYS ORDER BY Nom");
 
             ArrayList<Pays> res = new ArrayList<>();
             while (result.next()) {
