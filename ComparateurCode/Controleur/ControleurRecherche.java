@@ -43,8 +43,15 @@ public class ControleurRecherche {
         // selection des 10 premiers elements
         ArrayList<Echange> echangesSelectionnes = new ArrayList<>();
         int i = 0;
-        while(i < 10 && i < listeEchange.size()) {
-            echangesSelectionnes.add(listeEchange.get(i));
+
+        // selection des 10 premiers éléments ayant un résultat supérieur à 0 par rapport à la référence
+        boolean estCoherent = true;
+        while(estCoherent && i < 10 && i < listeEchange.size()) {
+            System.out.println("resultat : " + comp.compare(listeEchange.get(i), reference));
+            if(comp.compare(listeEchange.get(i), reference) >= 0)
+                echangesSelectionnes.add(listeEchange.get(i));
+            else
+                estCoherent = false;
             ++i;
         }
         new FenetreResultats(echangesSelectionnes);
