@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public class ControleurRecherche {
     //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche ville avec une marge derreur
-    public static void sendRequest( Pays paysOrigine, Ecole ecoleOrigine, Domaine domaineOrigine,
+    public static void sendRequest( Pays paysOrigine, Ecole ecoleOrigine,
             Pays paysSouhait, String villeSouhait, String langueSouhait, Domaine domaineSouhait,
             SousDomaine sousDomaineSouhait, Integer dureeEchange)
     {

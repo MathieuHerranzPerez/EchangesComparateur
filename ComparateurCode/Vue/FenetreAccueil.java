@@ -21,8 +21,6 @@ public class FenetreAccueil extends JFrame {
     private JComboBox<Pays> paysList = new JComboBox<>();
     private JLabel universite = new JLabel("Université de départ *");
     private JComboBox<Ecole> ecoleList = new JComboBox<>();
-    private JLabel domaine = new JLabel("DomaineM");
-    private JComboBox<Domaine> domaineList = new JComboBox<>();
 
     private JLabel souhait = new JLabel("Souhait");
     private JLabel paysSouhait = new JLabel("Pays souhaité *");
@@ -70,11 +68,6 @@ public class FenetreAccueil extends JFrame {
         for(Ecole e : listEcoleDep)
             ecoleList.addItem(e);
 
-        // Domaine
-        ArrayList<Domaine> listDomaine = Domaine.getListDomaine();
-        domaineList.addItem(null);
-        for(Domaine d : listDomaine)
-            domaineList.addItem(d);
 
         // Pays souhaite
         ArrayList<Pays> listPaysUtilises = Pays.getPaysUtilises();
@@ -95,6 +88,9 @@ public class FenetreAccueil extends JFrame {
             langueList.addItem(l);
 
         // Domaine souhaite
+
+        // Domaine
+        ArrayList<Domaine> listDomaine = Domaine.getListDomaine();
         domaineListSouhait.addItem(null);
         for(Domaine d : listDomaine)
             domaineListSouhait.addItem(d);
@@ -151,11 +147,6 @@ public class FenetreAccueil extends JFrame {
         gbc.gridy = 4;
         panelLeft.add(universite, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        panelLeft.add(domaine, gbc);
-
-
         // Fields
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.LINE_START;
@@ -168,14 +159,11 @@ public class FenetreAccueil extends JFrame {
         gbc.gridy = 4;
         panelLeft.add(ecoleList, gbc);
 
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        panelLeft.add(domaineList, gbc);
 
         /* Info saisies */
         info.setForeground(Color.red);
         gbc.gridx = 2;
-        gbc.gridy = 9;
+        gbc.gridy = 7;
         panelLeft.add(info,gbc);
 
         /*______________Panel Right______________*/
@@ -326,7 +314,6 @@ public class FenetreAccueil extends JFrame {
 
                 ControleurRecherche.sendRequest((Pays) paysList.getSelectedItem(),
                     (Ecole) ecoleList.getSelectedItem(),
-                    (Domaine) domaineList.getSelectedItem(),
                     (Pays) paysListSouhait.getSelectedItem(),
                     (String) villeTF.getText(),
                     (String) langueList.getSelectedItem(),
