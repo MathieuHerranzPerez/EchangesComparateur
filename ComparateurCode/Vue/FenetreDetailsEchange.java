@@ -28,7 +28,7 @@ public class FenetreDetailsEchange extends JFrame {
         this.getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
 
         this.setTitle("Comparateur d'échanges universitaires");
-        this.setSize(1200,500);
+        this.setSize(1200,100);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -115,7 +115,7 @@ public class FenetreDetailsEchange extends JFrame {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FenetreErreur fen = new FenetreErreur("Fonction en cours d'implémentation"); // TODO
+            FenetreReservation fen = new FenetreReservation(echange);
             f.dispose();
         }
     }
