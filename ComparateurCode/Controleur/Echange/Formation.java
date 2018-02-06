@@ -4,6 +4,9 @@ import ComparateurCode.Modele.FormationM;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Formation {
 
     private String nom;

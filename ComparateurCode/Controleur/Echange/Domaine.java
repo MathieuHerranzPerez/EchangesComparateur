@@ -4,6 +4,9 @@ import ComparateurCode.Modele.DomaineM;
 
 import java.util.ArrayList;
 
+/**
+ * Domaine de formations
+ */
 public class Domaine {
 
     private static ArrayList<Domaine> listDomaine = new ArrayList<>();

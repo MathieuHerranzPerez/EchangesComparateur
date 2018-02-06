@@ -3,6 +3,9 @@ package ComparateurCode.Controleur.Echange;
 import ComparateurCode.Modele.ReservationM;
 import ComparateurCode.Vue.FenetreErreur;
 
+/**
+ * Une Reservation met en relation en une personne (nom, prenom, téléphone, informations complémentaires), à un Echange
+ */
 public class Reservation {
 
     private String nom;

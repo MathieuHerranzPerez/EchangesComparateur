@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
-
+/**
+ * Communique avec la base de données pour intéragir sur les Ecoles en BD
+ */
 public class EcoleM {
     private static TreeMap<Integer, Ecole> treeMapEcole = new TreeMap<>();
 
@@ -39,21 +41,9 @@ public class EcoleM {
     }
 
     /**
-     * Return l'école qui a key pour id
-     * @param key
-     * @return
-     */
-    public static Ecole isEcoleInBD(int key) {
-        if(treeMapEcole.size() == 0) {
-            getEcoles();
-        }
-        return treeMapEcole.get(key);
-    }
-
-    /**
      * Retourne vrai si l'ecole est dans la base de données
-     * @param ecole
-     * @return
+     * @param ecole Ecole
+     * @return boolean
      */
     public static boolean isEcoleInBD(Ecole ecole) {
         Statement state;
@@ -75,7 +65,7 @@ public class EcoleM {
 
     /**
      * Ajoute l'Ecole en base de données
-     * @param ecole
+     * @param ecole Ecole
      */
     public static void ajouterEcole(Ecole ecole) {
         String requete = "INSERT INTO ECOLE (Nom, Localisation) VALUES (?, ?);";
@@ -103,8 +93,8 @@ public class EcoleM {
     /**
      * Modifie l'ecole d'ancien nom et d'ancienne localisation par la nouvelle
      * Dans le cas où la localisation viendrait à se retrouver seule, on la supprime
-     * @param oldEcole
-     * @param nouvelleEcole
+     * @param oldEcole Ecole
+     * @param nouvelleEcole Ecole
      */
     public static void modifierEcole(Ecole oldEcole, Ecole nouvelleEcole) {
         if(treeMapEcole.size() == 0) {
@@ -156,8 +146,8 @@ public class EcoleM {
 
     /**
      * Retourne l'id de l'école dans la BD
-     * @param ecole
-     * @return
+     * @param ecole Ecole
+     * @return Integer, l'id
      */
     public static Integer getId(Ecole ecole) {
 
@@ -175,6 +165,11 @@ public class EcoleM {
         return res;
     }
 
+    /**
+     * Retourne l'école correspondant à l'ID en BD
+     * @param key int
+     * @return Ecole
+     */
     public static Ecole getEcoleFromId(int key) {
         if(treeMapEcole.size() == 0) {
             getEcoles();
@@ -183,8 +178,8 @@ public class EcoleM {
     }
 
     /**
-     * Supprime l'école et la localisation si elle n'est plus utile
-     * @param ecole
+     * Supprime l'Ecole (en parametre) et la localisation si elle n'est plus utile
+     * @param ecole Ecole
      */
     public static void supprimerEcole(Ecole ecole) {
         // Si la localisation se retrouve seule, on la supprime

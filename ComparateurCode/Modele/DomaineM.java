@@ -7,12 +7,19 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
-
+/**
+ * Communique avec la base de données pour intéragir sur les Domaines en BD
+ */
 public class DomaineM {
 
     private static TreeMap<Integer, Domaine> treeMapDomaine = new TreeMap<>();
 
 
+    /**
+     * Retounne le domzine correspondant à l'id passé en parametre
+     * @param id int
+     * @return Domaine
+     */
     public static Domaine getDomaineFromId(int id) {
         Statement state;
         Domaine domaine = null;
@@ -36,6 +43,10 @@ public class DomaineM {
         return domaine;
     }
 
+    /**
+     * Retourne tous les domaines présents en BD
+     * @return ArrayList<Domaine> les domaines en BD
+     */
     public static ArrayList<Domaine> getDomaines() {
         Statement state;
         try {
@@ -60,6 +71,11 @@ public class DomaineM {
         return null;
     }
 
+    /**
+     * Vérifie si le Domaine passé en parametre est présent dans la BD
+     * @param d Domaine
+     * @return boolean
+     */
     public static boolean isDomaineInBD(Domaine d) {
         Statement state;
         boolean res = false;
@@ -78,6 +94,10 @@ public class DomaineM {
         return res;
     }
 
+    /**
+     * Ajoute le domaine passé en parametre, dans la BD
+     * @param d Domaine
+     */
     public static void ajouterDomaine(Domaine d) {
         String requete = "INSERT INTO DOMAINE (Nom) VALUES (?);";
         PreparedStatement prepare;
@@ -95,6 +115,11 @@ public class DomaineM {
         getDomaines();
     }
 
+    /**
+     * Récupère l'ID (en BD) du domaine passé en parametre
+     * @param domaine Domaine
+     * @return Integer, l'Id dans la BD
+     */
     public static Integer getId(Domaine domaine) {
 
         if(treeMapDomaine.size() == 0) {
@@ -111,6 +136,10 @@ public class DomaineM {
         return res;
     }
 
+    /**
+     * Supprimer le domaine passé en parametre, de la BD
+     * @param d Domaine
+     */
     public static void supprimerDomaine(Domaine d) {
         String requeteSuppr = "DELETE FROM DOMAINE WHERE Id = ? ;";
         PreparedStatement prepare;

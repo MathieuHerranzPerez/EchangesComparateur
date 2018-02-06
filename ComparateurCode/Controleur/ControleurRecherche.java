@@ -7,8 +7,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Créer le tableau final présenté à l'utilsiateur, et le trie suivant la fonction de comparaison
+ * Suit le design pattern strategie
+ */
 public class ControleurRecherche {
-    //TODO pour la ville comparer avec les localisations existantes dans controleurRecherche ville avec une marge derreur
+
+    /**
+     * Créer le tableau final présenté à l'utilsiateur et le trie suivant la fonction de comparaison, fait un appel à l'IHM
+     * @param paysOrigine Pays
+     * @param ecoleOrigine Ecole
+     * @param paysSouhait Pays
+     * @param villeSouhait String
+     * @param langueSouhait String
+     * @param domaineSouhait Domaine
+     * @param sousDomaineSouhait SousDomaine
+     * @param dureeEchange Integer
+     */
     public static void sendRequest( Pays paysOrigine, Ecole ecoleOrigine,
             Pays paysSouhait, String villeSouhait, String langueSouhait, Domaine domaineSouhait,
             SousDomaine sousDomaineSouhait, Integer dureeEchange)

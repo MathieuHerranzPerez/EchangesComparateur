@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
 
+/**
+ * Class fourre tout
+ */
 public class Utile {
+    /**
+     *
+     * @return Vector<String>, la liste des langues lesplus couramant parlées
+     */
     public static Vector<String> getLangues() {
         ArrayList<String> res = new ArrayList<>();
         res.add("Anglais");

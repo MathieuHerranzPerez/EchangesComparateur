@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Fenetre qui donne les details sur un echange
+ */
 public class FenetreDetailsEchange extends JFrame {
 
     Object[] echangeTab;
@@ -106,6 +109,10 @@ public class FenetreDetailsEchange extends JFrame {
         }
     }
 
+    /**
+     * Appelle la page FenetreReservation, et ferme celle-ci
+     * @see FenetreReservation
+     */
     private class ClicReserver implements ActionListener {
 
         private Echange echange;

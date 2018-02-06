@@ -1,6 +1,5 @@
 package ComparateurCode.Modele;
 
-import ComparateurCode.Controleur.Echange.Echange;
 import ComparateurCode.Controleur.Echange.Reservation;
 
 import java.sql.PreparedStatement;
@@ -8,8 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Communique avec la base de données pour intéragir sur les Reservations en BD
+ */
 public class ReservationM {
 
+    /**
+     * Ajoute la réservation passée en parametre, dans la BD
+     * @param r Reservation
+     */
     public static void ajouterReservation(Reservation r) {
         String requete = "INSERT INTO RESERVATION (Nom, Prenom, Telephone, Autre, Echange) VALUES (?, ?, ?, ?, ?);";
 
@@ -30,6 +36,11 @@ public class ReservationM {
         }
     }
 
+    /**
+     * Vérifie si la réservation passée en parametre est en BD
+     * @param r Reservation
+     * @return boolean
+     */
     public static boolean isReservationInBD(Reservation r) {
         Statement state;
         boolean res = false;

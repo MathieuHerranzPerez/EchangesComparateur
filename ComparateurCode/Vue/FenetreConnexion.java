@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Fenetre de connexion à l'interface d'administration
+ */
 public class FenetreConnexion extends JFrame {
 
     private Panneau p = new Panneau(this);

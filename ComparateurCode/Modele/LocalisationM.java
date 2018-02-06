@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Communique avec la base de données pour intéragir sur les Localisations en BD
+ */
 public class LocalisationM {
 
     private static TreeMap<Integer, Localisation> treeMapLocalisation = new TreeMap<>();
 
     /**
-     * Met à jour le treeMap graçe à la BD, return un arrayList de Location (ou null)
-     * @return
+     * Retourne un arrayList de Location (ou null)
+     * @return ArrayList<Localisation>
      */
     public static ArrayList<Localisation> getLocalisations() {
         Statement state;
@@ -41,9 +44,9 @@ public class LocalisationM {
     }
 
     /**
-     * retourne la Localisation associée à la key
-     * @param key
-     * @return
+     * Retourne la Localisation associée à la key (l'ID en BD)
+     * @param key int
+     * @return Localisation
      */
     public static Localisation isLocalisationInBD(int key) {
         if(treeMapLocalisation.size() == 0) {
@@ -53,8 +56,8 @@ public class LocalisationM {
     }
 
     /**
-     * Return, si elle est présente, la localisation désignée par nom et pays
-     * @return
+     * Vérifie si la location est présente en BD
+     * @return boolean
      */
     public static boolean isLocalisationInBD(Localisation loc) {
         Statement state;
@@ -74,12 +77,14 @@ public class LocalisationM {
         return res;
     }
 
+
     /**
-     * Ajoute la Localisation avec Nom et Pays en base de données
+     * Ajoute la Localisation en BD
+     * @param localisation Localisation
      */
     public static void ajouterLocalisation(Localisation localisation) {
         String requete = "INSERT INTO LOCALISATION (Nom, Pays) VALUES (?, ?);";
-        PreparedStatement prepare = null;
+        PreparedStatement prepare;
         try {
             prepare = ConnexionBD.getInstance().prepareStatement(requete);
 
@@ -97,8 +102,8 @@ public class LocalisationM {
 
     /**
      * Retourne l'id de la localisation dans la BD
-     * @param localisation
-     * @return
+     * @param localisation Localisation
+     * @return Integer, l'ID
      */
     public static Integer getId(Localisation localisation) {
 
@@ -116,6 +121,10 @@ public class LocalisationM {
         return res;
     }
 
+    /**
+     * Supprime la Localisation passée en parametre de la BD
+     * @param localisation Localisation
+     */
     public static void supprimerLoc(Localisation localisation) {
         String requeteSupprLoc = "DELETE FROM LOCALISATION WHERE Id = ? ;";
         PreparedStatement prepare = null;

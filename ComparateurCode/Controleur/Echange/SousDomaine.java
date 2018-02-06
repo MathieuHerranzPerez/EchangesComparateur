@@ -4,6 +4,9 @@ import ComparateurCode.Modele.SousDomaineM;
 
 import java.util.ArrayList;
 
+/**
+ * Le Sous Domaine précise un Domaine.
+ */
 public class SousDomaine {
 
     private static ArrayList<SousDomaine> listSousDomaine = new ArrayList<>();

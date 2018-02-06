@@ -6,6 +6,9 @@ import ComparateurCode.Vue.FenetreErreur;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
+/**
+ * La Localisation a un nom et un Pays
+ */
 public class Localisation {
 
     private static ArrayList<Localisation> listLocalisation = new ArrayList<>();

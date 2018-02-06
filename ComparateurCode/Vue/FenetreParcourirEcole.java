@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Affiche dans un tableau les écoles passés en parametre
+ */
 public class FenetreParcourirEcole extends JFrame {
 
     private Object[][] ecoles;
@@ -109,6 +112,9 @@ public class FenetreParcourirEcole extends JFrame {
         }
     }
 
+    /**
+     * Créer une FenetreModifierEcole avec l'école correspondante, et ferme celle-ci
+     */
     private class ClicModifier implements ActionListener {
 
         private Ecole ecole;
@@ -123,6 +129,9 @@ public class FenetreParcourirEcole extends JFrame {
         }
     }
 
+    /**
+     * Supprime l'école associée, et recharge la page
+     */
     private class ClicSuppr implements ActionListener {
 
         private Ecole ecole;
@@ -145,6 +154,10 @@ public class FenetreParcourirEcole extends JFrame {
         }
     }
 
+    /**
+     * Revient sur la FenetreAdmin et ferme celle-ci
+     * @see FenetreAdmin
+     */
     private class ClicRetour implements ActionListener {
 
         private JFrame f;
@@ -156,9 +169,5 @@ public class FenetreParcourirEcole extends JFrame {
             FenetreAdmin fen = new FenetreAdmin();
             this.f.dispose();
         }
-    }
-
-    public static void main(String[] argv) {
-        Ecole.parcourirEcole();
     }
 }

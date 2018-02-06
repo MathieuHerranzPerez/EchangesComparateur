@@ -8,14 +8,16 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
-
+/**
+ * Communique avec la base de données pour intéragir sur les Echanges en BD
+ */
 public class EchangeM {
 
     private static TreeMap<Integer, Echange> treeMapEchange = new TreeMap<>();
 
     /**
-     * Met à jour le treeMap graçe à la BD, return un arrayList de Location (ou null)
-     * @return
+     * Return un arrayList de Location (ou null) présents en BD
+     * @return ArrayList<Echange>
      */
     public static ArrayList<Echange> getEchanges() {
         Statement state;
@@ -44,6 +46,11 @@ public class EchangeM {
         return null;
     }
 
+    /**
+     * Vérifie si l'échange passé en parametre est dans la BD
+     * @param echange Echange
+     * @return boolean
+     */
     public static boolean isEchangeInBD(Echange echange) {
         Statement state;
         boolean res = false;
@@ -71,6 +78,10 @@ public class EchangeM {
         return res;
     }
 
+    /**
+     * Ajoute l'Echange passé en parametre dans la BD
+     * @param echange Echange
+     */
     public static void ajouterEchange(Echange echange) {
         String requete = "INSERT INTO ECHANGE (Duree, Formation, EcoleDep, EcoleArr) VALUES (?, ?, ?, ?);";
         PreparedStatement prepare;
@@ -92,6 +103,11 @@ public class EchangeM {
         getEchanges();
     }
 
+    /**
+     * Modifie dans la BD, l'échange oldEchange par nouvelEchange
+     * @param oldEchange Echange, l'échange à modifier
+     * @param nouvelEchange Echange, le nouvelEchange
+     */
     public static void modifierEchange(Echange oldEchange, Echange nouvelEchange) {
         if(treeMapEchange.size() == 0) {
             getEchanges();
@@ -126,6 +142,11 @@ public class EchangeM {
         }
     }
 
+    /**
+     * Retourne l'ID de l'Echange en BD
+     * @param echange Echange
+     * @return Integer, l'id de l'Echange
+     */
     public static Integer getId(Echange echange) {
 
         if(treeMapEchange.size() == 0) {
@@ -141,6 +162,10 @@ public class EchangeM {
         return res;
     }
 
+    /**
+     * Supprime l'échange passé en parametre, de la BD, et aussi la Formation de cet échange si elle se retrouve seule
+     * @param echange Echange, l'échange à supprimer
+     */
     public static void supprimerEchange(Echange echange) {
         // Si la formation se retrouve seule, on la supprime
         Integer idEchange = getId(echange);

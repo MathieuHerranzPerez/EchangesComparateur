@@ -11,6 +11,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+/**
+ * Fenetre Principale pour la recherche, fenetre d'accueil
+ */
 public class FenetreAccueil extends JFrame {
 
     private JMenuBar menu = new JMenuBar();
@@ -41,8 +44,7 @@ public class FenetreAccueil extends JFrame {
     private JButton annuler = new JButton("Annuler");
     private JButton valider = new JButton("Valider");
 
-//TODO POUR LES JCOMBOBOX LAISSER LA POSSIBLE DE CHOISIR "VIDE" SI LUTILISATEUR NE SOUHAITE PAS RENSENGNER UN CHAMPS OBLIGATOIRE
-//TODO signaler par une * les champs qui sont facultatifs
+
     public FenetreAccueil() {
         this.setTitle("Comparateur d'échanges universitaires");
         this.setSize(850,350);
@@ -113,8 +115,6 @@ public class FenetreAccueil extends JFrame {
 
         annuler.addActionListener(new AnnulerListener());
         valider.addActionListener(new ValiderListener());
-
-        admin.addActionListener(new AdminListener(this));
 
 
         /*______________Creation Panel______________*/
@@ -252,6 +252,10 @@ public class FenetreAccueil extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Ouvre la FenetreAdmin et ferme la FenetreAccueil
+     * @see FenetreAdmin
+     */
     private class ClicAdmin implements ActionListener {
         JFrame f;
         public ClicAdmin(JFrame f) {
@@ -264,6 +268,9 @@ public class FenetreAccueil extends JFrame {
         }
     }
 
+    /**
+     * Après la selection d'un Domaine, charge la liste des SousDomaines qui y correspondent
+     */
     private class DomaineListener implements ItemListener {
         ArrayList<SousDomaine> listSousDomaine;
 
@@ -284,6 +291,9 @@ public class FenetreAccueil extends JFrame {
         }
     }
 
+    /**
+     * Après la selection d'un Pays, charge la liste des Localisations qui y correspondent
+     */
     private class PaysListener implements ItemListener {
         ArrayList<Ecole> listEcolePays;
 
@@ -304,6 +314,11 @@ public class FenetreAccueil extends JFrame {
         }
     }
 
+    /**
+     * Envoie les différents champs au ControleurRecherche après avoir vérifié qu'on a remplie les champs obligatoires
+     * Dans le cas contraire, affiche une FenetreErreur
+     * @see FenetreErreur
+     */
     private class ValiderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -327,27 +342,13 @@ public class FenetreAccueil extends JFrame {
         }
     }
 
+    /**
+     * Arrete le programme
+     */
     private class AnnulerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
-    }
-
-    private class AdminListener implements ActionListener {
-        JFrame f;
-
-        public AdminListener(JFrame f) {
-            this.f = f;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            f.dispose();
-        }
-    }
-
-    public static void main(String[] args) {
-        new FenetreAccueil();
     }
 }

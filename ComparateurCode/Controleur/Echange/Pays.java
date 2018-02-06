@@ -4,6 +4,9 @@ import ComparateurCode.Modele.PaysM;
 
 import java.util.ArrayList;
 
+/**
+ * Représente un pays, au sens minimaliste du terme, avec un nom
+ */
 public class Pays {
 
     /**

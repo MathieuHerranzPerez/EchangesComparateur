@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Permet à l'utilisateur de réserver un échange, en exprimant ses coordonnées
+ */
 public class FenetreReservation extends JFrame {
 
     private Echange echange;
@@ -56,6 +59,11 @@ public class FenetreReservation extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Après vérification des champs obligatoires, ajoute la réservation en BD
+     * Sinon, affiche FenetreErreur
+     * @see FenetreErreur
+     */
     private class ClicReserver implements ActionListener {
 
         private JFrame f;
@@ -75,6 +83,9 @@ public class FenetreReservation extends JFrame {
         }
     }
 
+    /**
+     * Ferme la fenetre
+     */
     private class ClicRetour implements ActionListener {
 
         private JFrame f;

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
 
+/**
+ * Fenetre avec les champs pour ajouter un echange
+ */
 public class FenetreAjoutEchange extends JFrame{
     private JTextField nomFormation = new JTextField(20);
     private JComboBox<Integer> dureeFormation;
@@ -163,6 +166,10 @@ public class FenetreAjoutEchange extends JFrame{
         this.setVisible(true);
     }
 
+    /**
+     * Vérifie si les champs obligatoires ont été renseignés (tous les champs)
+     * @return boolean
+     */
     private boolean champsCorrectes() {
         boolean condEcole = (ecoleDep.getSelectedItem() != null && ecoleArr.getSelectedItem() != null) &&
                 !(ecoleDep.getSelectedItem().equals(ecoleArr.getSelectedItem()));
@@ -175,7 +182,8 @@ public class FenetreAjoutEchange extends JFrame{
     }
 
     /**
-     * Retourne sur la page d'administration
+     * Retourne sur la page d'administration, et ferme celle-ci
+     * @see FenetreAdmin
      */
     private class ClicAnnuler implements ActionListener {
         private JFrame f;
@@ -189,6 +197,12 @@ public class FenetreAjoutEchange extends JFrame{
         }
     }
 
+    /**
+     * Vérifie si les champs sont corrects, ajoute l'échange, retourne sur la FenetreAdmin, et ferme celle-i
+     * Sinon, créer une FenetreErreur demandant de bien remplir les champs obligatoires
+     * @see FenetreAdmin
+     * @see FenetreErreur
+     */
     private class ClicValider implements ActionListener {
         private JFrame f;
         public ClicValider(JFrame f) {

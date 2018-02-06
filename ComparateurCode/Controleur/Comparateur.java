@@ -4,6 +4,10 @@ import ComparateurCode.Controleur.Echange.Echange;
 
 import java.util.Comparator;
 
+/**
+ * Class héritant de Comparator<Echange>, permet de comparer des échanges par rapport à un échange de référence (en donnée membre)
+ * Suit le design pattern TemplateMethod
+ */
 public abstract class Comparateur implements Comparator<Echange> {
     protected Echange reference;
     protected int malus = -10;
@@ -15,9 +19,13 @@ public abstract class Comparateur implements Comparator<Echange> {
     }
 
 
+    /**
+     * Code commun aux classes filles, fait la comparaison d'un échange passé en paramètre (cf spec)
+     * @param echangeBD Echange, l'échange à comparer
+     * @return int, le score
+     */
     private int comparer(Echange echangeBD) {
         int resultat = 0;
-
 
         // si l'utilisateur a selectionné un pays et pas de ville
         if( reference.getNomPaysEcoleEchange() != null && reference.getNomLocalisationEcoleEchange().equals("")) {
@@ -50,9 +58,20 @@ public abstract class Comparateur implements Comparator<Echange> {
         return resultat;
     }
 
-
+    /**
+     * Fonction de comparaison implémentée dans les classes filles
+     * @param echangeBD Echange, l'échange à comparer
+     * @return int, le score
+     */
     public abstract int compareSpecifique(Echange echangeBD);
 
+    /**
+     * Fonction qui va être appelée lors d'un Collections.sort()
+     * Dans le but de trier un tableau du score le plus élevé au plus bas
+     * @param o1 Echange
+     * @param o2 Echange
+     * @return int, la différence entre les deux échanges
+     */
     @Override
     public int compare(Echange o1, Echange o2) {
         return this.comparer(o2) - this.comparer(o1);

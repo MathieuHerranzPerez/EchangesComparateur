@@ -12,10 +12,17 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Communique avec la base de données pour intéragir sur les Formations en BD
+ */
 public class FormationM {
 
     private static TreeMap<Integer, Formation> treeMapFormation = new TreeMap<>();
 
+    /**
+     * Retourne la liste de toutes les formaions présentes en BD
+     * @return ArrayList<Formation>
+     */
     public static ArrayList<Formation> getFormations() {
         Statement state;
         try {
@@ -43,6 +50,10 @@ public class FormationM {
         return null;
     }
 
+    /**
+     * Retourne toutes les langues des formations qui sont en BD
+     * @return ArrayList<String>
+     */
     public static ArrayList<String> getLangues() {
         String requete = "SELECT DISTINCT Langue FROM FORMATION;";
         Statement state;
@@ -61,6 +72,11 @@ public class FormationM {
         return res;
     }
 
+    /**
+     * Vérifie si la Formation passée en parametre est présente en BD
+     * @param f Formation
+     * @return boolean
+     */
     public static boolean isFormationInBD(Formation f) {
         boolean res = false;
         try {
@@ -86,6 +102,11 @@ public class FormationM {
         return res;
     }
 
+    /**
+     * Retourne la Formation à l'ID passé en parametre
+     * @param key int
+     * @return Fromation
+     */
     public static Formation getFormationFromId(int key) {
         if(treeMapFormation.size() == 0) {
             getFormations();
@@ -93,6 +114,11 @@ public class FormationM {
         return treeMapFormation.get(key);
     }
 
+    /**
+     * Retourne l'ID en BD de la Formation passée en parametre
+     * @param f Formation
+     * @return Integer
+     */
     public static Integer getId(Formation f) {
 
         if(treeMapFormation.size() == 0) {
@@ -108,6 +134,10 @@ public class FormationM {
         return res;
     }
 
+    /**
+     * Ajoute la Fomration passée en paramtre dans la BD
+     * @param f Formation
+     */
     public static void ajouterFormation(Formation f) {
         String requete = "INSERT INTO FORMATION (Nom, Duree, Langue, SousDomaine) VALUES (?, ?, ?, ?);";
         PreparedStatement prepare;
@@ -128,6 +158,10 @@ public class FormationM {
         getFormations();
     }
 
+    /**
+     * Supprimer la Formation passée en parametre de la BD, et le SousDomaine si il se retrouve seul
+     * @param f Fromation
+     */
     public static void supprimerFormation(Formation f) {
         // Si le sous domaine se retrouve seul, on le supprime
         Integer idFormation = getId(f);

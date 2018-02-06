@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+/**
+ * Fenetre qui charge l'échange actuel afin de le modifier
+ */
 public class FenetreModifierEcole extends JFrame {
 
     private Ecole oldEcole;
@@ -87,6 +90,10 @@ public class FenetreModifierEcole extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Vérifie si les champs ont bien été modifiés
+     * @return boolean
+     */
     private boolean champsCorrectes() {
         if(!(nom.getText().equals("")) && !(ville.getText().equals("")) && !(paysList.getSelectedItem() == null))
             return true;
@@ -94,6 +101,9 @@ public class FenetreModifierEcole extends JFrame {
             return false;
     }
 
+    /**
+     * Revient sur la FenetreParcourirEcole en passant par le Controleur, et ferme celle-ci
+     */
     private class ClicAnnuler implements ActionListener {
         private FenetreModifierEcole f;
         public ClicAnnuler(FenetreModifierEcole f) {
@@ -106,6 +116,11 @@ public class FenetreModifierEcole extends JFrame {
         }
     }
 
+    /**
+     * Vérifie les champs, modifie l'école, revient sur la page FenetreParcourirEcole, et ferme celle-ci
+     * Sinon, affiche FenetreErreur
+     * @see FenetreErreur
+     */
     private class ClicValider implements ActionListener {
         private FenetreModifierEcole f;
         public ClicValider(FenetreModifierEcole f) {

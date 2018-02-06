@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+/**
+ * Fenetre avec les champs pour ajouter une école
+ */
 public class FenetreAjoutEcole extends JFrame {
 
     private JTextField nom = new JTextField(20);
@@ -90,7 +93,8 @@ public class FenetreAjoutEcole extends JFrame {
     }
 
     /**
-     * Retourne sur la page d'administration
+     * Retourne sur la page d'administration, et ferme celle-ci
+     * @see FenetreAdmin
      */
     private class ClicAnnuler implements ActionListener {
         private FenetreAjoutEcole f;
@@ -105,7 +109,10 @@ public class FenetreAjoutEcole extends JFrame {
     }
 
     /**
-     * Ajoute l'ecole et retourne sur la page d'aministration
+     * Vérifie les champs, ajoute l'ecole et retourne sur la page d'aministration, ferme celle-ci
+     * Sinon, affiche une FenetreErreur
+     * @see FenetreAdmin
+     * @see FenetreErreur
      */
     private class ClicValider implements ActionListener {
 
@@ -124,9 +131,5 @@ public class FenetreAjoutEcole extends JFrame {
                 JFrame fenErreur = new FenetreErreur("Veuillez remplir les champs obligatoires");
             }
         }
-    }
-
-    public static void main(String[] argv) {
-        JFrame f = new FenetreAjoutEcole();
     }
 }

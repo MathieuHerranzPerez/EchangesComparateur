@@ -7,6 +7,10 @@ import ComparateurCode.Vue.FenetreParcourirEchange;
 
 import java.util.ArrayList;
 
+/**
+ * Caractérise un échange universitaire entre deux écoles
+ * Il a une durée, une école de départ et une école d'arrivée, et concerne une formation
+ */
 public class Echange {
 
     private Integer duree;              // en mois
@@ -90,6 +94,10 @@ public class Echange {
         this.formation = formation;
     }
 
+    /**
+     * Met à jour la list des échanges présents en BD, et retourne cette liste
+     * @return ArrayList<Echange>, les échanges en BD
+     */
     public static ArrayList<Echange> getEchanges() {
         if(listEchange.isEmpty()) {
             mettreAJourListe();

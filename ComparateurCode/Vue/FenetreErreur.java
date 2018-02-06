@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
+/**
+ * Fenetre qui affiche le message d'erreur qu'on lui donne en parametre
+ */
 public class FenetreErreur extends JFrame {
 
     public FenetreErreur(String message) {
@@ -44,6 +47,9 @@ public class FenetreErreur extends JFrame {
         }
     }
 
+    /**
+     * Ferme la FenetreErreur
+     */
     private class ClicFermer implements ActionListener {
 
         private JFrame f;

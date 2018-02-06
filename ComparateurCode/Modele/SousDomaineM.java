@@ -8,11 +8,18 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Communique avec la base de données pour intéragir sur les SousDomaines en BD
+ */
 public class SousDomaineM {
 
     private static TreeMap<Integer, SousDomaine> treeMapSousDomaine = new TreeMap<>();
 
-
+    /**
+     * Retourne la liste des SousDomaines qui ont pour Domaine celui passé en parametre
+     * @param d Domaine
+     * @return ArrayList<SousDomaine>
+     */
     public static ArrayList<SousDomaine> getSousDomainesFromDomaine(Domaine d) {
         Statement state;
         ArrayList<SousDomaine> tabSousDomaine = new ArrayList<>();
@@ -35,6 +42,10 @@ public class SousDomaineM {
         return tabSousDomaine;
     }
 
+    /**
+     * Retourne les SousDomains présents en BD
+     * @return ArrayList<SousDomaine>
+     */
     public static ArrayList<SousDomaine> getSousDomaines() {
         Statement state;
         try {
@@ -60,6 +71,11 @@ public class SousDomaineM {
         return null;
     }
 
+    /**
+     * Vérifie si le SousDomaine passé en parametre est présent en BD
+     * @param d SousDomaine
+     * @return boolean
+     */
     public static boolean isSousDomaineInBD(SousDomaine d) {
         boolean res = false;
         try {
@@ -83,6 +99,11 @@ public class SousDomaineM {
         return res;
     }
 
+    /**
+     * Retourne le SousDomaine à l'id passé en parametre
+     * @param key int
+     * @return SousDomaine
+     */
     public static SousDomaine getSousDomaineFromId(int key) {
         if(treeMapSousDomaine.size() == 0) {
             getSousDomaines();
@@ -90,6 +111,10 @@ public class SousDomaineM {
         return treeMapSousDomaine.get(key);
     }
 
+    /**
+     * Ajoute le SousDOmaine passé en parametre, dans la BD
+     * @param d SousDomaine
+     */
     public static void ajouterSousDomaine(SousDomaine d) {
         String requete = "INSERT INTO SOUSDOMAINE (Nom, Domaine) VALUES (?, ?);";
         PreparedStatement prepare;
@@ -108,6 +133,11 @@ public class SousDomaineM {
         getSousDomaines();
     }
 
+    /**
+     * Retourne l'ID du SousDomaine passé en parametre
+     * @param d SousDomaine
+     * @return Integer
+     */
     public static Integer getId(SousDomaine d) {
 
         if(treeMapSousDomaine.size() == 0) {
@@ -124,6 +154,10 @@ public class SousDomaineM {
         return res;
     }
 
+    /**
+     * Supprime le SousDomaine passé en parametre, et le Domaine correspondant si il n'est plus utilisé
+     * @param sd SousDomaine
+     */
     public static void supprimerSousDomaine(SousDomaine sd) {
         // Si le domaine se retrouve seul, on le supprime
         Integer idSousDomaine = getId(sd);

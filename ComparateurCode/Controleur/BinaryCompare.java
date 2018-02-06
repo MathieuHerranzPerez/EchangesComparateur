@@ -11,6 +11,11 @@ public class BinaryCompare extends Comparateur {
         super(reference);
     }
 
+    /**
+     * Compare l'échange en parametre avec l'échange de référence et renvoie un socre refletant leurs similarités
+     * @param echangeBD Echange, l'échange à comparer
+     * @return int, score
+     */
     @Override
     public int compareSpecifique(Echange echangeBD) {
         int resultat = 0;
@@ -67,54 +72,4 @@ public class BinaryCompare extends Comparateur {
 
         return resultat;
     }
-
-
-//    public static void main(String[] argv) {
-//        // situation utilisateur
-//        // d'où il vient
-//        Pays france = new Pays("France");
-//        Localisation localisationNull = new Localisation(france);
-//        Ecole ecoleUti = new Ecole("Polytech", localisationNull);
-//
-//        SousDomaine info = new SousDomaine();
-//        Formation formationInfo = new Formation(info);
-//        // ce qu'il veut
-//        Pays angleterre = new Pays("Angleterre");
-//        // il n'a pas choisie de ville
-//        Localisation localisationAngleterre = new Localisation(angleterre);
-//        Ecole ecoleSouhaite = new Ecole(localisationAngleterre);
-//
-//        SousDomaine infoJeux = new SousDomaine("Jeux-video", new Domaine("Informatique"));
-//        Formation formationVoulue = new Formation("Anglais", infoJeux);
-//
-//        Echange echangeParfait = new Echange(-1, 12, ecoleUti, ecoleSouhaite, formationVoulue);
-//
-//        // -------- ecole des echanges trouvées --------
-//        Localisation localisationM = new Localisation("Marseille", france);
-//        Ecole ecoleDep = new Ecole("Polytech", localisationM);
-//
-//        Localisation localisationA = new Localisation("Londres", angleterre);
-//        Ecole ecoleArr = new Ecole("ecoleAnglaise", localisationA);
-//
-//        SousDomaine infoBD = new SousDomaine("BD", new Domaine("Informatique"));
-//        Formation formationBD = new Formation("Anglais", infoBD);
-//
-//        Echange premierEchange = new Echange(1, 12, ecoleDep, ecoleArr, formationVoulue);
-//        Echange deuxiemeEchange = new Echange(2, 12, ecoleDep, ecoleArr, formationBD);
-//
-//        ArrayList<Echange> ar = new ArrayList<>();
-//
-//        ar.add(premierEchange);
-//        ar.add(deuxiemeEchange);
-//
-//        Echange troisiemeEchange = new Echange(3, 12, ecoleArr, ecoleDep, formationBD);
-//        ar.add(troisiemeEchange);
-//
-//
-//        Collections.sort(ar, new BinaryCompare(echangeParfait));
-//
-//        for(Echange e : ar) {
-//            System.out.println(e);
-//        }
-//    }
 }

@@ -8,13 +8,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
+/**
+ * Communique avec la base de données pour intéragir sur les Pays en BD
+ */
 public class PaysM {
 
-    /**
-     * Pour retenir la correspondance Id, Pays (nom)
-     */
     private static TreeMap<Integer, Pays> treeMapPays = new TreeMap<>();
 
+    /**
+     * Renvoie la liste des Pays présents en BD
+     * @return ArrayList<Pays>
+     */
     public static ArrayList<Pays> getPaysFromId() {
         Statement state;
         try {
@@ -39,7 +43,11 @@ public class PaysM {
         return null;
     }
 
-
+    /**
+     * Retourne le Pays correspondant à l'ID en BD
+     * @param key int
+     * @return Pays
+     */
     public static Pays getPaysFromId(int key) {
         if(treeMapPays.size() == 0) {
             getPaysFromId();
@@ -48,9 +56,9 @@ public class PaysM {
     }
 
     /**
-     * Retourne l'id du pays dans la BD
-     * @param pays
-     * @return
+     * Retourne l'ID du pays dans la BD
+     * @param pays Pays
+     * @return Integer
      */
     public static Integer getId(Pays pays) {
         if(treeMapPays.size() == 0) {
@@ -66,6 +74,10 @@ public class PaysM {
         return res;
     }
 
+    /**
+     * Retourne la liste des Pays utilisés (dans Foramtion) en BD
+     * @return ArrayList<Pays>
+     */
     public static ArrayList<Pays> getPaysUtilises() {
         if(treeMapPays.size() == 0) {
             getPaysFromId();
@@ -75,6 +87,10 @@ public class PaysM {
         return executerRequeteRetourDansArray(requete);
     }
 
+    /**
+     * Retourne la liste des Pays de départ des échanges
+     * @return ArrayList<Pays>
+     */
     public static ArrayList<Pays> getPaysDepart() {
         if(treeMapPays.size() == 0) {
             getPaysFromId();
@@ -86,6 +102,11 @@ public class PaysM {
         return executerRequeteRetourDansArray(requete);
     }
 
+    /**
+     * Execute la requete passée en paramtre, et met son retour dans une arrayList
+     * @param requete String
+     * @return ArrayList<Pays>
+     */
     private static ArrayList<Pays> executerRequeteRetourDansArray(String requete) {
         Statement state;
         ArrayList<Pays> res = new ArrayList<>();
@@ -100,9 +121,5 @@ public class PaysM {
             e.printStackTrace();
         }
         return res;
-    }
-
-    public static void main(String[] argv) {
-        System.out.println(getId(new Pays("France")));
     }
 }

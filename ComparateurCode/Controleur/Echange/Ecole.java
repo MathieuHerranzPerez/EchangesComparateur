@@ -6,6 +6,9 @@ import ComparateurCode.Vue.FenetreParcourirEcole;
 
 import java.util.ArrayList;
 
+/**
+ * Une école a un nom et une Localisation
+ */
 public class Ecole {
 
     private static ArrayList<Ecole> listEcole = new ArrayList<>();

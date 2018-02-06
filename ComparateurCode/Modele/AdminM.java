@@ -4,8 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Communique avec la base de données pour récupérer des informations sur les identifiants Administrateurs
+ */
 public class AdminM {
 
+    /**
+     * Renvoie l'ID de l'identifiant d'administration stocké en BD
+     * @return String, l'ID
+     */
     public static String getId() {
         Statement state;
         String res = null;
@@ -26,6 +33,10 @@ public class AdminM {
         return res;
     }
 
+    /**
+     * Renvoie le mode de passe d'administration stocké en BD
+     * @return String, le mot de passe
+     */
     public static String getMDP() {
         Statement state;
         String res = null;

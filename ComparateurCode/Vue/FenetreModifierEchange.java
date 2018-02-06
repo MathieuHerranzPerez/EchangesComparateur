@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+/**
+ * Fenetre qui charge l'échange actuel afin de le modifier
+ */
 public class FenetreModifierEchange extends JFrame {
 
     private Echange oldEchange;
@@ -93,13 +96,13 @@ public class FenetreModifierEchange extends JFrame {
 
 
         /* ------ colonne Formation ------*/
-JPanel pRight = new JPanel();
-content.add(pRight);
-GridBagConstraints gbc2 = new GridBagConstraints();
-pRight.setLayout(new GridBagLayout());
+        JPanel pRight = new JPanel();
+        content.add(pRight);
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        pRight.setLayout(new GridBagLayout());
 
-gbc2.weightx = 0.5;
-gbc2.weighty = 0.5;
+        gbc2.weightx = 0.5;
+        gbc2.weighty = 0.5;
 
         // Labels
         gbc2.anchor = GridBagConstraints.LINE_END;
@@ -174,6 +177,10 @@ gbc2.weighty = 0.5;
         this.setVisible(true);
     }
 
+    /**
+     * Verifie si les champs obligatoires sont renseignés, et si l'échange a été modifié
+     * @return boolean
+     */
     private boolean champsCorrectes() {
         boolean condEcole = (ecoleDep.getSelectedItem() != null && ecoleArr.getSelectedItem() != null) &&
                 !(ecoleDep.getSelectedItem().equals(ecoleArr.getSelectedItem()));
@@ -185,6 +192,9 @@ gbc2.weighty = 0.5;
             return false;
     }
 
+    /**
+     * Revient sur la FenetreParcourirEchange en passant par le Controleur, et ferme cette fenetre
+     */
     private class ClicAnnuler implements ActionListener {
         private FenetreModifierEchange f;
         public ClicAnnuler(FenetreModifierEchange f) {
@@ -197,6 +207,10 @@ gbc2.weighty = 0.5;
         }
     }
 
+    /**
+     * Vérifie que les champs sont corrects, appelle le controleur pour parcourir les échanges, et ferme cette fenetre
+     * Sinon, creer une FenetreErreur
+     */
     private class ClicValider implements ActionListener {
         private FenetreModifierEchange f;
         public ClicValider(FenetreModifierEchange f) {

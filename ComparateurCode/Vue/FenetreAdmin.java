@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Fenetre pour l'administrateur, menu
+ */
 public class FenetreAdmin extends JFrame{
 
     public FenetreAdmin() {
@@ -76,6 +79,10 @@ public class FenetreAdmin extends JFrame{
             this.add(btnParcourirLeschanges, gbc);
         }
 
+        /**
+         * Ouvre la FnetreAjoutEcole et ferme celle-ci
+         * @see FenetreAjoutEchange
+         */
         private class ClicAjoutEcole implements ActionListener {
 
             @Override
@@ -85,6 +92,10 @@ public class FenetreAdmin extends JFrame{
             }
         }
 
+        /**
+         * Ouvre la FenetreAjoutEchange et ferme celle-ci
+         * @see FenetreAjoutEchange
+         */
         private class ClicAjoutEchange implements ActionListener {
 
             @Override
@@ -94,6 +105,9 @@ public class FenetreAdmin extends JFrame{
             }
         }
 
+        /**
+         * Appelle le controleur pour parcourirEcole, et ferme la fenetre courrante
+         */
         private class ClicParcourirEcole implements ActionListener {
 
             @Override
@@ -103,6 +117,9 @@ public class FenetreAdmin extends JFrame{
             }
         }
 
+        /**
+         * Appelle le controleur pour parcourirEchange, et farme la fenetre courrante
+         */
         private class ClicParcourirEchange implements ActionListener {
 
             @Override
@@ -113,6 +130,10 @@ public class FenetreAdmin extends JFrame{
         }
     }
 
+    /**
+     * Revient à la FenetreAccueil, et ferme celle-ci
+     * @see FenetreAccueil
+     */
     private class ClicRetour implements ActionListener {
         private JFrame f;
         public ClicRetour(JFrame f) {
@@ -123,9 +144,5 @@ public class FenetreAdmin extends JFrame{
             FenetreAccueil fen = new FenetreAccueil();
             f.dispose();
         }
-    }
-
-    public static void main(String[] args) {
-        new FenetreAdmin();
     }
 }

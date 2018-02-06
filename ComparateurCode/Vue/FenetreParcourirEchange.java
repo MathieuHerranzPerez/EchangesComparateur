@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Affiche dans un tableau les échanges passés en parametre
+ */
 public class FenetreParcourirEchange extends JFrame {
     private Object[][] echanges;
     JFrame f;
@@ -115,6 +118,9 @@ public class FenetreParcourirEchange extends JFrame {
         }
     }
 
+    /**
+     * Créer une FenetreModifierEchange avec l'échange en parametre, et ferme celle-ci
+     */
     private class ClicModifier implements ActionListener {
 
         private Echange echange;
@@ -129,6 +135,9 @@ public class FenetreParcourirEchange extends JFrame {
         }
     }
 
+    /**
+     * Supprime l'échange, et actualise la Fenetre
+     */
     private class ClicSuppr implements ActionListener {
 
         private Echange echange;
@@ -151,6 +160,10 @@ public class FenetreParcourirEchange extends JFrame {
         }
     }
 
+    /**
+     * Revient sur la FenetreAdmin et ferme celle-ci
+     * @see FenetreAdmin
+     */
     private class ClicRetour implements ActionListener {
 
         private JFrame f;
@@ -162,9 +175,5 @@ public class FenetreParcourirEchange extends JFrame {
             FenetreAdmin fen = new FenetreAdmin();
             this.f.dispose();
         }
-    }
-
-    public static void main(String[] argv) {
-        Echange.parcourirEchange();
     }
 }
