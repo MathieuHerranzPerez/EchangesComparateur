@@ -45,7 +45,7 @@ public class DomaineM {
 
     /**
      * Retourne tous les domaines présents en BD
-     * @return ArrayList<Domaine> les domaines en BD
+     * @return ArrayList les domaines en BD
      */
     public static ArrayList<Domaine> getDomaines() {
         Statement state;

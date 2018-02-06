@@ -17,7 +17,7 @@ public class EchangeM {
 
     /**
      * Return un arrayList de Location (ou null) présents en BD
-     * @return ArrayList<Echange>
+     * @return ArrayList
      */
     public static ArrayList<Echange> getEchanges() {
         Statement state;

@@ -150,7 +150,7 @@ public class Ecole {
     /**
      * Renvoie une liste des écoles presente dans le pays passé en parametre
      * @param p Pays, pays dont on veux les écoles
-     * @return ArrayList<Ecole>, les écoles dans le pays
+     * @return ArrayList, les écoles dans le pays
      */
     public static ArrayList<Ecole> getEcolesFromPays(Pays p) {
         if(listEcole.isEmpty()) {

@@ -17,7 +17,7 @@ public class PaysM {
 
     /**
      * Renvoie la liste des Pays présents en BD
-     * @return ArrayList<Pays>
+     * @return ArrayList
      */
     public static ArrayList<Pays> getPaysFromId() {
         Statement state;
@@ -76,7 +76,7 @@ public class PaysM {
 
     /**
      * Retourne la liste des Pays utilisés (dans Foramtion) en BD
-     * @return ArrayList<Pays>
+     * @return ArrayList
      */
     public static ArrayList<Pays> getPaysUtilises() {
         if(treeMapPays.size() == 0) {
@@ -89,7 +89,7 @@ public class PaysM {
 
     /**
      * Retourne la liste des Pays de départ des échanges
-     * @return ArrayList<Pays>
+     * @return ArrayList
      */
     public static ArrayList<Pays> getPaysDepart() {
         if(treeMapPays.size() == 0) {
@@ -105,7 +105,7 @@ public class PaysM {
     /**
      * Execute la requete passée en paramtre, et met son retour dans une arrayList
      * @param requete String
-     * @return ArrayList<Pays>
+     * @return ArrayList
      */
     private static ArrayList<Pays> executerRequeteRetourDansArray(String requete) {
         Statement state;

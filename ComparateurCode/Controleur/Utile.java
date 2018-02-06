@@ -10,7 +10,7 @@ import java.util.Vector;
 public class Utile {
     /**
      *
-     * @return Vector<String>, la liste des langues lesplus couramant parlées
+     * @return Vector, la liste des langues lesplus couramant parlées
      */
     public static Vector<String> getLangues() {
         ArrayList<String> res = new ArrayList<>();

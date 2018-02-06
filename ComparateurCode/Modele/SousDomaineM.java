@@ -18,7 +18,7 @@ public class SousDomaineM {
     /**
      * Retourne la liste des SousDomaines qui ont pour Domaine celui passé en parametre
      * @param d Domaine
-     * @return ArrayList<SousDomaine>
+     * @return ArrayList
      */
     public static ArrayList<SousDomaine> getSousDomainesFromDomaine(Domaine d) {
         Statement state;
@@ -44,7 +44,7 @@ public class SousDomaineM {
 
     /**
      * Retourne les SousDomains présents en BD
-     * @return ArrayList<SousDomaine>
+     * @return ArrayList
      */
     public static ArrayList<SousDomaine> getSousDomaines() {
         Statement state;

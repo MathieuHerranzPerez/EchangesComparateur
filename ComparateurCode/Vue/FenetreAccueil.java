@@ -28,7 +28,7 @@ public class FenetreAccueil extends JFrame {
     private JLabel souhait = new JLabel("Souhait");
     private JLabel paysSouhait = new JLabel("Pays souhaité *");
     private JComboBox<Pays> paysListSouhait = new JComboBox<>();
-    private JLabel VilleSouhaitée = new JLabel("Ville souhaitée");
+    private JLabel VilleSouhaitee = new JLabel("Ville souhaitée");
     private JTextField villeTF = new JTextField();
     private JLabel langue = new JLabel("Langue");
     private JComboBox<String> langueList = new JComboBox<>();
@@ -190,7 +190,7 @@ public class FenetreAccueil extends JFrame {
 
         gbcR.gridx = 1;
         gbcR.gridy = 3;
-        panelRight.add(VilleSouhaitée,gbcR);
+        panelRight.add(VilleSouhaitee,gbcR);
 
         gbcR.gridx = 1;
         gbcR.gridy = 4;

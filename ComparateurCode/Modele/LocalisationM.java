@@ -16,7 +16,7 @@ public class LocalisationM {
 
     /**
      * Retourne un arrayList de Location (ou null)
-     * @return ArrayList<Localisation>
+     * @return ArrayList
      */
     public static ArrayList<Localisation> getLocalisations() {
         Statement state;
@@ -57,6 +57,7 @@ public class LocalisationM {
 
     /**
      * Vérifie si la location est présente en BD
+     * @param loc Localisation
      * @return boolean
      */
     public static boolean isLocalisationInBD(Localisation loc) {

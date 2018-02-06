@@ -62,7 +62,7 @@ public class Localisation {
 
     /**
      * Renvoie, et met à jour si besoin, la liste de toutes les localisations présentes en BD
-     * @return ArrayList<Localisation>, les localisations
+     * @return ArrayList, les localisations
      */
     public static ArrayList<Localisation> getListLocalisation() {
         // Si la liste est vide, on la remplie

@@ -47,7 +47,7 @@ public class Pays {
 
     /**
      * Si la liste de Pays est vide, on l'a remplie avec la BD
-     * @return ArrayList<Pays>, la liste de Pays
+     * @return ArrayList, la liste de Pays
      */
     public static ArrayList<Pays> getPays() {
         if(listPays.isEmpty()) {
@@ -65,7 +65,7 @@ public class Pays {
 
     /**
      * Renvoie les pays utilisés dans l'application
-     * @return ArrayList<Pays>, la liste des pays utilisés
+     * @return ArrayList, la liste des pays utilisés
      */
     public static ArrayList<Pays> getPaysUtilises() {
         return PaysM.getPaysUtilises();
@@ -73,7 +73,7 @@ public class Pays {
 
     /**
      * Renvoie les pays d'écoles de départ présent en BD
-     * @return ArrayList<Pays>, la liste des pays utilisés
+     * @return ArrayList, la liste des pays utilisés
      */
     public static ArrayList<Pays> getPaysDepart() {
         return PaysM.getPaysDepart();

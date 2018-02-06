@@ -96,7 +96,7 @@ public class Echange {
 
     /**
      * Met à jour la list des échanges présents en BD, et retourne cette liste
-     * @return ArrayList<Echange>, les échanges en BD
+     * @return ArrayList, les échanges en BD
      */
     public static ArrayList<Echange> getEchanges() {
         if(listEchange.isEmpty()) {

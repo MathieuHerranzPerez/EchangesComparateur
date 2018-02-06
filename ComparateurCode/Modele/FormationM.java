@@ -21,7 +21,7 @@ public class FormationM {
 
     /**
      * Retourne la liste de toutes les formaions présentes en BD
-     * @return ArrayList<Formation>
+     * @return ArrayList
      */
     public static ArrayList<Formation> getFormations() {
         Statement state;
@@ -52,7 +52,7 @@ public class FormationM {
 
     /**
      * Retourne toutes les langues des formations qui sont en BD
-     * @return ArrayList<String>
+     * @return ArrayList
      */
     public static ArrayList<String> getLangues() {
         String requete = "SELECT DISTINCT Langue FROM FORMATION;";

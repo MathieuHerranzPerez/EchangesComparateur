@@ -5,7 +5,7 @@ import ComparateurCode.Controleur.Echange.Echange;
 import java.util.Comparator;
 
 /**
- * Class héritant de Comparator<Echange>, permet de comparer des échanges par rapport à un échange de référence (en donnée membre)
+ * Class héritant de Comparator, permet de comparer des échanges par rapport à un échange de référence (en donnée membre)
  * Suit le design pattern TemplateMethod
  */
 public abstract class Comparateur implements Comparator<Echange> {

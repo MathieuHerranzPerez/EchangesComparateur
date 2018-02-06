@@ -5,7 +5,7 @@ import ComparateurCode.Modele.FormationM;
 import java.util.ArrayList;
 
 /**
- *
+ * Caractérise une formation avec un nom, une durée, une langue et un SousDomaine
  */
 public class Formation {
 
