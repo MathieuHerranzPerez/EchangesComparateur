@@ -24,7 +24,7 @@ public abstract class Comparateur implements Comparator<Echange> {
      * @param echangeBD Echange, l'échange à comparer
      * @return int, le score
      */
-    private int comparer(Echange echangeBD) {
+    public int comparer(Echange echangeBD) {
         int resultat = 0;
 
         // si l'utilisateur a selectionné un pays et pas de ville
@@ -36,7 +36,6 @@ public abstract class Comparateur implements Comparator<Echange> {
             else {
                 resultat += (3 * bonus);
             }
-            System.out.println(reference.getNomPaysEcoleEchange() + "   " + echangeBD.getNomPaysEcoleEchange());
         }
 
 
@@ -45,7 +44,8 @@ public abstract class Comparateur implements Comparator<Echange> {
         if( reference.getNomDomaine() != null) {
             // si l'echangeBD n'a pas le même domaine
             if(! echangeBD.getNomDomaine().equals(reference.getNomDomaine())) {
-                resultat += (7 * malus);
+                resultat += (19 * malus);
+                System.out.println(resultat + "    " + malus);
             }
             else {
                 resultat += (7 * bonus);
@@ -54,7 +54,7 @@ public abstract class Comparateur implements Comparator<Echange> {
 
         resultat += compareSpecifique(echangeBD);
 
-        System.out.println("RES : " + resultat);
+
         return resultat;
     }
 
