@@ -56,18 +56,4 @@ public class Domaine {
             DomaineM.ajouterDomaine(d); // On l'ajoute
         }
     }
-
-
-    public static void main(String[] args) {
-        ArrayList<Domaine> tabDomaine = getListDomaine();
-
-        for(Domaine d : tabDomaine)
-            System.out.println(d.toString()+ "  / " + SousDomaine.getListSousDomaineFromDomaine(d));
-
-        ArrayList<SousDomaine> tabSousDomaine = SousDomaine.getListSousDomaine();
-
-        for(SousDomaine sousD : tabSousDomaine)
-            System.out.println(sousD.toString() );
-
-    }
 }

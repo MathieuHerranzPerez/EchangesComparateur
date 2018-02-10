@@ -38,8 +38,6 @@ public abstract class Comparateur implements Comparator<Echange> {
             }
         }
 
-
-
         // si l'utilisateur a selectionné un domaine
         if( reference.getNomDomaine() != null) {
             // si l'echangeBD n'a pas le même domaine
@@ -53,7 +51,6 @@ public abstract class Comparateur implements Comparator<Echange> {
         }
 
         resultat += compareSpecifique(echangeBD);
-
 
         return resultat;
     }
@@ -76,5 +73,4 @@ public abstract class Comparateur implements Comparator<Echange> {
     public int compare(Echange o1, Echange o2) {
         return this.comparer(o2) - this.comparer(o1);
     }
-
 }

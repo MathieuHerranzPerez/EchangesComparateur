@@ -222,8 +222,4 @@ public class FenetreAjoutEchange extends JFrame{
             }
         }
     }
-
-    public static void main(String[] argv) {
-        new FenetreAjoutEchange();
-    }
 }

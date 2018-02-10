@@ -108,8 +108,4 @@ public class FenetreConnexion extends JFrame {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new FenetreConnexion();
-    }
 }

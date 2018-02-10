@@ -24,7 +24,13 @@ public class BinaryCompare extends Comparateur {
         if( reference.getLangue() != null) {
             // si l'echangeBD n'a pas la même langue que celle voulue
             if(! echangeBD.getLangue().equals(reference.getLangue())) {
-                resultat += (5 * malus);
+                // si c'est de l'anglais
+                if(echangeBD.getLangue().equals("Anglais")) {
+                    resultat += (1 * bonus);
+                }
+                else {
+                    resultat += (5 * malus);
+                }
             }
             else {
                 resultat += (4 * bonus);

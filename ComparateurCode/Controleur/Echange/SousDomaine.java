@@ -5,7 +5,7 @@ import ComparateurCode.Modele.SousDomaineM;
 import java.util.ArrayList;
 
 /**
- * Le Sous Domaine précise un Domaine.
+ * Le Sous Domaine précise un Domaine
  */
 public class SousDomaine {
 

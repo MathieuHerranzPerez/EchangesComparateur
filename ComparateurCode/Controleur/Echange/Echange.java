@@ -106,7 +106,7 @@ public class Echange {
     }
 
     /**
-     * On ajoute l'échange correspondant aux paramettres de la fonctions en base de données si il n'est pas déjà présent
+     * On ajoute l'échange correspondant aux parametres de la fonctions en base de données si il n'est pas déjà présent
      * Dans le cas d'un ajout, on met la liste des échanges à jour avec le nouvel
      * @param ecoleDep Ecole, l'école de départ
      * @param ecoleArr Ecole, l'école d'arrivée
