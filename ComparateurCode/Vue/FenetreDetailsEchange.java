@@ -41,24 +41,25 @@ public class FenetreDetailsEchange extends JFrame {
     }
 
     private class TableauEchange extends AbstractTableModel {
-        private String[] entetes = {"Ecole de départ", "Ecole d'arrivée", "Localisation", "Pays", "Formation", "Langue", "Sous Domaine", "Domaine", "Réserver"};
+        private String[] entetes = {"Ecole de départ", "Ecole d'arrivée", "Durée (mois)", "Localisation", "Pays", "Formation", "Langue", "Sous Domaine", "Domaine", "Réserver"};
 
         public TableauEchange(Echange e, JFrame f) {
-            echangeTab = new Object[9];
+            echangeTab = new Object[10];
 
             echangeTab[0] = e.getEcoleDepart();
             echangeTab[1] = e.getEcoleArrivee();
-            echangeTab[2] = e.getEcoleArrivee().getLocalisation();
-            echangeTab[3] = e.getEcoleArrivee().getLocalisation().getPays();
-            echangeTab[4] = e.getFormation();
-            echangeTab[5] = e.getLangue();
+            echangeTab[2] = e.getDuree();
+            echangeTab[3] = e.getEcoleArrivee().getLocalisation();
+            echangeTab[4] = e.getEcoleArrivee().getLocalisation().getPays();
+            echangeTab[5] = e.getFormation();
+            echangeTab[6] = e.getLangue();
 
-            echangeTab[6] = e.getFormation().getSousDomaine();
-            echangeTab[7] = e.getFormation().getSousDomaine().getDomaine();
+            echangeTab[7] = e.getFormation().getSousDomaine();
+            echangeTab[8] = e.getFormation().getSousDomaine().getDomaine();
 
             JButton bReserver = new JButton("Réserver");
             bReserver.addActionListener(new ClicReserver(e));
-            echangeTab[8] = bReserver;
+            echangeTab[9] = bReserver;
         }
 
         @Override

@@ -43,7 +43,7 @@ public abstract class Comparateur implements Comparator<Echange> {
             // si l'echangeBD n'a pas le même domaine
             if(! echangeBD.getNomDomaine().equals(reference.getNomDomaine())) {
                 resultat += (19 * malus);
-                System.out.println(resultat + "    " + malus);
+                //System.out.println(resultat + "    " + malus); //affichageT
             }
             else {
                 resultat += (7 * bonus);

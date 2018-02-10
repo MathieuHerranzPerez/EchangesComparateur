@@ -62,7 +62,7 @@ public class ControleurRecherche {
         // selection des 10 premiers éléments ayant un résultat supérieur à 0 par rapport à la référence
         boolean estCoherent = true;
         while(estCoherent && i < 10 && i < listeEchange.size()) {
-            System.out.println("resultat : " + comp.comparer(listeEchange.get(i)));
+            //System.out.println("resultat : " + comp.comparer(listeEchange.get(i))); //affichageT
             if(comp.comparer(listeEchange.get(i)) >= 0)
                 echangesSelectionnes.add(listeEchange.get(i));
             else

@@ -67,12 +67,17 @@ public class BinaryCompare extends Comparateur {
 
         // si l'utilisateur a selectionné une durée
         if(reference.getDuree() != null) {
-            // si echangeBD n'a pas la même durée à 2 mois près
-            if(echangeBD.getDuree() > reference.getDuree()+2 || echangeBD.getDuree() < reference.getDuree()-2) {
-                resultat += (1 * malus);
-            }
-            else {
+            // si echangeBD a la même durée à 2 mois près
+            if(echangeBD.getDuree() <= reference.getDuree()+2 && echangeBD.getDuree() >= reference.getDuree()-2) {
                 resultat += (2 * bonus);
+            }
+            // si echangeBD a la même durée à 3 mois près
+            else if(echangeBD.getDuree() <= reference.getDuree()+3 || echangeBD.getDuree() >= reference.getDuree()-3) {
+                resultat += (1 * bonus);
+            }
+            // si echangeBD n'a pas la même durée à 3 mois près
+            else {
+                resultat += (1 * malus);
             }
         }
 
